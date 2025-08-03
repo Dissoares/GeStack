@@ -1,4 +1,4 @@
-import { CamposFormularioComponent } from '../../shared/components/index.component';
+import { CamposFormularioComponent } from '../../components/index.component'; 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
