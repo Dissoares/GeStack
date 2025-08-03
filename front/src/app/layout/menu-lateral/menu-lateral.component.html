@@ -1,0 +1,14 @@
+<mat-nav-list >
+  @for (item of listaRotasMenu; track item.rota) {
+  <a
+    mat-list-item
+    [routerLink]="item.rota"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: false }"
+    [disableRipple]="true"
+  >
+    <span>{{ item.titulo }}</span>
+  </a>
+  <mat-divider></mat-divider>
+  }
+</mat-nav-list>

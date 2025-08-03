@@ -1,0 +1,14 @@
+<app-cabecalho (ativarSidebar)="ativarSidebar()"></app-cabecalho>
+
+<mat-sidenav-container fxLayout="row" fxLayout.lt-md="column">
+  <mat-sidenav #sidenav mode="side" opened class="menu">
+    <app-menu-lateral></app-menu-lateral>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="corpo-conteudo" fxFlex="100%" fxFlex.l-md="100%">
+    <mat-card class="conteudo">
+      <router-outlet></router-outlet>
+    </mat-card>
+    <app-rodape></app-rodape>
+  </mat-sidenav-content>
+</mat-sidenav-container>

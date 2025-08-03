@@ -1,0 +1,25 @@
+mat-sidenav {
+  border-radius: 0px;
+  border: none;
+}
+
+.corpo-conteudo {
+  height: 93vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  background-color: #0d00802a;
+  border-radius: 0px;
+  box-shadow: none;
+  padding: 20px;
+  flex: 1;
+}
+
+.menu {
+  background-color: #ffffff;
+}
