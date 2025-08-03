@@ -1,0 +1,2 @@
+export * from './rotas.enum';
+
