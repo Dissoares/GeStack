@@ -1,11 +1,11 @@
-import { PermissaoAcessoEnum } from '../enums';
+import { NivelAcessoEnum } from '../enums';
 
 export class Usuario {
-  public id!: number;
+  public idUsuario!: number;
   public nome!: string;
   public usuario!: string;
   public senha!: string;
   public confirmarSenha!: string;
-  public permissao!: PermissaoAcessoEnum;
+  public nivelAcesso!: NivelAcessoEnum;
   public ativo!: boolean;
 }

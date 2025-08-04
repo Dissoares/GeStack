@@ -3,7 +3,7 @@ export class RotasEnum {
 
   static readonly AUTH = {
     LOGIN: 'login',
-    CADASTRO: 'cadastro',
+    REGISTRO: 'registro',
     RECUPERAR_SENHA: 'recuperar-senha',
   };
 }
