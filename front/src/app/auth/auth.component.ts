@@ -1,12 +1,30 @@
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { CamposFormularioComponent } from '../components/index.component';
+import { MatCardActions, MatCardModule } from '@angular/material/card';
+import { MatInput, MatInputModule } from '@angular/material/input';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../services';
 import { Router } from '@angular/router';
 import { Usuario } from '../core/models';
 
 @Component({
   selector: 'app-auth',
+  standalone: true,
+  imports: [
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatCardActions,
+    MatFormField,
+    MatInput,
+  ],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
@@ -53,19 +71,19 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
         const nivel = this.auth.getNivelAcesso();
         switch (nivel) {
           case 1:
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admininstrador']);
             break;
           case 2:
-            this.router.navigate(['/lider-dev']);
+            this.router.navigate(['/lider-desenvolvimento']);
             break;
           case 3:
             this.router.navigate(['/lider-negocio']);
             break;
           case 4:
-            this.router.navigate(['/usuario']);
+            this.router.navigate(['/desenvolvedor']);
             break;
           default:
-            this.router.navigate(['/login']);
+            this.router.navigate(['/analista']);
         }
       },
       error: () => {},

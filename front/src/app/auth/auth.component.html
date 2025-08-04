@@ -1,1 +1,28 @@
+<mat-card-header>
+    <mat-card-title> Cadastro</mat-card-title>
+</mat-card-header>
 
+<mat-card>
+    <form [formGroup]="formulario">
+        <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>CNPJ</mat-label>
+            <input matInput formControlName="senha" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Tipo de Estabelecimento</mat-label>
+            <input matInput formControlName="confirmarSenha" />
+        </mat-form-field>
+    </form>
+</mat-card>
+<mat-card-footer>
+    <mat-card-actions>
+        <button mat-flat-button color="primary">Cadastrar</button>
+        <button mat-button>Cancelar</button>
+    </mat-card-actions>
+</mat-card-footer>
