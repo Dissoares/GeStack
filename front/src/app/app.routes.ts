@@ -3,6 +3,13 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: RotasEnum.AUTH.CADASTRO,
+    loadComponent: () =>
+      import('./auth/registro/registro.component').then(
+        (m) => m.RegistroComponent
+      ),
+  },
+  {
     path: RotasEnum.ROOT,
     loadComponent: () =>
       import('./layout/conteudo/conteudo.component').then(
@@ -12,7 +19,7 @@ export const routes: Routes = [
 
   {
     path: '**',
-    redirectTo: RotasEnum.ESTABELECIMENTO.CATALOGO,
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];

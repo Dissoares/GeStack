@@ -32,20 +32,20 @@ export class MenuLateralComponent implements OnInit {
   }
 
   public iniciarItensDoMenu(): void {
-    const index = RotasEnum.CADASTRO.ROOT;
+    const index = RotasEnum.AUTH;
 
     this.listaRotasMenu = [
       {
-        rota: `${index}/${RotasEnum.CADASTRO.CLIENTE}`,
-        titulo: 'Cadastro cliente',
+        rota: `${index}/${RotasEnum}`,
+        titulo: 'Cadastro',
       },
       {
-        rota: `${index}/${RotasEnum.CADASTRO.ESTABELECIMENTO}`,
-        titulo: 'Cadastro estabelecimento',
+        rota: `${index}/${RotasEnum}`,
+        titulo: 'Cadastro',
       },
       {
-        rota: `${index}/${RotasEnum.CADASTRO.PRODUTO}`,
-        titulo: 'Cadastro produto',
+        rota: `${index}/${RotasEnum}`,
+        titulo: 'Cadastro',
       },
     ];
   }
