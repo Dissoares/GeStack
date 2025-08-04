@@ -1,20 +1,10 @@
-import { RotasEnum } from './core/enums/rotas.enum';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: RotasEnum.AUTH.CADASTRO,
+    path: '',
     loadComponent: () =>
-      import('./auth/registro/registro.component').then(
-        (m) => m.RegistroComponent
-      ),
-  },
-  {
-    path: RotasEnum.ROOT,
-    loadComponent: () =>
-      import('./layout/conteudo/conteudo.component').then(
-        (m) => m.ConteudoComponent
-      ),
+      import('./auth/auth.component').then((m) => m.AuthComponent),
   },
 
   {
