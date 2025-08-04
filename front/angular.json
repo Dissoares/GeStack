@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "getec": {
+    "gestack": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "getec:build:production"
+              "buildTarget": "gestack:build:production"
             },
             "development": {
-              "buildTarget": "getec:build:development"
+              "buildTarget": "gestack:build:development"
             }
           },
           "defaultConfiguration": "development"

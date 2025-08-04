@@ -1,6 +1,6 @@
 {
-  "name": "getec",
-  "version": "0.0.0",
+  "name": "gestack",
+  "version": "1.5.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
