@@ -6,11 +6,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "usuario")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
@@ -31,9 +31,9 @@ public class Usuario {
     private NivelAcessoEnum nivelAcesso;
 
     @ManyToOne
-    @JoinColumn(name = "id_squad")
+    @JoinColumn(name = "id_Squad")
     private Squad squad;
 
     @Column(nullable = false)
-    private Boolean ativo;
+    private Boolean ativo = true;
 }

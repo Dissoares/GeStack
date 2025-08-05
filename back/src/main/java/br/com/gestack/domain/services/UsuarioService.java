@@ -2,13 +2,15 @@ package br.com.gestack.domain.services;
 
 import br.com.gestack.domain.repository.UsuarioRepository;
 import br.com.gestack.domain.businnes.Usuario;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class UsuarioService {
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     public Usuario cadastrar(Usuario usuario) {
         return usuarioRepository.save(usuario);
