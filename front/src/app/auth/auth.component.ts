@@ -1,12 +1,14 @@
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { CamposFormularioComponent } from '../components/index.component';
-import { MatCardActions, MatCardModule } from '@angular/material/card';
-import { MatInput, MatInputModule } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { Component, inject, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select';
+import { Component, OnInit, inject } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { NivelAcessoEnum } from '../core/enums';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../services';
 import { Router } from '@angular/router';
 import { Usuario } from '../core/models';
@@ -15,27 +17,28 @@ import { Usuario } from '../core/models';
   selector: 'app-auth',
   standalone: true,
   imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatInputModule,
     MatCardModule,
     MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatCardActions,
-    MatFormField,
-    MatInput,
+    CommonModule,
   ],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent extends CamposFormularioComponent implements OnInit {
+  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
+    NivelAcessoEnum.getTodosNiveisAcesso();
   public ehCadastro: boolean = false;
 
   constructor(private auth: AuthService, private router: Router) {
     super(inject(FormBuilder));
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.criarFormulario();
   }
 
@@ -43,11 +46,11 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     this.formulario = this.fb.group({
       idUsuario: [null],
       nome: [null],
-      usuario: [null],
+      email: [null],
       senha: [null],
       confirmarSenha: [null],
-      permissao: [null],
-      ativo: [null],
+      nivelAcesso: [null],
+      ativo: [true],
     });
   }
 
@@ -55,17 +58,23 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     const dadosCadastro: Usuario = this.formulario.value;
 
     if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
+      alert('Senhas não coincidem!');
       return;
     }
 
     this.auth.cadastro(dadosCadastro).subscribe({
-      next: () => {},
-      error: () => {},
+      next: () => {
+        alert('Cadastro realizado com sucesso!');
+        this.ehCadastro = false;
+        this.formulario.reset();
+      },
+      error: () => alert('Erro ao cadastrar.'),
     });
   }
 
   public login(): void {
     const dadosLogin: Usuario = this.formulario.value;
+
     this.auth.login(dadosLogin).subscribe({
       next: () => {
         const nivel = this.auth.getNivelAcesso();
@@ -86,7 +95,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
             this.router.navigate(['/analista']);
         }
       },
-      error: () => {},
+      error: () => alert('Erro ao fazer login.'),
     });
   }
 }

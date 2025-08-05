@@ -1,28 +1,62 @@
-<mat-card-header>
-    <mat-card-title> Cadastro</mat-card-title>
-</mat-card-header>
+<div class="container">
+  <div class="formulario">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon> {{ ehCadastro ? "person_add" : "login" }} </mat-icon>
+          <mat-card-subtitle>{{ ehCadastro ? "Cadastro" : "Login" }}</mat-card-subtitle>
+        </mat-card-title>
+      </mat-card-header>
 
-<mat-card>
-    <form [formGroup]="formulario">
-        <mat-form-field appearance="fill">
-            <mat-label>Nome</mat-label>
-            <input matInput formControlName="nome" />
+      <form [formGroup]="formulario">
+        <mat-form-field appearance="fill" *ngIf="ehCadastro">
+          <mat-label>Nome</mat-label>
+          <mat-icon matPrefix>badge</mat-icon>
+          <input matInput formControlName="nome" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>CNPJ</mat-label>
-            <input matInput formControlName="senha" />
+          <mat-label>E-mail</mat-label>
+          <mat-icon matPrefix>alternate_email</mat-icon>
+          <input matInput formControlName="email" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Tipo de Estabelecimento</mat-label>
-            <input matInput formControlName="confirmarSenha" />
+          <mat-label>Senha</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput type="password" formControlName="senha" />
         </mat-form-field>
-    </form>
-</mat-card>
-<mat-card-footer>
-    <mat-card-actions>
-        <button mat-flat-button color="primary">Cadastrar</button>
-        <button mat-button>Cancelar</button>
-    </mat-card-actions>
-</mat-card-footer>
+
+        <mat-form-field appearance="fill" *ngIf="ehCadastro">
+          <mat-label>Confirmar Senha</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput type="password" formControlName="confirmarSenha" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="ehCadastro">
+          <mat-label>Permissão</mat-label>
+          <mat-icon matPrefix>gpp_maybe</mat-icon>
+          <mat-select formControlName="nivelAcesso">
+            <mat-option *ngFor="let nivelAcesso of listaNivelAcessoEnum" [value]="nivelAcesso.id">
+              {{ nivelAcesso.nivel }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+
+      <mat-card-actions>
+        <button mat-flat-button color="primary" class="botao-submit" (click)="ehCadastro ? cadastro() : login()">
+          <mat-icon>{{ ehCadastro ? "person_add" : "login" }}</mat-icon>
+          {{ ehCadastro ? "Cadastrar" : "Acessar" }}
+        </button>
+
+        <button mat-stroked-button color="accent" class="botao-auth" (click)="ehCadastro = !ehCadastro">
+          <mat-icon>{{ ehCadastro ? "login" : "person_add" }}</mat-icon>
+          {{ ehCadastro ? "Acessar" : "Cadastrar" }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="banner"></div>
+</div>
