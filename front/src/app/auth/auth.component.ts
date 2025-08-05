@@ -68,27 +68,29 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       !dadosCadastro.nivelAcesso ||
       !dadosCadastro.senha
     ) {
-      this.toastr.info('Preencha todos os campos obrigatórios!', 'Aviso!');
+      this.exibirMensagem('Preencha todos os campos obrigatórios!', 'Aviso!');
       return;
     }
 
     if (!dadosCadastro.confirmarSenha) {
-      this.toastr.info('Digite a confirmação de senha!', 'Aviso!');
+      this.exibirMensagem('Digite a confirmação de senha!', 'Aviso!');
       return;
     }
 
     if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
-      this.toastr.info('Senhas não coincidem!', 'Aviso!');
+      this.exibirMensagem('Senhas não coincidem!', 'Aviso!');
       return;
     }
 
     this.auth.cadastro(dadosCadastro).subscribe({
       next: () => {
-        this.toastr.success('Cadastro realizado com sucesso!', 'Sucesso!');
-        this.ehCadastro = false;
+        this.exibirMensagem('Cadastro realizado com sucesso!', 'Sucesso!'),
+          (this.ehCadastro = false);
         this.formulario.reset();
       },
-      error: () => this.toastr.error('Não foi possivél cadastrar!', 'Erro!'),
+      error: () => {
+        this.exibirMensagem('Não foi possivél cadastrar!', 'Erro!');
+      },
     });
   }
 
@@ -115,7 +117,25 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
             this.router.navigate([RotasEnum.ANALISTA.LISTAGEM]);
         }
       },
-      error: () => alert('Erro ao fazer login.'),
+      error: () => {
+        this.exibirMensagem('Erro ao fazer login.', 'Erro!');
+      },
     });
+  }
+
+  public exibirMensagem(mensagem: string, tipo: string): void {
+    const configuracoes = {
+      timeOut: 5000,
+      closeButton: true,
+      progressBar: true,
+    };
+
+    tipo === 'Sucesso!'
+      ? this.toastr.success(mensagem, tipo, configuracoes)
+      : tipo === 'Erro!'
+      ? this.toastr.error(mensagem, tipo, configuracoes)
+      : tipo === 'Aviso!'
+      ? this.toastr.warning(mensagem, tipo, configuracoes)
+      : this.toastr.info(mensagem, tipo, configuracoes);
   }
 }

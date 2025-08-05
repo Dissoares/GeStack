@@ -26,6 +26,9 @@ export const appConfig: ApplicationConfig = {
       multi: true,
     },
     provideAnimations(), 
-    provideToastr(), 
+    provideToastr({
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }), 
   ],
 };
