@@ -1,4 +1,5 @@
 import { NivelAcessoEnum } from '../enums';
+import { Squad } from './squad';
 
 export class Usuario {
   public idUsuario?: number;
@@ -7,6 +8,7 @@ export class Usuario {
   public senha!: string;
   public confirmarSenha?: string;
   public nivelAcesso!: NivelAcessoEnum;
+  public squad?: Squad;
   public ativo?: boolean;
 
   constructor(init?: Partial<Usuario>) {
