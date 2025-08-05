@@ -18,7 +18,7 @@
         <mat-form-field appearance="fill">
           <mat-label>E-mail</mat-label>
           <mat-icon matPrefix>alternate_email</mat-icon>
-          <input matInput formControlName="email" />
+          <input matInput type="email" formControlName="email" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -45,11 +45,11 @@
       </form>
 
       <mat-card-actions>
-        <button mat-flat-button color="primary" class="botao-submit" (click)="ehCadastro ? cadastro() : login()">
+        <button mat-flat-button color="primary" class="botao-submit" (click)="ehCadastro ? cadastrar() : login()">
           <mat-icon>{{ ehCadastro ? "person_add" : "login" }}</mat-icon>
           {{ ehCadastro ? "Cadastrar" : "Acessar" }}
         </button>
-
+        ||
         <button mat-stroked-button color="accent" class="botao-auth" (click)="ehCadastro = !ehCadastro">
           <mat-icon>{{ ehCadastro ? "login" : "person_add" }}</mat-icon>
           {{ ehCadastro ? "Acessar" : "Cadastrar" }}

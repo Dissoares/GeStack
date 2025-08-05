@@ -1,5 +1,5 @@
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CamposFormularioComponent } from '../components/index.component';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -45,17 +45,32 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
   public criarFormulario(): void {
     this.formulario = this.fb.group({
       idUsuario: [null],
-      nome: [null],
-      email: [null],
-      senha: [null],
-      confirmarSenha: [null],
-      nivelAcesso: [null],
+      nome: [null, this.ehCadastro ? [Validators.required] : null],
+      email: [null, [Validators.required]],
+      senha: [null, [Validators.required]],
+      confirmarSenha: [null, this.ehCadastro ? [Validators.required] : null],
+      nivelAcesso: [null, this.ehCadastro ? [Validators.required] : null],
       ativo: [true],
     });
   }
 
-  public cadastro(): void {
+  public cadastrar(): void {
     const dadosCadastro: Usuario = this.formulario.value;
+
+    if (
+      !dadosCadastro.nome ||
+      !dadosCadastro.email ||
+      !dadosCadastro.nivelAcesso ||
+      !dadosCadastro.senha
+    ) {
+      alert('Preencha todos os campos obrigatórios!');
+      return;
+    }
+
+    if (!dadosCadastro.confirmarSenha) {
+      alert('Digite a confirmação de senha!');
+      return;
+    }
 
     if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
       alert('Senhas não coincidem!');
