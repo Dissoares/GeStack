@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services';
 import { Router } from '@angular/router';
 import { Usuario } from '../core/models';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-auth',
@@ -55,12 +56,16 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       senha: [null, [Validators.required]],
       confirmarSenha: [null, this.ehCadastro ? [Validators.required] : null],
       nivelAcesso: [null, this.ehCadastro ? [Validators.required] : null],
+      dataCriacao: [null],
       ativo: [true],
     });
   }
 
   public cadastrar(): void {
     const dadosCadastro: Usuario = this.formulario.value;
+    const dataLuxon = DateTime.now().setZone('America/Sao_Paulo');
+    const dataFormatada = dataLuxon.toFormat('dd/MM/yyyy HH:mm');
+    dadosCadastro.dataCriacao = dataFormatada;
 
     if (
       !dadosCadastro.nome ||
