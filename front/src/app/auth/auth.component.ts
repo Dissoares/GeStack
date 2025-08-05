@@ -3,11 +3,11 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { NivelAcessoEnum, RotasEnum } from '../core/enums';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { NivelAcessoEnum } from '../core/enums';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services';
 import { Router } from '@angular/router';
@@ -80,19 +80,19 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
         const nivel = this.auth.getNivelAcesso();
         switch (nivel) {
           case 1:
-            this.router.navigate(['/admininstrador']);
+            this.router.navigate([RotasEnum.ADMINISTRADOR.LISTAGEM]);
             break;
           case 2:
-            this.router.navigate(['/lider-desenvolvimento']);
+            this.router.navigate([RotasEnum.LIDER_DESENVOLVIMENTO.LISTAGEM]);
             break;
           case 3:
-            this.router.navigate(['/lider-negocio']);
+            this.router.navigate([RotasEnum.LIDER_NEGOCIO.LISTAGEM]);
             break;
           case 4:
-            this.router.navigate(['/desenvolvedor']);
+            this.router.navigate([RotasEnum.DESENVOLVEDOR.LISTAGEM]);
             break;
           default:
-            this.router.navigate(['/analista']);
+            this.router.navigate([RotasEnum.ANALISTA.LISTAGEM]);
         }
       },
       error: () => alert('Erro ao fazer login.'),
