@@ -8,8 +8,10 @@ import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
 } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { provideRouter } from '@angular/router';
+import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -23,5 +25,7 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptor,
       multi: true,
     },
+    provideAnimations(), 
+    provideToastr(), 
   ],
 };
