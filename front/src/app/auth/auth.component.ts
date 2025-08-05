@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services';
 import { Router } from '@angular/router';
 import { Usuario } from '../core/models';
@@ -34,7 +35,11 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     NivelAcessoEnum.getTodosNiveisAcesso();
   public ehCadastro: boolean = false;
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(
+    private toastr: ToastrService,
+    private auth: AuthService,
+    private router: Router
+  ) {
     super(inject(FormBuilder));
   }
 
@@ -63,27 +68,27 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       !dadosCadastro.nivelAcesso ||
       !dadosCadastro.senha
     ) {
-      alert('Preencha todos os campos obrigatórios!');
+      this.toastr.info('Preencha todos os campos obrigatórios!', 'Aviso!');
       return;
     }
 
     if (!dadosCadastro.confirmarSenha) {
-      alert('Digite a confirmação de senha!');
+      this.toastr.info('Digite a confirmação de senha!', 'Aviso!');
       return;
     }
 
     if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
-      alert('Senhas não coincidem!');
+      this.toastr.info('Senhas não coincidem!', 'Aviso!');
       return;
     }
 
     this.auth.cadastro(dadosCadastro).subscribe({
       next: () => {
-        alert('Cadastro realizado com sucesso!');
+        this.toastr.success('Cadastro realizado com sucesso!', 'Sucesso!');
         this.ehCadastro = false;
         this.formulario.reset();
       },
-      error: () => alert('Erro ao cadastrar.'),
+      error: () => this.toastr.error('Não foi possivél cadastrar!', 'Erro!'),
     });
   }
 
