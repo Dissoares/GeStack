@@ -24,15 +24,6 @@ export class NivelAcessoEnum {
     'ANALISTA',
     'Consulta suas escalas de home office, férias, licenças e faltas'
   );
-
-  private static readonly niveis: Array<NivelAcessoEnum> = [
-    NivelAcessoEnum.ADMIN,
-    NivelAcessoEnum.LIDER_DESENVOLVIMENTO,
-    NivelAcessoEnum.LIDER_NEGOCIO,
-    NivelAcessoEnum.DESENVOLVEDOR,
-    NivelAcessoEnum.ANALISTA,
-  ];
-
   private constructor(
     public readonly id: number,
     public readonly nivel: string,
@@ -40,17 +31,25 @@ export class NivelAcessoEnum {
   ) {}
 
   public static getTodosNiveisAcesso(): Array<NivelAcessoEnum> {
-    return [...NivelAcessoEnum.niveis];
+    return [
+      this.ADMIN,
+      this.LIDER_DESENVOLVIMENTO,
+      this.LIDER_NEGOCIO,
+      this.DESENVOLVEDOR,
+      this.ANALISTA,
+    ];
   }
 
   public static getNivelAcessoPorId(id: number): NivelAcessoEnum | undefined {
-    return NivelAcessoEnum.niveis.find((perm) => perm.id === id);
+    return NivelAcessoEnum.getTodosNiveisAcesso().find(
+      (perm) => perm.id === id
+    );
   }
 
   public static getNivelAcessoPorDescricao(
     descricao: string
   ): NivelAcessoEnum | undefined {
-    return NivelAcessoEnum.niveis.find(
+    return NivelAcessoEnum.getTodosNiveisAcesso().find(
       (perm) => perm.descricao.toLowerCase() === descricao.toLowerCase()
     );
   }
