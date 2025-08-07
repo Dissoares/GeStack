@@ -23,4 +23,8 @@ export class CamposFormularioComponent {
   public limparFormulario(): void {
     this.formulario.reset();
   }
+
+  public marcarFormularioComoTocado(): void {
+    this.formulario.markAllAsTouched();
+  }
 }

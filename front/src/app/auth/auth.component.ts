@@ -105,6 +105,12 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     const { email, senha } = this.formulario.value;
     const dadosLogin: LoginDto = { email, senha };
 
+    if (!dadosLogin.email || dadosLogin.senha) {
+      this.exibirMensagem('Preencha seus dados de acesso', 'Aviso!');
+      this.marcarFormularioComoTocado();
+      return;
+    }
+
     this.authService.login(dadosLogin).subscribe({
       next: (resultado: any) => {
         if (resultado) {

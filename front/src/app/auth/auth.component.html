@@ -4,7 +4,9 @@
       <mat-card-header>
         <mat-card-title>
           <mat-icon> {{ ehCadastro ? "person_add" : "login" }} </mat-icon>
-          <mat-card-subtitle>{{ ehCadastro ? "Cadastro" : "Login" }}</mat-card-subtitle>
+          <mat-card-subtitle>{{
+            ehCadastro ? "Cadastro" : "Login"
+            }}</mat-card-subtitle>
         </mat-card-title>
       </mat-card-header>
 
@@ -13,24 +15,45 @@
           <mat-label>Nome</mat-label>
           <mat-icon matPrefix>badge</mat-icon>
           <input matInput formControlName="nome" />
+          <mat-error *ngIf="formulario.get('nome')?.hasError('required')">
+            Nome é obrigatório
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>E-mail</mat-label>
           <mat-icon matPrefix>alternate_email</mat-icon>
           <input matInput type="email" formControlName="email" />
+          <mat-error *ngIf="formulario.get('email')?.hasError('required')">
+            E-mail é obrigatório
+          </mat-error>
+          <mat-error *ngIf="formulario.get('email')?.hasError('email')">
+            Por favor, insira um e-mail válido
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Senha</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
           <input matInput type="password" formControlName="senha" />
+          <mat-error *ngIf="formulario.get('senha')?.hasError('required')">
+            Senha é obrigatória
+          </mat-error>
+          <mat-error *ngIf="formulario.get('senha')?.hasError('minlength')">
+            Senha deve ter no mínimo 6 caracteres
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" *ngIf="ehCadastro">
           <mat-label>Confirmar Senha</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
           <input matInput type="password" formControlName="confirmarSenha" />
+          <mat-error *ngIf="formulario.get('confirmarSenha')?.hasError('required')">
+            Confirmação de senha é obrigatória
+          </mat-error>
+          <mat-error *ngIf="formulario.hasError('senhasNaoConferem')">
+            As senhas não coincidem
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" *ngIf="ehCadastro">
@@ -41,6 +64,9 @@
               {{ nivelAcesso.nivel }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="formulario.get('nivelAcesso')?.hasError('required')">
+            Permissão é obrigatória
+          </mat-error>
         </mat-form-field>
       </form>
 
