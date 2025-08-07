@@ -1,8 +1,13 @@
 package br.com.gestack.domain.businnes;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import br.com.gestack.domain.utils.NivelAcessoConverter;
 import br.com.gestack.domain.enums.NivelAcessoEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.*;
 
 @Entity
@@ -26,14 +31,21 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Convert(converter = NivelAcessoConverter.class)
+    @Column(name = "nivel_acesso", nullable = false)
     private NivelAcessoEnum nivelAcesso;
 
     @ManyToOne
-    @JoinColumn(name = "id_Squad")
+    @JoinColumn(name = "squad_fk")
+    @JsonBackReference
     private Squad squad;
+
+    @Column(nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime dataCadastro;
 
     @Column(nullable = false)
     private Boolean ativo = true;
 }
+
+

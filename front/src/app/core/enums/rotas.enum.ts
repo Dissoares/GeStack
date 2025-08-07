@@ -8,26 +8,19 @@ export class RotasEnum {
   };
 
   static readonly ADMINISTRADOR = {
+    ROTA: 'administrador',
     LISTAGEM: 'listagem',
     FORMULARIO: 'formulario',
   };
 
-  static readonly LIDER_DESENVOLVIMENTO = {
+  static readonly LIDER = {
+    ROTA: 'lider',
     LISTAGEM: 'listagem',
     FORMULARIO: 'formulario',
   };
-
-  static readonly LIDER_NEGOCIO = {
-    LISTAGEM: 'listagem',
-    FORMULARIO: 'formulario',
-  };
-
-  static readonly DESENVOLVEDOR = {
-    LISTAGEM: 'listagem',
-    FORMULARIO: 'formulario',
-  };
-
-  static readonly ANALISTA = {
+  
+  static readonly USUARIO = {
+    ROTA: 'squad',
     LISTAGEM: 'listagem',
     FORMULARIO: 'formulario',
   };

@@ -5,14 +5,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { NivelAcessoEnum, RotasEnum } from '../core/enums';
 import { Component, OnInit, inject } from '@angular/core';
+import { AuthService, UsuarioService } from '../services';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../services';
 import { Router } from '@angular/router';
 import { Usuario } from '../core/models';
+import { LoginDto } from '../core/dtos';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -38,7 +39,8 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
 
   constructor(
     private toastr: ToastrService,
-    private auth: AuthService,
+    private authService: AuthService,
+    private usuarioService: UsuarioService,
     private router: Router
   ) {
     super(inject(FormBuilder));
@@ -56,8 +58,8 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       senha: [null, [Validators.required]],
       confirmarSenha: [null, this.ehCadastro ? [Validators.required] : null],
       nivelAcesso: [null, this.ehCadastro ? [Validators.required] : null],
-      dataCriacao: [null],
-      ativo: [true],
+      dataCadastro: [null],
+      ativo: [null],
     });
   }
 
@@ -65,7 +67,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     const dadosCadastro: Usuario = this.formulario.value;
     const dataLuxon = DateTime.now().setZone('America/Sao_Paulo');
     const dataFormatada = dataLuxon.toFormat('dd/MM/yyyy HH:mm');
-    dadosCadastro.dataCriacao = dataFormatada;
+    dadosCadastro.dataCadastro = dataFormatada;
 
     if (
       !dadosCadastro.nome ||
@@ -87,7 +89,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       return;
     }
 
-    this.auth.cadastro(dadosCadastro).subscribe({
+    this.usuarioService.cadastro(dadosCadastro).subscribe({
       next: () => {
         this.exibirMensagem('Cadastro realizado com sucesso!', 'Sucesso!'),
           (this.ehCadastro = false);
@@ -100,26 +102,18 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
   }
 
   public login(): void {
-    const dadosLogin: Usuario = this.formulario.value;
+    const { email, senha } = this.formulario.value;
+    const dadosLogin: LoginDto = { email, senha };
 
-    this.auth.login(dadosLogin).subscribe({
-      next: () => {
-        const nivel = this.auth.getNivelAcesso();
-        switch (nivel) {
-          case 1:
-            this.router.navigate([RotasEnum.ADMINISTRADOR.LISTAGEM]);
-            break;
-          case 2:
-            this.router.navigate([RotasEnum.LIDER_DESENVOLVIMENTO.LISTAGEM]);
-            break;
-          case 3:
-            this.router.navigate([RotasEnum.LIDER_NEGOCIO.LISTAGEM]);
-            break;
-          case 4:
-            this.router.navigate([RotasEnum.DESENVOLVEDOR.LISTAGEM]);
-            break;
-          default:
-            this.router.navigate([RotasEnum.ANALISTA.LISTAGEM]);
+    this.authService.login(dadosLogin).subscribe({
+      next: (resultado: any) => {
+        if (resultado) {
+          this.exibirMensagem('Logado com sucesso.', 'Sucesso!');
+          const nivel = this.authService.getNivelAcesso();
+
+          setTimeout(() => {
+            this.redirecionarComBaseNoNivelAcesso(nivel);
+          }, 1000);
         }
       },
       error: () => {
@@ -128,9 +122,38 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     });
   }
 
+  public redirecionarComBaseNoNivelAcesso(nivelAcesso: number): void {
+    if (nivelAcesso === NivelAcessoEnum.ADMIN.id) {
+      this.router.navigate([
+        RotasEnum.ADMINISTRADOR.ROTA + '/' + RotasEnum.ADMINISTRADOR.LISTAGEM,
+      ]);
+      return;
+    }
+
+    if (
+      nivelAcesso === NivelAcessoEnum.LIDER_NEGOCIO.id ||
+      nivelAcesso === NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id
+    ) {
+      this.router.navigate([
+        RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.LISTAGEM,
+      ]);
+      return;
+    }
+
+    if (
+      nivelAcesso === NivelAcessoEnum.ANALISTA.id ||
+      nivelAcesso === NivelAcessoEnum.DESENVOLVEDOR.id
+    ) {
+      this.router.navigate([
+        RotasEnum.USUARIO.ROTA + '/' + RotasEnum.USUARIO.LISTAGEM,
+      ]);
+      return;
+    }
+  }
+
   public exibirMensagem(mensagem: string, tipo: string): void {
     const configuracoes = {
-      timeOut: 5000,
+      timeOut: 2000,
       closeButton: true,
       progressBar: true,
     };

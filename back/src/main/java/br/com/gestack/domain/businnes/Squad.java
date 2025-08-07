@@ -1,11 +1,13 @@
 package br.com.gestack.domain.businnes;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.List;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Data; 
 
 @Entity
 @NoArgsConstructor
@@ -23,10 +25,12 @@ public class Squad {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name = "id_Usuario", nullable = false)
+    @JoinColumn(name = "lider_fk")
+    @JsonIgnore
     private Usuario lider;
 
-    @OneToMany(mappedBy = "squad", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "squad")
+    @JsonManagedReference
     private List<Usuario> membros;
 
     @Column(nullable = false)

@@ -9,7 +9,7 @@ export class Usuario {
   public confirmarSenha?: string;
   public nivelAcesso!: NivelAcessoEnum;
   public squad?: Squad;
-  public dataCriacao?: Date | string;
+  public dataCadastro?: Date | string;
   public ativo?: boolean;
 
   constructor(init?: Partial<Usuario>) {
