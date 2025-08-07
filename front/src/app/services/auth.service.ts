@@ -1,8 +1,9 @@
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Usuario } from '../core/models';
+import { LoginDto } from '../core/dtos';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,21 +13,26 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  public login(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}${this.endPointUrl}/login`,usuario);
-  }
-
-  public cadastro(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}${this.endPointUrl}/cadastrar`,usuario);
+  public login(usuario: LoginDto): Observable<LoginDto> {
+    return this.http.post<LoginDto>(
+      `${this.apiUrl}${this.endPointUrl}/login`,
+      usuario
+    );
   }
 
   public getNivelAcesso(): number {
-    return 0;
-  }
+    const token = localStorage.getItem('token');
 
-  public getTokenAcesso(): string {
-    return '';
-  }
+    if (!token) return 0;
 
-  public logout(): void {}
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const payload = JSON.parse(atob(payloadBase64));
+      console.log('Payload decodificado:', payload);
+      return payload.nivelAcesso || 0;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return 0;
+    }
+  }
 }

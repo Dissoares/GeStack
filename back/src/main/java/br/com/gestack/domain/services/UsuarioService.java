@@ -1,18 +1,26 @@
 package br.com.gestack.domain.services;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import br.com.gestack.domain.repository.UsuarioRepository;
 import br.com.gestack.domain.businnes.Usuario;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
 import java.util.Optional;
 import java.util.List;
 
 @AllArgsConstructor
 @Service
 public class UsuarioService {
+    
     private final UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Usuario cadastrar(Usuario usuario) {
+        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCriptografada);
         return usuarioRepository.save(usuario);
     }
 
