@@ -1,15 +1,64 @@
 :host {
-  background-color: #047012bd;
   display: block;
-  padding: 20px;
-  text-align: center;
-  border: 0px;
 }
 
 .rodape {
-  background-color: rgba(255, 255, 255, 0);
-  border-radius: 0px;
-  box-shadow: none !important;
-  border: 0px;
-  color: #ffffff;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  margin-top: auto;
+}
+
+.rodape-conteudo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 24px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.rodape-infomacoes {
+  display: flex;
+  align-items: center;
+
+  .rodape-icone {
+    font-size: 32px;
+    color: #4caf50;
+    margin-right: 16px;
+  }
+
+  .rodape-texto {
+    display: flex;
+    flex-direction: column;
+
+    .titulo {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .subtitulo {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
+
+.rodape-creditos {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .versao {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+  }
 }
