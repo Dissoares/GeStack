@@ -1,13 +1,15 @@
-<mat-nav-list>
-  <ng-container *ngFor="let botao of botoesMenu; let last = last">
-    <a *ngIf="botao.niveisPermitidos.includes(nivelAcessoUsuario)" mat-list-item [routerLink]="botao.rota"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [disableRipple]="true">
-      <span class="titulo">
-        <mat-icon>{{ botao.icone }}</mat-icon> {{ botao.titulo }}
-      </span>
-    </a>
-
-
-    <mat-divider *ngIf="!last"></mat-divider>
+<mat-nav-list class="barra-navegacao">
+  <ng-container *ngFor="let botao of botoesMenu; let i = index">
+    <mat-list-item *ngIf="botao.niveisPermitidos.includes(nivelAcessoUsuario)" [routerLink]="botao.rota"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="item-menu"
+      [style.animation-delay.ms]="i * 100">
+      <div class="barra-menus">
+        <div class="barra-icones">
+          <mat-icon class="icone">{{ botao.icone }}</mat-icon>
+        </div>
+        <span class="menu-titulo">{{ botao.titulo }}</span>
+        <mat-icon class="indicador">chevron_right</mat-icon>
+      </div>
+    </mat-list-item>
   </ng-container>
 </mat-nav-list>

@@ -31,38 +31,20 @@ export class MenuLateralComponent implements OnInit {
   public ngOnInit(): void {
     this.iniciarItensDoMenu();
   }
-  
+
   public iniciarItensDoMenu(): void {
     this.botoesMenu = [
       {
         rota:
           RotasEnum.ADMINISTRADOR.ROTA + '/' + RotasEnum.ADMINISTRADOR.LISTAGEM,
-        titulo: 'Visualizar estatísticas',
+        titulo: 'Dashboard Administrativo',
         icone: 'admin_panel_settings',
         niveisPermitidos: [NivelAcessoEnum.ADMIN.id],
       },
       {
-        rota: RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.LISTAGEM,
-        titulo: 'Visualizar Squads e membros',
-        icone: 'business',
-        niveisPermitidos: [
-          NivelAcessoEnum.LIDER_NEGOCIO.id,
-          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
-        ],
-      },
-      {
         rota: RotasEnum.LIDER.ROTA,
-        titulo: 'Criar ou editar Squad',
-        icone: 'business',
-        niveisPermitidos: [
-          NivelAcessoEnum.LIDER_NEGOCIO.id,
-          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
-        ],
-      },
-      {
-        rota: RotasEnum.USUARIO.ROTA + '/' + RotasEnum.USUARIO.FORMULARIO,
-        titulo: 'Cadastrar membro',
-        icone: 'business',
+        titulo: 'Criar / Ver / Squads',
+        icone: 'add_business',
         niveisPermitidos: [
           NivelAcessoEnum.LIDER_NEGOCIO.id,
           NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
@@ -70,8 +52,17 @@ export class MenuLateralComponent implements OnInit {
       },
       {
         rota: RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.FORMULARIO,
-        titulo: 'Adicionar membro a uma squad',
-        icone: 'business',
+        titulo: 'Adicionar Membros',
+        icone: 'assignment_ind',
+        niveisPermitidos: [
+          NivelAcessoEnum.LIDER_NEGOCIO.id,
+          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
+        ],
+      },
+      {
+        rota: RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.LISTAGEM,
+        titulo: 'Gerenciar Squads',
+        icone: 'groups',
         niveisPermitidos: [
           NivelAcessoEnum.LIDER_NEGOCIO.id,
           NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
@@ -79,7 +70,7 @@ export class MenuLateralComponent implements OnInit {
       },
       {
         rota: RotasEnum.USUARIO.ROTA + '/' + RotasEnum.USUARIO.LISTAGEM,
-        titulo: 'Relatórios',
+        titulo: 'Visualizar Escalas',
         icone: 'analytics',
         niveisPermitidos: [
           NivelAcessoEnum.ANALISTA.id,
