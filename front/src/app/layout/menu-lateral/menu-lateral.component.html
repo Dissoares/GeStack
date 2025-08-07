@@ -1,14 +1,13 @@
-<mat-nav-list >
-  @for (item of listaRotasMenu; track item.rota) {
-  <a
-    mat-list-item
-    [routerLink]="item.rota"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: false }"
-    [disableRipple]="true"
-  >
-    <span>{{ item.titulo }}</span>
-  </a>
-  <mat-divider></mat-divider>
-  }
+<mat-nav-list>
+  <ng-container *ngFor="let botao of botoesMenu; let last = last">
+    <a *ngIf="botao.niveisPermitidos.includes(nivelAcessoUsuario)" mat-list-item [routerLink]="botao.rota"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [disableRipple]="true">
+      <span class="titulo">
+        <mat-icon>{{ botao.icone }}</mat-icon> {{ botao.titulo }}
+      </span>
+    </a>
+
+
+    <mat-divider *ngIf="!last"></mat-divider>
+  </ng-container>
 </mat-nav-list>

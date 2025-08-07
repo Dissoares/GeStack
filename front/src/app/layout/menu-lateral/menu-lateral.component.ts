@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NivelAcessoEnum, RotasEnum } from '../../core/enums';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { RotaMenu } from '../../core/interfaces/rota-menu';
-import { RotasEnum } from '../../core/enums/rotas.enum';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { BotaoMenu } from '../../core/interfaces';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 @Component({
@@ -25,27 +25,66 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuLateralComponent implements OnInit {
-  public listaRotasMenu: Array<RotaMenu> = [];
+  public nivelAcessoUsuario = NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id;
+  public botoesMenu: Array<BotaoMenu> = [];
 
   public ngOnInit(): void {
     this.iniciarItensDoMenu();
   }
-
+  
   public iniciarItensDoMenu(): void {
-    const index = RotasEnum.AUTH;
-
-    this.listaRotasMenu = [
+    this.botoesMenu = [
       {
-        rota: `${index}/${RotasEnum}`,
-        titulo: 'Cadastro',
+        rota:
+          RotasEnum.ADMINISTRADOR.ROTA + '/' + RotasEnum.ADMINISTRADOR.LISTAGEM,
+        titulo: 'Visualizar estatísticas',
+        icone: 'admin_panel_settings',
+        niveisPermitidos: [NivelAcessoEnum.ADMIN.id],
       },
       {
-        rota: `${index}/${RotasEnum}`,
-        titulo: 'Cadastro',
+        rota: RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.LISTAGEM,
+        titulo: 'Visualizar Squads e membros',
+        icone: 'business',
+        niveisPermitidos: [
+          NivelAcessoEnum.LIDER_NEGOCIO.id,
+          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
+        ],
       },
       {
-        rota: `${index}/${RotasEnum}`,
-        titulo: 'Cadastro',
+        rota: RotasEnum.LIDER.ROTA,
+        titulo: 'Criar ou editar Squad',
+        icone: 'business',
+        niveisPermitidos: [
+          NivelAcessoEnum.LIDER_NEGOCIO.id,
+          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
+        ],
+      },
+      {
+        rota: RotasEnum.USUARIO.ROTA + '/' + RotasEnum.USUARIO.FORMULARIO,
+        titulo: 'Cadastrar membro',
+        icone: 'business',
+        niveisPermitidos: [
+          NivelAcessoEnum.LIDER_NEGOCIO.id,
+          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
+        ],
+      },
+      {
+        rota: RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.FORMULARIO,
+        titulo: 'Adicionar membro a uma squad',
+        icone: 'business',
+        niveisPermitidos: [
+          NivelAcessoEnum.LIDER_NEGOCIO.id,
+          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
+        ],
+      },
+      {
+        rota: RotasEnum.USUARIO.ROTA + '/' + RotasEnum.USUARIO.LISTAGEM,
+        titulo: 'Relatórios',
+        icone: 'analytics',
+        niveisPermitidos: [
+          NivelAcessoEnum.ANALISTA.id,
+          NivelAcessoEnum.DESENVOLVEDOR.id,
+        ],
       },
     ];
   }

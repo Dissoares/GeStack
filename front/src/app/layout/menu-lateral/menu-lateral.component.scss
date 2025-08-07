@@ -1,11 +1,21 @@
-a.active {
-  background-color: #0d00802a;
-}
-
 .mdc-list {
   padding: 0px !important;
 }
 
 a {
   border-radius: 0px !important;
+}
+
+.titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titulo mat-icon {
+  font-size: 20px;
+}
+
+a.active {
+  background-color: #0d00802a;
 }
