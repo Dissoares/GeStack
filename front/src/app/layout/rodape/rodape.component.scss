@@ -24,7 +24,7 @@
   .rodape-icone {
     font-size: 32px;
     color: #4caf50;
-    margin-right: 16px;
+    margin-right: 5px;
   }
 
   .rodape-texto {
@@ -60,5 +60,13 @@
     padding: 4px 12px;
     border-radius: 16px;
     font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rodape-conteudo {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
   }
 }
