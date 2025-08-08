@@ -105,7 +105,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     const { email, senha } = this.formulario.value;
     const dadosLogin: LoginDto = { email, senha };
 
-    if (!dadosLogin.email || dadosLogin.senha) {
+    if (!dadosLogin.email || !dadosLogin.senha) {
       this.exibirMensagem('Preencha seus dados de acesso', 'Aviso!');
       this.marcarFormularioComoTocado();
       return;
@@ -115,7 +115,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       next: (resultado: any) => {
         if (resultado) {
           this.exibirMensagem('Logado com sucesso.', 'Sucesso!');
-          const nivel = this.authService.getNivelAcesso();
+          const nivel = this.usuarioService.getNivelAcesso();
 
           setTimeout(() => {
             this.redirecionarComBaseNoNivelAcesso(nivel);
