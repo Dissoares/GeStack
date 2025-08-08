@@ -1,15 +1,27 @@
-import { CamposFormularioComponent } from '../../components/index.component'; 
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CamposFormularioComponent } from '../../components/index.component';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { UsuarioToken } from '../../core/interfaces/usuario-token';
+import { UsuarioService } from '../../services/usuario.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { NivelAcessoEnum } from '../../core/enums';
 import { CommonModule } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cabecalho',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, CommonModule],
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    CommonModule,
+  ],
   templateUrl: './cabecalho.component.html',
   styleUrls: ['./cabecalho.component.scss'],
 })
@@ -19,13 +31,48 @@ export class CabecalhoComponent
 {
   @Output() public ativarSidebar = new EventEmitter<void>();
 
-  constructor() {
+  public usuarioLogado?: UsuarioToken | null;
+  public notificacoes = 3;
+
+  constructor(private usuarioService: UsuarioService, private router: Router) {
     super(new FormBuilder());
   }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.carregarUsuarioLogado();
+  }
 
-  public ativar() {
+  public ativarBarraLateral(): void {
     this.ativarSidebar.emit();
+  }
+
+  private carregarUsuarioLogado(): void {
+    this.usuarioLogado = this.usuarioService.getUsuarioLogado();
+  }
+
+  public pegarPrimeiraLetraDoNome(nomeUsuario?: string): string {
+    if (!nomeUsuario) return '';
+    return nomeUsuario.charAt(0).toUpperCase();
+  }
+
+  public getDescricaoNivelAcesso(id: any): string {
+    return NivelAcessoEnum.getNivelAcessoPorId(id)?.nivel || '';
+  }
+
+  public abrirPerfil(): void {
+    this.router.navigate(['/']);
+  }
+
+  public abrirConfiguracoes(): void {
+    this.router.navigate(['/']);
+  }
+
+  public alterarSenha(): void {
+    this.router.navigate(['/']);
+  }
+
+  public logout(): void {
+    this.usuarioService.logout();
+    this.router.navigate(['/login']);
   }
 }

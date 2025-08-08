@@ -6,8 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BotaoMenu } from '../../core/interfaces';
+import { UsuarioService } from '../../services';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-menu-lateral',
   standalone: true,
@@ -25,11 +27,14 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuLateralComponent implements OnInit {
-  public nivelAcessoUsuario = NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id;
+  public nivelAcessoUsuario!: number;
   public botoesMenu: Array<BotaoMenu> = [];
+
+  constructor(private usuarioService: UsuarioService) {}
 
   public ngOnInit(): void {
     this.iniciarItensDoMenu();
+    this.nivelAcessoUsuario = this.usuarioService.getNivelAcesso();
   }
 
   public iniciarItensDoMenu(): void {

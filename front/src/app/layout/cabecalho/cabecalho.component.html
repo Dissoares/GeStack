@@ -1,5 +1,5 @@
 <mat-toolbar class="cabecalho">
-  <button mat-icon-button (click)="ativar()" class="botao-barra">
+  <button mat-icon-button (click)="ativarBarraLateral()" class="botao-barra">
     <mat-icon>menu</mat-icon>
   </button>
 
@@ -10,11 +10,56 @@
 
   <span class="spaco-menu"></span>
 
-  <div class="usuario">
-    <button mat-button class="botao-usuario">
-      <mat-icon>account_circle</mat-icon>
-      <span>Usuário</span>
-      <mat-icon>expand_more</mat-icon>
+  <div class="usuario-container">
+    <button
+      mat-button
+      class="botao-usuario"
+      [matMenuTriggerFor]="menuUsuario"
+      #menuTrigger="matMenuTrigger"
+    >
+      <div class="avatar-usuario">
+        {{ pegarPrimeiraLetraDoNome(usuarioLogado?.nome) }}
+      </div>
+      <mat-icon class="dropdown-icon">expand_more</mat-icon>
     </button>
+
+    <mat-menu #menuUsuario="matMenu" xPosition="before" class="menu-opcoes">
+      <div mat-menu-item [disabled]="true">
+        <div class="dados-usuario">
+          <div class="avatar-usuario">
+            {{ pegarPrimeiraLetraDoNome(usuarioLogado?.nome) }}
+          </div>
+          <div class="nome-completo">
+            {{ usuarioLogado?.nome }}
+          </div>
+          <div class="email-usuario">
+            {{ usuarioLogado?.email }}
+          </div>
+          <div class="nivel-acesso">
+            {{ getDescricaoNivelAcesso(usuarioLogado?.nivelAcesso) }}
+          </div>
+        </div>
+      </div>
+
+      <button mat-menu-item (click)="abrirPerfil()">
+        <mat-icon>person</mat-icon>
+        <span>Meu Perfil</span>
+      </button>
+
+      <button mat-menu-item (click)="abrirConfiguracoes()">
+        <mat-icon>settings</mat-icon>
+        <span>Configurações</span>
+      </button>
+
+      <button mat-menu-item (click)="alterarSenha()">
+        <mat-icon>lock</mat-icon>
+        <span>Alterar Senha</span>
+      </button>
+
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Sair do Sistema</span>
+      </button>
+    </mat-menu>
   </div>
 </mat-toolbar>

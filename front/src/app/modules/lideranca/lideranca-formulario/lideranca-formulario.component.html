@@ -1,3 +1,681 @@
-<p>
-  lideranca-formulario works!
-</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeStack - Formulário de Squad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .form-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-header p {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-header .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .form-content {
+            padding: 40px 30px;
+        }
+
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title .material-icons {
+            color: #667eea;
+            font-size: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #ffffff;
+            font-family: inherit;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .chip-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .chip {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: chipSlideIn 0.3s ease-out;
+        }
+
+        .chip .remove {
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .chip .remove:hover {
+            opacity: 1;
+        }
+
+        .member-card {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .member-card:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+
+        .member-card .material-icons {
+            font-size: 48px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .member-list {
+            display: grid;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .member-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .member-item:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .member-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .member-role {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .member-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-icon.edit {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .btn-icon.delete {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .btn-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 6px;
+            border-radius: 3px;
+            margin: 24px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            border-radius: 3px;
+            width: 60%;
+            transition: width 0.3s ease;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-planning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes chipSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.05); opacity: 0.2; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 16px;
+            }
+
+            .form-header {
+                padding: 30px 20px;
+            }
+
+            .form-content {
+                padding: 30px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <i class="material-icons icon">groups</i>
+            <h1>Criar Nova Squad</h1>
+            <p>Configure uma nova squad para o projeto Scrum da Secretaria de Saúde</p>
+        </div>
+
+        <div class="form-content">
+            <form id="squadForm">
+                <!-- Informações Básicas -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="material-icons">info</i>
+                        Informações Básicas
+                    </h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Nome da Squad <span class="required">*</span></label>
+                            <input type="text" class="form-input" placeholder="Ex: Squad Alpha Saúde Digital" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Projeto Associado <span class="required">*</span></label>
+                            <select class="form-select" required>
+                                <option value="">Selecione um projeto</option>
+                                <option value="sistema-agendamento">Sistema de Agendamento Online</option>
+                                <option value="prontuario-eletronico">Prontuário Eletrônico</option>
+                                <option value="telemedicina">Plataforma de Telemedicina</option>
+                                <option value="gestao-vacinas">Sistema de Gestão de Vacinas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Data de Início</label>
+                            <input type="date" class="form-input" value="2025-08-07">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Status da Squad</label>
+                            <select class="form-select">
+                                <option value="planning">Planejamento</option>
+                                <option value="active">Ativa</option>
+                                <option value="on-hold">Pausada</option>
+                                <option value="completed">Finalizada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Descrição e Objetivos</label>
+                        <textarea class="form-textarea" placeholder="Descreva os objetivos principais da squad, metodologias a serem utilizadas e resultados esperados..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Progresso do Projeto -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="material-icons">track_changes</i>
+                        Progresso do Projeto
+                    </h3>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p style="text-align: center; color: #64748b; margin-top: 8px;">60% Completo - Sprint 3 de 5</p>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Sprint Atual</label>
+                            <input type="number" class="form-input" value="3" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Total de Sprints</label>
+                            <input type="number" class="form-input" value="5" min="1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tecnologias -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="material-icons">code</i>
+                        Tecnologias e Ferramentas
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tecnologias Utilizadas</label>
+                        <input type="text" class="form-input" placeholder="Digite uma tecnologia e pressione Enter" id="techInput">
+                        <div class="chip-container" id="techChips">
+                            <div class="chip">Angular <i class="material-icons remove">close</i></div>
+                            <div class="chip">Node.js <i class="material-icons remove">close</i></div>
+                            <div class="chip">PostgreSQL <i class="material-icons remove">close</i></div>
+                            <div class="chip">Docker <i class="material-icons remove">close</i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Membros da Squad -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="material-icons">people</i>
+                        Membros da Squad
+                    </h3>
+                    
+                    <div class="member-card" onclick="addMember()">
+                        <i class="material-icons">person_add</i>
+                        <h4>Adicionar Novo Membro</h4>
+                        <p>Clique para adicionar um membro à squad</p>
+                    </div>
+
+                    <div class="member-list">
+                        <div class="member-item">
+                            <div class="member-avatar">JS</div>
+                            <div class="member-info">
+                                <div class="member-name">João Silva</div>
+                                <div class="member-role">Scrum Master • Sênior</div>
+                            </div>
+                            <div class="member-actions">
+                                <button type="button" class="btn-icon edit">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" class="btn-icon delete">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="member-item">
+                            <div class="member-avatar">MF</div>
+                            <div class="member-info">
+                                <div class="member-name">Maria Fernanda</div>
+                                <div class="member-role">Product Owner • Pleno</div>
+                            </div>
+                            <div class="member-actions">
+                                <button type="button" class="btn-icon edit">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" class="btn-icon delete">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="member-item">
+                            <div class="member-avatar">CA</div>
+                            <div class="member-info">
+                                <div class="member-name">Carlos Andrade</div>
+                                <div class="member-role">Desenvolvedor Frontend • Pleno</div>
+                            </div>
+                            <div class="member-actions">
+                                <button type="button" class="btn-icon edit">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" class="btn-icon delete">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="member-item">
+                            <div class="member-avatar">LS</div>
+                            <div class="member-info">
+                                <div class="member-name">Lucia Santos</div>
+                                <div class="member-role">Desenvolvedora Backend • Sênior</div>
+                            </div>
+                            <div class="member-actions">
+                                <button type="button" class="btn-icon edit">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" class="btn-icon delete">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ações do Formulário -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary">
+                        <i class="material-icons">close</i>
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-secondary">
+                        <i class="material-icons">save</i>
+                        Salvar Rascunho
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="material-icons">check</i>
+                        Criar Squad
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidade para adicionar tecnologias
+        document.getElementById('techInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                addTechChip(this.value.trim());
+                this.value = '';
+            }
+        });
+
+        function addTechChip(tech) {
+            const container = document.getElementById('techChips');
+            const chip = document.createElement('div');
+            chip.className = 'chip';
+            chip.innerHTML = `${tech} <i class="material-icons remove" onclick="removeChip(this)">close</i>`;
+            container.appendChild(chip);
+        }
+
+        function removeChip(element) {
+            element.parentElement.remove();
+        }
+
+        // Remover chips existentes
+        document.querySelectorAll('.chip .remove').forEach(btn => {
+            btn.onclick = function() { removeChip(this); };
+        });
+
+        // Funcionalidade para adicionar membros (demo)
+        function addMember() {
+            alert('Funcionalidade para adicionar membro seria implementada aqui!\n\nAbriria um modal ou navegaria para uma página de seleção de membros.');
+        }
+
+        // Animação de progresso
+        window.addEventListener('load', function() {
+            const progressBar = document.querySelector('.progress-fill');
+            setTimeout(() => {
+                progressBar.style.width = '60%';
+            }, 500);
+        });
+
+        // Submit do formulário
+        document.getElementById('squadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Squad criada com sucesso!\n\nEsta é apenas uma demonstração visual do formulário.');
+        });
+
+        // Efeitos visuais nos inputs
+        document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
