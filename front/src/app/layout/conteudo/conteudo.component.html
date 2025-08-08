@@ -1,14 +1,19 @@
 <app-cabecalho (ativarSidebar)="ativarSidebar()"></app-cabecalho>
 
-<mat-sidenav-container fxLayout="row" fxLayout.lt-md="column">
-  <mat-sidenav #sidenav mode="side" opened class="menu">
+<mat-sidenav-container>
+  <mat-sidenav #sidenav [mode]="ehDispositivoMobile ? 'over' : 'side'" [opened]="!ehDispositivoMobile"
+    class="barra-lateral">
+    <div class="cabecalho-barra">
+      <mat-icon class="logo-barra">dashboard</mat-icon>
+      <span class="titulo-barra">Painel de Controle</span>
+    </div>
     <app-menu-lateral></app-menu-lateral>
   </mat-sidenav>
 
-  <mat-sidenav-content class="corpo-conteudo" fxFlex="100%" fxFlex.l-md="100%">
-    <mat-card class="conteudo">
+  <mat-sidenav-content class="fundo-conteudo">
+    <div class="conteudo">
       <router-outlet></router-outlet>
-    </mat-card>
+    </div>
     <app-rodape></app-rodape>
   </mat-sidenav-content>
 </mat-sidenav-container>

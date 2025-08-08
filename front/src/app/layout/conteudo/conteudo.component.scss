@@ -1,25 +1,30 @@
-mat-sidenav {
-  border-radius: 0px;
+.barra-lateral {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   border: none;
 }
 
-.corpo-conteudo {
-  height: 93vh;
+.cabecalho-barra {
+  padding: 15px 20px;
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  align-items: center;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+
+  .logo-barra {
+    font-size: 28px;
+    margin-right: 12px;
+  }
+
+  .titulo-barra {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.fundo-conteudo {
+  background: #f8fafc;
 }
 
 .conteudo {
-  display: flex;
-  flex-direction: column;
-  background-color: #0d00802a;
-  border-radius: 0px;
-  box-shadow: none;
-  padding: 20px;
-  flex: 1;
-}
-
-.menu {
-  background-color: #ffffff;
+  min-height: calc(100vh - 140px);
 }
