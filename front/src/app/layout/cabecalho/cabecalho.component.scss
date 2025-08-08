@@ -1,7 +1,66 @@
-mat-toolbar {
-  background-color: #047012bd;
+.cabecalho {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 0 16px;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.espaco {
-  flex: 1 1 auto;
+.botao-barra {
+  .mat-icon {
+    color: #ffffff;
+    font-size: 24px;
+  }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+
+  .logo-icon {
+    color: #4caf50;
+    font-size: 32px;
+    margin-right: 8px;
+  }
+
+  .titulo {
+    font-size: 24px;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+}
+
+.spaco-menu {
+  flex: 1;
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.botao-usuario {
+  .mat-icon {
+    color: white;
+  }
+}
+
+.botao-usuario {
+  color: white;
+  border-radius: 24px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  span {
+    margin: 0 8px;
+    font-weight: 500;
+  }
 }

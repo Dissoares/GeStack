@@ -1,9 +1,20 @@
-<mat-toolbar>
-  <button mat-icon-button (click)="ativar()">
+<mat-toolbar class="cabecalho">
+  <button mat-icon-button (click)="ativar()" class="botao-barra">
     <mat-icon>menu</mat-icon>
   </button>
 
-  <strong style="color: aliceblue">Gestack</strong>
+  <div class="logo-container">
+    <mat-icon class="logo-icon">health_and_safety</mat-icon>
+    <span class="titulo">GeStack</span>
+  </div>
 
-  <span class="espaco"></span>
+  <span class="spaco-menu"></span>
+
+  <div class="usuario">
+    <button mat-button class="botao-usuario">
+      <mat-icon>account_circle</mat-icon>
+      <span>Usuário</span>
+      <mat-icon>expand_more</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
