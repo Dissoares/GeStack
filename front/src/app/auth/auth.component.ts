@@ -115,10 +115,9 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       next: (resultado: any) => {
         if (resultado) {
           this.exibirMensagem('Logado com sucesso.', 'Sucesso!');
-          const nivel = this.usuarioService.getNivelAcesso();
 
           setTimeout(() => {
-            this.redirecionarComBaseNoNivelAcesso(nivel);
+            this.redirecionarComBaseNoNivelAcesso();
           }, 1000);
         }
       },
@@ -128,7 +127,9 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     });
   }
 
-  public redirecionarComBaseNoNivelAcesso(nivelAcesso: number): void {
+  public redirecionarComBaseNoNivelAcesso(): void {
+    const nivelAcesso = this.usuarioService.getNivelAcesso();
+
     if (nivelAcesso === NivelAcessoEnum.ADMIN.id) {
       this.router.navigate([
         RotasEnum.ADMINISTRADOR.ROTA + '/' + RotasEnum.ADMINISTRADOR.LISTAGEM,
