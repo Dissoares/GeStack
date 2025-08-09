@@ -33,9 +33,8 @@ import { DateTime } from 'luxon';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent extends CamposFormularioComponent implements OnInit {
-  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
-    NivelAcessoEnum.getAll();
-  public ehCadastro: boolean = false;
+  public listaNivelAcessoEnum = NivelAcessoEnum.getAll();
+  public ehCadastro = false;
 
   constructor(
     private toastr: ToastrService,
@@ -46,43 +45,40 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     super(inject(FormBuilder));
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.criarFormulario();
   }
 
-  public criarFormulario(): void {
+  private criarFormulario(): void {
     this.formulario = this.fb.group({
       idUsuario: [null],
-      nome: [null, this.ehCadastro ? [Validators.required] : null],
-      email: [null, [Validators.required]],
-      senha: [null, [Validators.required]],
-      confirmarSenha: [null, this.ehCadastro ? [Validators.required] : null],
-      nivelAcesso: [null, this.ehCadastro ? [Validators.required] : null],
+      nome: [null],
+      email: [null, Validators.required],
+      senha: [null, Validators.required],
+      confirmarSenha: [null],
+      nivelAcesso: [null],
       dataCadastro: [null],
       ativo: [null],
     });
+
+    if (this.ehCadastro) {
+      this.formulario.get('nome')?.addValidators(Validators.required);
+      this.formulario.get('confirmarSenha')?.addValidators(Validators.required);
+      this.formulario.get('nivelAcesso')?.addValidators(Validators.required);
+    }
   }
 
   public cadastrar(): void {
-    const dadosCadastro: Usuario = this.formulario.value;
-    const dataLuxon = DateTime.now().setZone('America/Sao_Paulo');
-    const dataFormatada = dataLuxon.toFormat('dd/MM/yyyy HH:mm');
-    dadosCadastro.dataCadastro = dataFormatada;
-
-    if (
-      !dadosCadastro.nome ||
-      !dadosCadastro.email ||
-      !dadosCadastro.nivelAcesso ||
-      !dadosCadastro.senha
-    ) {
+    if (this.formulario.invalid) {
       this.exibirMensagem('Preencha todos os campos obrigatórios!', 'Aviso!');
+      this.marcarFormularioComoTocado();
       return;
     }
 
-    if (!dadosCadastro.confirmarSenha) {
-      this.exibirMensagem('Digite a confirmação de senha!', 'Aviso!');
-      return;
-    }
+    const dadosCadastro: Usuario = {
+      ...this.formulario.value,
+      dataCadastro: this.dataAgoraFormatada(),
+    };
 
     if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
       this.exibirMensagem('Senhas não coincidem!', 'Aviso!');
@@ -91,86 +87,54 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
 
     this.usuarioService.cadastro(dadosCadastro).subscribe({
       next: () => {
-        this.exibirMensagem('Cadastro realizado com sucesso!', 'Sucesso!'),
-          (this.ehCadastro = false);
+        this.exibirMensagem('Cadastro realizado com sucesso!', 'Sucesso!');
+        this.ehCadastro = false;
         this.formulario.reset();
       },
-      error: () => {
-        this.exibirMensagem('Não foi possivél cadastrar!', 'Erro!');
-      },
+      error: () => this.exibirMensagem('Não foi possível cadastrar!', 'Erro!'),
     });
   }
 
   public login(): void {
-    const { email, senha } = this.formulario.value;
-    const dadosLogin: LoginDto = { email, senha };
-
-    if (!dadosLogin.email || !dadosLogin.senha) {
+    if (this.formulario.invalid) {
       this.exibirMensagem('Preencha seus dados de acesso', 'Aviso!');
       this.marcarFormularioComoTocado();
       return;
     }
 
-    this.authService.login(dadosLogin).subscribe({
-      next: (resultado: any) => {
-        if (resultado) {
-          this.exibirMensagem('Logado com sucesso.', 'Sucesso!');
+    const { email, senha } = this.formulario.value;
+    const dadosLogin: LoginDto = { email, senha };
 
-          setTimeout(() => {
-            this.redirecionarComBaseNoNivelAcesso();
-          }, 1000);
-        }
+    this.authService.login(dadosLogin).subscribe({
+      next: () => {
+        this.exibirMensagem('Logado com sucesso.', 'Sucesso!');
+        setTimeout(() => this.redirecionarComBaseNoNivelAcesso(), 1000);
       },
-      error: () => {
-        this.exibirMensagem('Erro ao fazer login.', 'Erro!');
-      },
+      error: () => this.exibirMensagem('Erro ao fazer login.', 'Erro!'),
     });
   }
 
-  public redirecionarComBaseNoNivelAcesso(): void {
-    const nivelAcesso = this.authService.getNivelAcessoId();
-
-    if (nivelAcesso === NivelAcessoEnum.ADMIN.id) {
-      this.router.navigate([
-        RotasEnum.ADMINISTRADOR.ROTA + '/' + RotasEnum.ADMINISTRADOR.LISTAGEM,
-      ]);
-      return;
-    }
-
-    if (
-      nivelAcesso === NivelAcessoEnum.LIDER_NEGOCIO.id ||
-      nivelAcesso === NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id
-    ) {
-      this.router.navigate([
-        RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.LISTAGEM,
-      ]);
-      return;
-    }
-
-    if (
-      nivelAcesso === NivelAcessoEnum.ANALISTA.id ||
-      nivelAcesso === NivelAcessoEnum.DESENVOLVEDOR.id
-    ) {
-      this.router.navigate([
-        RotasEnum.USUARIO.ROTA + '/' + RotasEnum.USUARIO.LISTAGEM,
-      ]);
-      return;
-    }
+  private redirecionarComBaseNoNivelAcesso(): void {
+    //this.router.navigate(['auth']);
   }
 
-  public exibirMensagem(mensagem: string, tipo: string): void {
-    const configuracoes = {
-      timeOut: 2000,
-      closeButton: true,
-      progressBar: true,
+  private exibirMensagem(
+    mensagem: string,
+    tipo: 'Sucesso!' | 'Erro!' | 'Aviso!' | 'Info!'
+  ): void {
+    const config = { timeOut: 2000, closeButton: true, progressBar: true };
+    const mapTipo = {
+      'Sucesso!': () => this.toastr.success(mensagem, tipo, config),
+      'Erro!': () => this.toastr.error(mensagem, tipo, config),
+      'Aviso!': () => this.toastr.warning(mensagem, tipo, config),
+      'Info!': () => this.toastr.info(mensagem, tipo, config),
     };
+    mapTipo[tipo]();
+  }
 
-    tipo === 'Sucesso!'
-      ? this.toastr.success(mensagem, tipo, configuracoes)
-      : tipo === 'Erro!'
-      ? this.toastr.error(mensagem, tipo, configuracoes)
-      : tipo === 'Aviso!'
-      ? this.toastr.warning(mensagem, tipo, configuracoes)
-      : this.toastr.info(mensagem, tipo, configuracoes);
+  private dataAgoraFormatada(): string {
+    return DateTime.now()
+      .setZone('America/Sao_Paulo')
+      .toFormat('dd/MM/yyyy HH:mm');
   }
 }

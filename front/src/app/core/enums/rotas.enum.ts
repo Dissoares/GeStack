@@ -1,11 +1,4 @@
 export class RotasEnum {
-  static readonly ROOT = '';
-
-  static readonly AUTH = {
-    LOGIN: 'login',
-    REGISTRO: 'registro',
-    RECUPERAR_SENHA: 'recuperar-senha',
-  };
 
   static readonly ADMINISTRADOR = {
     ROTA: 'administrador',
@@ -19,7 +12,7 @@ export class RotasEnum {
     FORMULARIO: 'formulario',
   };
   
-  static readonly USUARIO = {
+  static readonly MEMBRO = {
     ROTA: 'squad',
     LISTAGEM: 'listagem',
     FORMULARIO: 'formulario',

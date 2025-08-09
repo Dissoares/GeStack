@@ -74,7 +74,7 @@ export class MenuLateralComponent implements OnInit {
         ],
       },
       {
-        rota: RotasEnum.USUARIO.ROTA + '/' + RotasEnum.USUARIO.LISTAGEM,
+        rota: '',
         titulo: 'Visualizar Escalas',
         icone: 'analytics',
         niveisPermitidos: [

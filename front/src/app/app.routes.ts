@@ -1,9 +1,11 @@
 import { AuthGuard } from './guards/auth.guard';
+import { NivelAcessoEnum } from './core/enums';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
     path: 'auth',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./auth/auth.component').then((m) => m.AuthComponent),
   },
@@ -20,6 +22,8 @@ export const routes: Routes = [
         children: [
           {
             path: 'administrador-listagem',
+            canActivate: [AuthGuard],
+            data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
             loadComponent: () =>
               import(
                 './modules/administrador/administrador-listagem/administrador-listagem.component'
@@ -27,6 +31,8 @@ export const routes: Routes = [
           },
           {
             path: 'administrador-formulario',
+            canActivate: [AuthGuard],
+            data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
             loadComponent: () =>
               import(
                 './modules/administrador/administrador-formulario/administrador-formulario.component'
@@ -34,6 +40,13 @@ export const routes: Routes = [
           },
           {
             path: 'lideranca-listagem',
+            canActivate: [AuthGuard],
+            data: {
+              permissoes: [
+                NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
+                NivelAcessoEnum.LIDER_NEGOCIO.id,
+              ],
+            },
             loadComponent: () =>
               import(
                 './modules/lideranca/lideranca-listagem/lideranca-listagem.component'
@@ -41,6 +54,13 @@ export const routes: Routes = [
           },
           {
             path: 'lideranca-formulario',
+            canActivate: [AuthGuard],
+            data: {
+              permissoes: [
+                NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
+                NivelAcessoEnum.LIDER_NEGOCIO.id,
+              ],
+            },
             loadComponent: () =>
               import(
                 './modules/lideranca/lideranca-formulario/lideranca-formulario.component'
@@ -48,6 +68,13 @@ export const routes: Routes = [
           },
           {
             path: 'membro-listagem',
+            canActivate: [AuthGuard],
+            data: {
+              permissoes: [
+                NivelAcessoEnum.DESENVOLVEDOR.id,
+                NivelAcessoEnum.ANALISTA.id,
+              ],
+            },
             loadComponent: () =>
               import(
                 './modules/membros-squad/membro-squad-listagem/membro-squad-listagem.component'
@@ -55,6 +82,13 @@ export const routes: Routes = [
           },
           {
             path: 'membro-formulario',
+            canActivate: [AuthGuard],
+            data: {
+              permissoes: [
+                NivelAcessoEnum.DESENVOLVEDOR.id,
+                NivelAcessoEnum.ANALISTA.id,
+              ],
+            },
             loadComponent: () =>
               import(
                 './modules/membros-squad/membro-squad-formulario/membro-squad-formulario.component'
