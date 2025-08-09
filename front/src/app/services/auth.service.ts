@@ -1,6 +1,6 @@
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { UsuarioToken } from '../core/interfaces/usuario-token';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NivelAcessoEnum } from '../core/enums';
 import { Injectable } from '@angular/core';
@@ -11,108 +11,122 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly apiUrl = environment.apiUrl;
-  private readonly endPointUrl = '/auth';
-  private readonly TOKEN_KEY = 'token';
-
-  private usuarioLogado = new BehaviorSubject<UsuarioToken | null>(null);
-  private nivelAcesso = new BehaviorSubject<NivelAcessoEnum | null>(null);
+  private readonly LOCAL_STORAGE = { TOKEN: 'token' } as const;
+  private readonly API_ENDPOINT = { AUTH: 'auth' } as const;
+  private readonly usuarioLogado = new BehaviorSubject<UsuarioToken | null>(
+    null
+  );
+  private readonly nivelAcesso = new BehaviorSubject<NivelAcessoEnum | null>(
+    null
+  );
 
   public readonly usuarioLogado$ = this.usuarioLogado.asObservable();
   public readonly nivelAcesso$ = this.nivelAcesso.asObservable();
 
-  constructor(private http: HttpClient,private router: Router) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly router: Router
+  ) {
     this.carregarTokenDoStorage();
   }
 
   public login(loginDto: LoginDto): Observable<{ token: string }> {
-    return this.http
-      .post<{ token: string }>(
-        `${this.apiUrl}${this.endPointUrl}/login`,
-        loginDto
-      )
-      .pipe(
-        tap(({ token }) => {
-          this.setUsuarioNoStorage(token);
-        })
-      );
+    const url = `${this.apiUrl}/${this.API_ENDPOINT.AUTH}/login`;
+
+    return this.http.post<{ token: string }>(url, loginDto).pipe(
+      tap(({ token }) => this.processarToken(token)),
+      catchError((error) => {
+        console.error('Erro no login:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   private carregarTokenDoStorage(): void {
-    const token = localStorage.getItem(this.TOKEN_KEY);
+    const token = localStorage.getItem(this.LOCAL_STORAGE.TOKEN);
     if (!token) {
       this.removerAcesso();
       return;
     }
     try {
-      const usuario = jwtDecode<UsuarioToken>(token);
+      const usuario = this.decodificarToken(token);
       this.setUsuarioLogado(usuario);
-    } catch {
+    } catch (error) {
       this.removerAcesso();
     }
   }
 
-  private setUsuarioNoStorage(token: string): void {
-    localStorage.setItem(this.TOKEN_KEY, token);
-    const usuario = jwtDecode<UsuarioToken>(token);
-    this.setUsuarioLogado(usuario);
+  private processarToken(token: string): void {
+    try {
+      localStorage.setItem(this.LOCAL_STORAGE.TOKEN, token);
+      const usuario = this.decodificarToken(token);
+      this.setUsuarioLogado(usuario);
+    } catch (error) {
+      console.error('Erro ao processar token:', error);
+      throw error;
+    }
+  }
+
+  private decodificarToken(token: string): UsuarioToken {
+    return jwtDecode<UsuarioToken>(token);
   }
 
   private setUsuarioLogado(usuario: UsuarioToken): void {
     this.usuarioLogado.next(usuario);
-    this.nivelAcesso.next(NivelAcessoEnum.getById(usuario.nivelAcesso) ?? null);
+    const nivelAcesso = NivelAcessoEnum.getById(usuario.nivelAcesso);
+    this.nivelAcesso.next(nivelAcesso ?? null);
   }
 
   public removerAcesso(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.LOCAL_STORAGE.TOKEN);
     this.usuarioLogado.next(null);
     this.nivelAcesso.next(null);
-    this.router.navigate(['/login']);
   }
 
   public getNivelAcessoId(): number {
     return this.nivelAcesso.value?.id ?? 0;
   }
 
-  private acessoNivel(...niveis: Array<NivelAcessoEnum>): boolean {
-    return niveis.some((n) => n.id === this.getNivelAcessoId());
+  private temAcesso(...niveis: Array<NivelAcessoEnum>): boolean {
+    return niveis.some((nivel) => nivel.id === this.getNivelAcessoId());
   }
 
   public isAdmin(): boolean {
-    return this.acessoNivel(NivelAcessoEnum.ADMIN);
+    return this.temAcesso(NivelAcessoEnum.ADMIN);
   }
 
   public isLiderDesenvolvimento(): boolean {
-    return this.acessoNivel(NivelAcessoEnum.LIDER_DESENVOLVIMENTO);
+    return this.temAcesso(NivelAcessoEnum.LIDER_DESENVOLVIMENTO);
   }
 
   public isLiderNegocio(): boolean {
-    return this.acessoNivel(NivelAcessoEnum.LIDER_NEGOCIO);
+    return this.temAcesso(NivelAcessoEnum.LIDER_NEGOCIO);
   }
 
   public isDesenvolvedor(): boolean {
-    return this.acessoNivel(NivelAcessoEnum.DESENVOLVEDOR);
+    return this.temAcesso(NivelAcessoEnum.DESENVOLVEDOR);
   }
 
   public isAnalista(): boolean {
-    return this.acessoNivel(NivelAcessoEnum.ANALISTA);
+    return this.temAcesso(NivelAcessoEnum.ANALISTA);
   }
 
   public isGeralLider(): boolean {
-    return this.acessoNivel(
+    return this.temAcesso(
       NivelAcessoEnum.LIDER_DESENVOLVIMENTO,
       NivelAcessoEnum.LIDER_NEGOCIO
     );
   }
 
   public isGeralMembro(): boolean {
-    return this.acessoNivel(
+    return this.temAcesso(
       NivelAcessoEnum.DESENVOLVEDOR,
       NivelAcessoEnum.ANALISTA
     );
   }
 
   public podeGerenciarSquads(): boolean {
-    return this.acessoNivel(NivelAcessoEnum.ADMIN) || this.isGeralLider();
+    return this.isAdmin() || this.isGeralLider();
   }
 
   public podeAcessarAreaAdmin(): boolean {
@@ -120,10 +134,15 @@ export class AuthService {
   }
 
   public podeAcessarAreaLider(): boolean {
-    return this.isAdmin() || this.isGeralLider();
+    return this.isGeralLider();
   }
 
   public podeAcessarAreaUsuario(): boolean {
     return this.isAdmin() || this.isGeralLider() || this.isGeralMembro();
+  }
+
+  public logout(): void {
+    this.removerAcesso();
+    this.router.navigate([this.API_ENDPOINT.AUTH]);
   }
 }

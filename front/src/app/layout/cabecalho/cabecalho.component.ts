@@ -67,6 +67,6 @@ export class CabecalhoComponent
   public alterarSenha(): void {}
 
   public logout(): void {
-    this.authService.removerAcesso();
+    this.authService.logout();
   }
 }
