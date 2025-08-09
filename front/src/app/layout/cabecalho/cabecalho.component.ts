@@ -1,15 +1,14 @@
 import { CamposFormularioComponent } from '../../components/index.component';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UsuarioToken } from '../../core/interfaces/usuario-token';
-import { UsuarioService } from '../../services/usuario.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatDialog } from '@angular/material/dialog';
 import { NivelAcessoEnum } from '../../core/enums';
 import { CommonModule } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
+import { AuthService } from '../../services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,7 +33,7 @@ export class CabecalhoComponent
   public usuarioLogado?: UsuarioToken | null;
   public notificacoes = 3;
 
-  constructor(private usuarioService: UsuarioService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     super(new FormBuilder());
   }
 
@@ -47,7 +46,9 @@ export class CabecalhoComponent
   }
 
   private carregarUsuarioLogado(): void {
-    this.usuarioLogado = this.usuarioService.getUsuarioLogado();
+    this.authService.usuarioLogado$.subscribe((user) => {
+      this.usuarioLogado = user;
+    });
   }
 
   public pegarPrimeiraLetraDoNome(nomeUsuario?: string): string {
@@ -56,23 +57,16 @@ export class CabecalhoComponent
   }
 
   public getDescricaoNivelAcesso(id: any): string {
-    return NivelAcessoEnum.getNivelAcessoPorId(id)?.nivel || '';
+    return NivelAcessoEnum.getById(id)?.nivel || '';
   }
 
-  public abrirPerfil(): void {
-    this.router.navigate(['/']);
-  }
+  public abrirPerfil(): void {}
 
-  public abrirConfiguracoes(): void {
-    this.router.navigate(['/']);
-  }
+  public abrirConfiguracoes(): void {}
 
-  public alterarSenha(): void {
-    this.router.navigate(['/']);
-  }
+  public alterarSenha(): void {}
 
   public logout(): void {
-    this.usuarioService.logout();
-    this.router.navigate(['/login']);
+    this.authService.removerAcesso();
   }
 }

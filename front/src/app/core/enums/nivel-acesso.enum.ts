@@ -1,36 +1,25 @@
 export class NivelAcessoEnum {
-  public static readonly ADMIN = new NivelAcessoEnum(
-    1,
-    'ADMINISTRADOR',
-    'Acessa dados de todos os líderes, squads, desenvolvedores e analistas'
-  );
+  public static readonly ADMIN = new NivelAcessoEnum(1, 'ADMINISTRADOR');
   public static readonly LIDER_DESENVOLVIMENTO = new NivelAcessoEnum(
     2,
-    'LÍDER DE DESENVOLVIMENTO',
-    'Gerencia squads de desenvolvimento e seus desenvolvedores'
+    'LÍDER DE DESENVOLVIMENTO'
   );
   public static readonly LIDER_NEGOCIO = new NivelAcessoEnum(
     3,
-    'LÍDER DE NEGÓCIO',
-    'Gerencia squads de negócio e seus analistas'
+    'LÍDER DE NEGÓCIO'
   );
   public static readonly DESENVOLVEDOR = new NivelAcessoEnum(
     4,
-    'DESENVOLVEDOR',
-    'Consulta suas escalas de home office, férias, licenças e faltas'
+    'DESENVOLVEDOR'
   );
-  public static readonly ANALISTA = new NivelAcessoEnum(
-    5,
-    'ANALISTA',
-    'Consulta suas escalas de home office, férias, licenças e faltas'
-  );
+  public static readonly ANALISTA = new NivelAcessoEnum(5, 'ANALISTA');
+
   private constructor(
     public readonly id: number,
-    public readonly nivel: string,
-    public readonly descricao: string
+    public readonly nivel: string
   ) {}
 
-  public static getTodosNiveisAcesso(): Array<NivelAcessoEnum> {
+  public static getAll(): Array<NivelAcessoEnum> {
     return [
       this.ADMIN,
       this.LIDER_DESENVOLVIMENTO,
@@ -40,17 +29,7 @@ export class NivelAcessoEnum {
     ];
   }
 
-  public static getNivelAcessoPorId(id: number): NivelAcessoEnum | undefined {
-    return NivelAcessoEnum.getTodosNiveisAcesso().find(
-      (perm) => perm.id === id
-    );
-  }
-
-  public static getNivelAcessoPorDescricao(
-    descricao: string
-  ): NivelAcessoEnum | undefined {
-    return NivelAcessoEnum.getTodosNiveisAcesso().find(
-      (perm) => perm.descricao.toLowerCase() === descricao.toLowerCase()
-    );
+  public static getById(id: number): NivelAcessoEnum | undefined {
+    return this.getAll().find((n) => n.id === id);
   }
 }

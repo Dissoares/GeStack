@@ -34,7 +34,7 @@ import { DateTime } from 'luxon';
 })
 export class AuthComponent extends CamposFormularioComponent implements OnInit {
   public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
-    NivelAcessoEnum.getTodosNiveisAcesso();
+    NivelAcessoEnum.getAll();
   public ehCadastro: boolean = false;
 
   constructor(
@@ -128,7 +128,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
   }
 
   public redirecionarComBaseNoNivelAcesso(): void {
-    const nivelAcesso = this.usuarioService.getNivelAcesso();
+    const nivelAcesso = this.authService.getNivelAcessoId();
 
     if (nivelAcesso === NivelAcessoEnum.ADMIN.id) {
       this.router.navigate([

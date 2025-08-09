@@ -6,9 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BotaoMenu } from '../../core/interfaces';
-import { UsuarioService } from '../../services';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService} from '../../services';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -30,11 +30,11 @@ export class MenuLateralComponent implements OnInit {
   public nivelAcessoUsuario!: number;
   public botoesMenu: Array<BotaoMenu> = [];
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private authService: AuthService) {}
 
   public ngOnInit(): void {
     this.iniciarItensDoMenu();
-    this.nivelAcessoUsuario = this.usuarioService.getNivelAcesso();
+    this.nivelAcessoUsuario = this.authService.getNivelAcessoId();
   }
 
   public iniciarItensDoMenu(): void {

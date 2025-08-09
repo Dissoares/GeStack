@@ -1,17 +1,21 @@
-import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { AuthService, UsuarioService } from '../services';
+import { CanActivate } from '@angular/router';
+import { map, Observable, take } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { AuthService } from '../services';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private usuarioService: UsuarioService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
-  public canActivate(route: ActivatedRouteSnapshot): boolean {
-    const nivelNecessario = route.data['nivel'] as number;
-    const nivelUsuario = this.usuarioService.getNivelAcesso();
-    if (nivelUsuario === nivelNecessario) return true;
+  public canActivate(): Observable<boolean> {
+    return this.authService.usuarioLogado$.pipe(
+      take(1),
+      map((usuario) => {
+        if (usuario) return true;
 
-    this.router.navigate(['/login']);
-    return false;
+        this.authService.removerAcesso();
+        return false;
+      })
+    );
   }
 }
