@@ -11,26 +11,31 @@ export class AuthGuard implements CanActivate {
     const permissoesAcesso = route.data['permissoes'] as Array<number>;
     const rotaLogin = route.routeConfig?.path === 'auth';
 
+       
     return this.authService.usuarioLogado$.pipe(
       take(1),
       map((usuario) => {
         if (rotaLogin && usuario) {
+           console.log("rotaLogin && usuario", rotaLogin)
           this.redirecionarBaseadoNoNivelAcesso();
           return false;
         }
 
         if (!usuario && permissoesAcesso) {
+           console.log("permissoesAcesso", rotaLogin)
           this.authService.logout();
           return false;
         }
 
         if (usuario && permissoesAcesso) {
+           console.log("usuario e permissoesAcesso", rotaLogin)
           if (permissoesAcesso.includes(usuario.nivelAcesso)) {
             return true;
           }
           this.redirecionarBaseadoNoNivelAcesso();
           return false;
         }
+         console.log("eslse", rotaLogin)
         return true;
       })
     );
@@ -38,11 +43,11 @@ export class AuthGuard implements CanActivate {
 
   private redirecionarBaseadoNoNivelAcesso(): void {
     if (this.authService.isAdmin()) {
-      this.router.navigate(['/dashboard/administrador/listagem']);
+      this.router.navigate(['/dashboard/administrador']);
     } else if (this.authService.isGeralLider()) {
-      this.router.navigate(['/dashboard/lideranca/listagem']);
+      this.router.navigate(['/dashboard/lideranca']);
     } else if (this.authService.isGeralMembro()) {
-      this.router.navigate(['/dashboard/membro/listagem']);
+      this.router.navigate(['/dashboard/membro']);
     } else {
       this.authService.logout();
     }

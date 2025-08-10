@@ -26,7 +26,20 @@ export const routes: Routes = [
 
         data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
       },
-
+      {
+        path: 'lideranca',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./modules/lideranca/lideranca.routing').then(
+            (m) => m.ROTAS_LIDERANCA
+          ),
+      },
+      {
+        path: 'membro',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./modules/membro/equipe.routing').then((m) => m.ROTAS_MEMBRO),
+      },
       {
         path: '**',
         redirectTo: '/auth',
