@@ -10,7 +10,7 @@ export const routes: Routes = [
       import('./auth/auth.component').then((m) => m.AuthComponent),
   },
   {
-    path: 'dashboard',
+    path: '',
     loadComponent: () =>
       import('./layout/conteudo/conteudo.component').then(
         (c) => c.ConteudoComponent
@@ -33,17 +33,14 @@ export const routes: Routes = [
           import('./modules/lideranca/lideranca.routing').then(
             (m) => m.ROTAS_LIDERANCA
           ),
+        data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
       },
       {
         path: 'membro',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/membro/equipe.routing').then((m) => m.ROTAS_MEMBRO),
-      },
-      {
-        path: '**',
-        redirectTo: '/auth',
-        pathMatch: 'full',
+          import('./modules/membro/membro.routing').then((m) => m.ROTAS_MEMBRO),
+        data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
       },
     ],
   },
