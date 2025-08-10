@@ -26,17 +26,20 @@
     <mat-menu #menuUsuario="matMenu" xPosition="before" class="menu-opcoes">
       <div mat-menu-item [disabled]="true">
         <div class="dados-usuario">
-          <div class="avatar-usuario">
-            {{ pegarPrimeiraLetraDoNome(usuarioLogado?.nome) }}
+          <div class="usuario">
+            <div class="avatar-usuario">
+              {{ pegarPrimeiraLetraDoNome(usuarioLogado?.nome) }}
+            </div>
+
+            <div class="nivel-acesso">
+              {{ getDescricaoNivelAcesso(usuarioLogado?.nivelAcesso) }}
+            </div>
           </div>
           <div class="nome-completo">
             {{ usuarioLogado?.nome }}
           </div>
           <div class="email-usuario">
             {{ usuarioLogado?.email }}
-          </div>
-          <div class="nivel-acesso">
-            {{ getDescricaoNivelAcesso(usuarioLogado?.nivelAcesso) }}
           </div>
         </div>
       </div>

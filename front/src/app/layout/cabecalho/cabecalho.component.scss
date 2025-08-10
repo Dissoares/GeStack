@@ -73,6 +73,7 @@
   font-size: 18px;
   border: 2px solid white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-right: 5px;
 }
 
 .dados-usuario {
@@ -163,4 +164,12 @@
 .mat-mdc-menu-panel .mat-divider {
   margin: 0px !important;
   padding: 0px !important;
+}
+
+.usuario {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
 }
