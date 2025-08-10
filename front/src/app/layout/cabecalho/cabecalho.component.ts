@@ -60,7 +60,17 @@ export class CabecalhoComponent
     return NivelAcessoEnum.getById(id)?.nivel || '';
   }
 
-  public abrirPerfil(): void {}
+  public abrirPerfil(): void {
+    if (this.authService.isAdmin()) {
+      this.router.navigate(['/administrador/perfil']);
+    } else if (this.authService.isGeralLider()) {
+      this.router.navigate(['/lideranca/perfil']);
+    } else if (this.authService.isGeralMembro()) {
+      this.router.navigate(['/membro/perfil']);
+    } else {
+      this.router.navigate(['/auth']);
+    }
+  }
 
   public abrirConfiguracoes(): void {}
 
