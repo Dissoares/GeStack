@@ -3,15 +3,14 @@ import { CamposFormularioComponent } from '../components/index.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { NivelAcessoEnum, RotasEnum } from '../core/enums';
-import { Component, OnInit, inject } from '@angular/core';
 import { AuthService, UsuarioService } from '../services';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { NivelAcessoEnum } from '../core/enums';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { Usuario } from '../core/models';
 import { LoginDto } from '../core/dtos';
 import { DateTime } from 'luxon';
@@ -33,19 +32,19 @@ import { DateTime } from 'luxon';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent extends CamposFormularioComponent implements OnInit {
-  public listaNivelAcessoEnum = NivelAcessoEnum.getAll();
-  public ehCadastro = false;
+  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
+    NivelAcessoEnum.getAll();
+  public ehCadastro: boolean = false;
 
   constructor(
     private toastr: ToastrService,
     private authService: AuthService,
-    private usuarioService: UsuarioService,
-    private router: Router
+    private usuarioService: UsuarioService
   ) {
     super(inject(FormBuilder));
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.criarFormulario();
   }
 
@@ -77,7 +76,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
 
     const dadosCadastro: Usuario = {
       ...this.formulario.value,
-      dataCadastro: this.dataAgoraFormatada(),
+      dataCadastro: this.dataDeHojeFormatada(),
     };
 
     if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
@@ -128,7 +127,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     mapTipo[tipo]();
   }
 
-  private dataAgoraFormatada(): string {
+  private dataDeHojeFormatada(): string {
     return DateTime.now()
       .setZone('America/Sao_Paulo')
       .toFormat('dd/MM/yyyy HH:mm');

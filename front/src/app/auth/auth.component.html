@@ -57,8 +57,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill" *ngIf="ehCadastro">
-          <mat-label>Permissão</mat-label>
-          <mat-icon matPrefix>gpp_maybe</mat-icon>
+          <mat-label>Perfil</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
           <mat-select formControlName="nivelAcesso">
             <mat-option *ngFor="let nivelAcesso of listaNivelAcessoEnum" [value]="nivelAcesso.id">
               {{ nivelAcesso.nivel }}

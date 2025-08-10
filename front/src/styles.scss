@@ -1,22 +1,22 @@
-// @use "@angular/material" as mat;
+@use "@angular/material" as mat;
+@use "./assets/scss/campos_personalizados.scss";
 
-// html {
-//   @include mat.theme(
-//     (
-//       color: (
-//         primary: mat.$azure-palette,
-//         tertiary: mat.$blue-palette,
-//       ),
-//       typography: Roboto,
-//       density: 0,
-//     )
-//   );
-// }
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
 
-body, html {
+body,
+html {
   font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  // background: #fff;
   margin: 0;
   padding: 0;
 }
-

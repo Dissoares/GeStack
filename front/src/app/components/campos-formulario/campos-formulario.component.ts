@@ -27,4 +27,8 @@ export class CamposFormularioComponent {
   public marcarFormularioComoTocado(): void {
     this.formulario.markAllAsTouched();
   }
+
+  public desabilitarFormulario(): void {
+    this.formulario.disable();
+  }
 }
