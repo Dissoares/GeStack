@@ -31,4 +31,8 @@ export class CamposFormularioComponent {
   public desabilitarFormulario(): void {
     this.formulario.disable();
   }
+
+  public habilitarFormulario(): void {
+    this.formulario.enable();
+  }
 }

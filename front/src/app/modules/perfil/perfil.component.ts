@@ -27,8 +27,13 @@ import { AuthService } from '../../services';
   ],
   styleUrls: ['./perfil.component.scss'],
 })
-export class PerfilComponent extends CamposFormularioComponent implements OnInit {
-  public listaNivelAcessoEnum: Array<NivelAcessoEnum> = NivelAcessoEnum.getAll();
+export class PerfilComponent
+  extends CamposFormularioComponent
+  implements OnInit
+{
+  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
+    NivelAcessoEnum.getAll();
+  public ehEdicao: boolean = false;
 
   constructor(private authService: AuthService) {
     super(inject(FormBuilder));
@@ -59,5 +64,11 @@ export class PerfilComponent extends CamposFormularioComponent implements OnInit
         this.desabilitarFormulario();
       }
     });
+  }
+
+  public editarDadosPerfil(): void {
+    this.preencherFormulario();
+    this.habilitarFormulario();
+    this.ehEdicao = true;
   }
 }
