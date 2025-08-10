@@ -41,24 +41,19 @@ export class MenuLateralComponent implements OnInit {
     if (this.authService.isAdmin()) {
       this.botoesMenu = [
         {
-          rota: 'dashboard/administrador',
+          rota: 'administrador/dashboard',
           titulo: 'Dashboard do Administrador',
           icone: 'dashboard',
         },
         {
-          rota: 'dashboard/administrador-gestao-lideres',
-          titulo: 'Gestão de Líderes',
-          icone: 'supervisor_account',
-        },
-        {
-          rota: 'dashboard/administrador-gestao-squads',
+          rota: 'lideranca/squad/gerenciar',
           titulo: 'Gestão de Squads',
-          icone: 'groups',
+          icone: 'person',
         },
         {
-          rota: 'dashboard/administrador-gestao-usuarios',
-          titulo: 'Gestão de Usuários',
-          icone: 'person',
+          rota: 'lideranca/equipe/gerenciar',
+          titulo: 'Gestão de Equipes',
+          icone: 'groups',
         },
       ];
     }

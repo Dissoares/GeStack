@@ -23,7 +23,6 @@ export const routes: Routes = [
           import('./modules/administrador/administrador.routing').then(
             (m) => m.ROTAS_ADMINISTRADOR
           ),
-
         data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
       },
       {
@@ -33,14 +32,31 @@ export const routes: Routes = [
           import('./modules/lideranca/lideranca.routing').then(
             (m) => m.ROTAS_LIDERANCA
           ),
-        data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
+        data: {
+          permissoes: [
+            NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
+            NivelAcessoEnum.LIDER_NEGOCIO.id,
+            NivelAcessoEnum.ADMIN.id,
+          ],
+        },
       },
       {
         path: 'membro',
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./modules/membro/membro.routing').then((m) => m.ROTAS_MEMBRO),
-        data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
+        data: {
+          permissoes: [
+            NivelAcessoEnum.DESENVOLVEDOR.id,
+            NivelAcessoEnum.ANALISTA.id,
+            NivelAcessoEnum.ADMIN.id,
+          ],
+        },
+      },
+      {
+        path: '**',
+        redirectTo: '/auth',
+        pathMatch: 'full',
       },
     ],
   },

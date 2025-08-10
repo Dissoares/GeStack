@@ -3,19 +3,14 @@ import { Routes } from '@angular/router';
 export const ROTAS_MEMBRO: Routes = [
   {
     path: 'dashboard',
-    loadChildren: () =>
+    loadComponent: () =>
       import('./membro-dashboard/membro-dashboard.component').then(
-        (m) => m.MembroDashboardComponent
+        (c) => c.MembroDashboardComponent
       ),
   },
   {
     path: 'perfil',
-    loadChildren: () =>
+    loadComponent: () =>
       import('../perfil/perfil.component').then((m) => m.PerfilComponent),
-  },
-  {
-    path: '**',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
   },
 ];
