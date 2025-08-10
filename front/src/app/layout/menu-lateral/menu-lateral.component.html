@@ -1,8 +1,7 @@
 <mat-nav-list class="barra-navegacao">
   <ng-container *ngFor="let botao of botoesMenu; let i = index">
-    <mat-list-item *ngIf="botao.niveisPermitidos.includes(nivelAcessoUsuario)" [routerLink]="botao.rota"
-      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="item-menu"
-      [style.animation-delay.ms]="i * 100">
+    <mat-list-item [routerLink]="botao.rota" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+      class="item-menu" [style.animation-delay.ms]="i * 100">
       <div class="barra-menus">
         <div class="barra-icones">
           <mat-icon class="icone">{{ botao.icone }}</mat-icon>

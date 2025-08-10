@@ -8,7 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { BotaoMenu } from '../../core/interfaces';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService} from '../../services';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -38,50 +38,40 @@ export class MenuLateralComponent implements OnInit {
   }
 
   public iniciarItensDoMenu(): void {
-    this.botoesMenu = [
-      {
-        rota:
-          RotasEnum.ADMINISTRADOR.ROTA + '/' + RotasEnum.ADMINISTRADOR.LISTAGEM,
-        titulo: 'Dashboard Administrativo',
-        icone: 'admin_panel_settings',
-        niveisPermitidos: [NivelAcessoEnum.ADMIN.id],
-      },
-      {
-        rota: RotasEnum.LIDER.ROTA,
-        titulo: 'Criar / Ver / Squads',
-        icone: 'add_business',
-        niveisPermitidos: [
-          NivelAcessoEnum.LIDER_NEGOCIO.id,
-          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
-        ],
-      },
-      {
-        rota: RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.FORMULARIO,
-        titulo: 'Adicionar Membros',
-        icone: 'assignment_ind',
-        niveisPermitidos: [
-          NivelAcessoEnum.LIDER_NEGOCIO.id,
-          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
-        ],
-      },
-      {
-        rota: RotasEnum.LIDER.ROTA + '/' + RotasEnum.LIDER.LISTAGEM,
-        titulo: 'Gerenciar Squads',
-        icone: 'groups',
-        niveisPermitidos: [
-          NivelAcessoEnum.LIDER_NEGOCIO.id,
-          NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
-        ],
-      },
-      {
-        rota: '',
-        titulo: 'Visualizar Escalas',
-        icone: 'analytics',
-        niveisPermitidos: [
-          NivelAcessoEnum.ANALISTA.id,
-          NivelAcessoEnum.DESENVOLVEDOR.id,
-        ],
-      },
-    ];
+    if (this.authService.isAdmin()) {
+      this.botoesMenu = [
+        {
+          rota: 'dashboard/administrador',
+          titulo: 'Dashboard do Administrador',
+          icone: 'dashboard',
+        },
+        {
+          rota: 'dashboard/administrador-gestao-lideres',
+          titulo: 'Gestão de Líderes',
+          icone: 'supervisor_account',
+        },
+        {
+          rota: 'dashboard/administrador-gestao-squads',
+          titulo: 'Gestão de Squads',
+          icone: 'groups',
+        },
+        {
+          rota: 'dashboard/administrador-gestao-usuarios',
+          titulo: 'Gestão de Usuários',
+          icone: 'person',
+        },
+      ];
+    }
+
+    if (
+      this.authService.isLiderDesenvolvimento() ||
+      this.authService.isLiderNegocio()
+    ) {
+      this.botoesMenu = [];
+    }
+
+    if (this.authService.isAnalista() || this.authService.isDesenvolvedor()) {
+      this.botoesMenu = [];
+    }
   }
 }

@@ -108,14 +108,10 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     this.authService.login(dadosLogin).subscribe({
       next: () => {
         this.exibirMensagem('Logado com sucesso.', 'Sucesso!');
-        setTimeout(() => this.redirecionarComBaseNoNivelAcesso(), 1000);
+        setTimeout(() => window.location.reload(), 500);
       },
       error: () => this.exibirMensagem('Erro ao fazer login.', 'Erro!'),
     });
-  }
-
-  private redirecionarComBaseNoNivelAcesso(): void {
-    //this.router.navigate(['auth']);
   }
 
   private exibirMensagem(
