@@ -20,8 +20,7 @@ export class AuthGuard implements CanActivate {
         }
 
         if (!usuario && !permissoesAcesso) {
-          this.authService.removerAcesso();
-          this.router.navigate(['/dashboard']);
+          this.authService.logout();
           return false;
         }
 
