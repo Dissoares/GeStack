@@ -1,3 +1,48 @@
-<p>
-  cadastrar-squad works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Cadastrar Squad</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="formulario" class="container">
+    <mat-form-field appearance="fill" class="field-6">
+      <mat-label>Nome da Squad</mat-label>
+      <mat-icon matPrefix>groups</mat-icon>
+      <input matInput formControlName="nome" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="field-6">
+      <mat-label>Selecionar membros</mat-label>
+      <mat-icon matPrefix>person_add</mat-icon>
+      <input matInput formControlName="membros" />
+    </mat-form-field>
+  </form>
+
+  <mat-card-header>
+    <mat-card-title>Líder Responsável</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="formularioLider" class="container">
+    <mat-form-field appearance="fill" class="field-3">
+      <mat-label>Nome</mat-label>
+      <mat-icon matPrefix>account_circle</mat-icon>
+      <input matInput formControlName="nome" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="field-3">
+      <mat-label>Perfil</mat-label>
+      <mat-icon matPrefix>shield_lock</mat-icon>
+      <mat-select formControlName="nivelAcesso">
+        <mat-option *ngFor="let nivelAcesso of listaNivelAcessoEnum" [value]="nivelAcesso.id">
+          {{ nivelAcesso.nivel }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+  <mat-card-footer>
+    <mat-card-actions>
+      <button mat-flat-button class="botao-submit" color="primary">
+        Cadastrar
+      </button>
+      <button mat-button class="botao-auth">Cancelar</button>
+    </mat-card-actions>
+  </mat-card-footer>
+</mat-card>

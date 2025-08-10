@@ -20,3 +20,25 @@ html {
   margin: 0;
   padding: 0;
 }
+
+.botao-submit {
+  background-color: #0a640e !important;
+}
+
+.botao-auth {
+  background-color: rgb(156, 89, 2) !important;
+}
+
+.botao-auth,
+.botao-submit {
+  color: #ffffff !important;
+  border: none !important;
+  width: 200px !important;
+  margin: 5px;
+}
+
+mat-card-actions {
+  justify-content: flex-end;
+  display: flex;
+  gap: 8px;
+}

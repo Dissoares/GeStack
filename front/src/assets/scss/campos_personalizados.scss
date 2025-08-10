@@ -50,8 +50,17 @@
 @media (max-width: 768px) {
   .field-1,
   .field-2,
-  .field-3 {
-    grid-column: span 10;
+  .field-3,
+  .field-4,
+  .field-5,
+  .field-6,
+  .field-7,
+  .field-8,
+  .field-9,
+  .field-10,
+  .field-11,
+  .field-12 {
+    grid-column: span 12;
     margin: 0px;
     width: 100%;
   }
