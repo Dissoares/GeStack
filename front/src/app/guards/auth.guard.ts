@@ -38,11 +38,11 @@ export class AuthGuard implements CanActivate {
 
   private redirecionarBaseadoNoNivelAcesso(): void {
     if (this.authService.isAdmin()) {
-      this.router.navigate(['/dashboard/administrador-listagem']);
+      this.router.navigate(['/dashboard/administrador/listagem']);
     } else if (this.authService.isGeralLider()) {
-      this.router.navigate(['/dashboard/lideranca-listagem']);
+      this.router.navigate(['/dashboard/lideranca/listagem']);
     } else if (this.authService.isGeralMembro()) {
-      this.router.navigate(['/dashboard/membro-listagem']);
+      this.router.navigate(['/dashboard/membro/listagem']);
     } else {
       this.authService.logout();
     }
