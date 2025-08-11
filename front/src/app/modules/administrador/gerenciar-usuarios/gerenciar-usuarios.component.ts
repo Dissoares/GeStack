@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NivelAcessoEnum } from '../../../core/enums';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../../core/models';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-gerenciar-usuarios',
@@ -47,10 +48,14 @@ export class GerenciarUsuariosComponent
     'perfil',
     'dataCadastro',
     'status',
+    'acoes',
   ];
   public dadosTabela = new MatTableDataSource<Usuario>(this.listaUsuarios);
 
-  constructor(private usuarioService: UsuarioService) {
+  constructor(
+    private readonly usuarioService: UsuarioService,
+    private readonly toastrService: ToastrService
+  ) {
     super(inject(FormBuilder));
   }
 
@@ -82,10 +87,15 @@ export class GerenciarUsuariosComponent
     this.usuarioService
       .buscarPor(filtro)
       .subscribe((usuarios: Array<Usuario>) => {
-        if (usuarios) {
-          this.listaUsuarios = usuarios;
-          this.dadosTabela.data = this.listaUsuarios;
+        if (!usuarios.length) {
+          this.toastrService.warning('Busca sem resultados.', 'Informação!');
+          this.limpar();
+          return;
         }
+
+        this.listaUsuarios = usuarios;
+        this.dadosTabela.data = this.listaUsuarios;
+        this.dadosTabela.paginator = this.paginator;
       });
   }
 
@@ -93,7 +103,13 @@ export class GerenciarUsuariosComponent
     return NivelAcessoEnum.getById(id)?.nivel || '';
   }
 
+  public desativar(id: number) {
+    
+  }
+
   public limpar(): void {
+    this.listaUsuarios = [];
+    this.dadosTabela.data = [];
     this.limparFormulario();
   }
 }

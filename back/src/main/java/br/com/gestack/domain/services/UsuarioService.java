@@ -36,7 +36,8 @@ public class UsuarioService {
         return usuarioRepository.findById(idUsuario);
     }
 
-    public List<Usuario> buscarTodos() {
-        return usuarioRepository.findAll();
+    public List<Usuario> buscaPor(Usuario usuario) {
+        List<Usuario> listaUsuarios =  usuarioRepository.buscarPor(usuario);
+        return listaUsuarios;
     }
 }

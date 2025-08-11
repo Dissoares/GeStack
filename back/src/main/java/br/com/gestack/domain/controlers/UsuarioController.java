@@ -16,10 +16,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("buscarTodos")
-    @Operation(summary = "Lista todos os usuários existentes")
-    public List<Usuario> listarTodos() {
-        return usuarioService.buscarTodos();
+    @GetMapping("/buscarTodos")
+    public List<Usuario> buscarPor(Usuario usuario) {
+        return usuarioService.buscaPor(usuario);
     }
 
     @GetMapping("/{id}")
