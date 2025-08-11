@@ -45,7 +45,7 @@ public class Usuario {
     private LocalDateTime dataCadastro;
 
     @Column(nullable = false)
-    private Boolean ativo = true;
+    private Boolean status = true;
 }
 
 

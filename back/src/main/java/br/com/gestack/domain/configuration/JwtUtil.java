@@ -25,7 +25,7 @@ public class JwtUtil {
         claims.put("nome", usuario.getNome());
         claims.put("email", usuario.getEmail());
         claims.put("nivelAcesso", usuario.getNivelAcesso().getId());
-        claims.put("ativo", usuario.getAtivo());
+        claims.put("ativo", usuario.getStatus());
 
         if (usuario.getDataCadastro() != null) {
             claims.put("dataCadastro", usuario.getDataCadastro()
