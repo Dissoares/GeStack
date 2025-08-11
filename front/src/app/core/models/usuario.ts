@@ -10,7 +10,7 @@ export class Usuario {
   public nivelAcesso!: NivelAcessoEnum;
   public squad?: Squad;
   public dataCadastro?: Date | string;
-  public ativo?: boolean;
+  public status?: boolean;
 
   constructor(init?: Partial<Usuario>) {
     Object.assign(this, init);

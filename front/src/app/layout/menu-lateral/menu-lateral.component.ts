@@ -55,6 +55,11 @@ export class MenuLateralComponent implements OnInit {
           titulo: 'Gestão de Equipes',
           icone: 'groups',
         },
+        {
+          rota: 'administrador/gerenciar-usuarios',
+          titulo: 'Gestão de Usuários',
+          icone: 'groups',
+        },
       ];
     }
 

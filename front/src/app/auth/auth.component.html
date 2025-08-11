@@ -71,12 +71,12 @@
       </form>
 
       <mat-card-actions>
-        <button mat-flat-button color="primary" class="botao-submit" (click)="ehCadastro ? cadastrar() : login()">
+        <button mat-flat-button color="primary" (click)="ehCadastro ? cadastrar() : login()">
           <mat-icon>{{ ehCadastro ? "person_add" : "login" }}</mat-icon>
           {{ ehCadastro ? "Cadastrar" : "Acessar" }}
         </button>
         ||
-        <button mat-stroked-button color="accent" class="botao-auth" (click)="ehCadastro = !ehCadastro">
+        <button mat-stroked-button color="accent" (click)="ehCadastro = !ehCadastro">
           <mat-icon>{{ ehCadastro ? "login" : "person_add" }}</mat-icon>
           {{ ehCadastro ? "Acessar" : "Cadastrar" }}
         </button>

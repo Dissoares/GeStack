@@ -14,6 +14,13 @@ export const ROTAS_ADMINISTRADOR: Routes = [
       import('./../perfil/perfil.component').then((c) => c.PerfilComponent),
   },
   {
+    path: 'gerenciar-usuarios',
+    loadComponent: () =>
+      import('./gerenciar-usuarios/gerenciar-usuarios.component').then(
+        (c) => c.GerenciarUsuariosComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: 'dashboard',
     pathMatch: 'full',

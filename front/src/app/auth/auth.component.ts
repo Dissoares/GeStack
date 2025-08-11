@@ -57,7 +57,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       confirmarSenha: [null],
       nivelAcesso: [null],
       dataCadastro: [null],
-      ativo: [null],
+      status: [null],
     });
 
     if (this.ehCadastro) {
