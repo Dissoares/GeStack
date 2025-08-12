@@ -22,17 +22,20 @@ html {
 }
 
 .btn-primary {
-  width: 150px !important;
   background-color: #077187 !important;
   color: #ffffff;
-  border-radius: 4px;
 }
 
 .btn-secondary {
-  width: 150px !important;
   background: #eaeff5 !important;
   color: #005f73 !important;
   border: 1px solid #005f73 !important;
+}
+
+.btn-primary,
+.btn-secondary {
+  text-transform: uppercase !important;
+  width: 150px !important;
   border-radius: 4px;
 }
 
@@ -78,10 +81,16 @@ mat-card-actions {
   gap: 8px;
 }
 
+mat-paginator {
+  border-top: solid 1px #696969 !important;
+  background: #eaebf5 !important;
+}
+
 .mat-mdc-header-row {
   background: #005f73 !important;
   color: #ffffff !important;
   height: 40px !important;
+  text-transform: uppercase;
 }
 
 .mat-mdc-row:hover {

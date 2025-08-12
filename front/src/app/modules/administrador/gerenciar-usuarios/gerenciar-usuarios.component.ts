@@ -1,7 +1,13 @@
 import { CamposFormularioComponent } from '../../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  ViewEncapsulation,
+  Component,
+  ViewChild,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +20,6 @@ import { UsuarioService } from '../../../services';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../../core/models';
 import { ToastrService } from 'ngx-toastr';
-import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-gerenciar-usuarios',
@@ -41,9 +46,8 @@ export class GerenciarUsuariosComponent
 {
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
 
-  public listaUsuarios: Array<Usuario> = [];
-
-  public colunasTabela: string[] = [
+  public dadosTabela = new MatTableDataSource<Usuario>([]);
+  public colunasTabela: Array<string> = [
     'nome',
     'email',
     'perfil',
@@ -51,7 +55,6 @@ export class GerenciarUsuariosComponent
     'status',
     'acoes',
   ];
-  public dadosTabela = new MatTableDataSource<Usuario>(this.listaUsuarios);
 
   constructor(
     private readonly usuarioService: UsuarioService,
@@ -65,7 +68,7 @@ export class GerenciarUsuariosComponent
     this.filtrar();
   }
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.dadosTabela.paginator = this.paginator;
   }
 
@@ -85,19 +88,21 @@ export class GerenciarUsuariosComponent
   public filtrar(): void {
     const filtro: Usuario = this.formulario.getRawValue();
 
-    this.usuarioService
-      .buscarPor(filtro)
-      .subscribe((usuarios: Array<Usuario>) => {
+    this.usuarioService.buscarPor(filtro).subscribe({
+      next: (usuarios: Array<Usuario>) => {
         if (!usuarios.length) {
           this.toastrService.warning('Busca sem resultados.', 'Informação!');
           this.limpar();
           return;
         }
 
-        this.listaUsuarios = usuarios;
-        this.dadosTabela.data = this.listaUsuarios;
+        this.dadosTabela.data = usuarios;
         this.dadosTabela.paginator = this.paginator;
-      });
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar usuários:', erro);
+      },
+    });
   }
 
   public getDescricaoPerfil(id: number): string {
@@ -107,7 +112,6 @@ export class GerenciarUsuariosComponent
   public desativar(id: number) {}
 
   public limpar(): void {
-    this.listaUsuarios = [];
     this.dadosTabela.data = [];
     this.limparFormulario();
   }
