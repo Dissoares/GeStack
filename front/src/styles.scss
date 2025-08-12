@@ -21,19 +21,70 @@ html {
   padding: 0;
 }
 
+.btn-primary {
+  width: 150px !important;
+  background-color: #077187 !important;
+  color: #ffffff;
+  border-radius: 4px;
+}
+
+.btn-secondary {
+  width: 150px !important;
+  background: #eaeff5 !important;
+  color: #005f73 !important;
+  border: 1px solid #005f73 !important;
+  border-radius: 4px;
+}
+
+.mat-mdc-mini-fab.mat-warn {
+  background-color: #6f0707;
+  color: white;
+  box-shadow: none !important;
+  border-radius: 90px !important;
+}
+
+.mat-mdc-mini-fab.mat-warn:hover {
+  background-color: #be0000;
+  border-radius: 90px !important;
+}
+
+.mat-mdc-form-field.mat-form-field-appearance-outline {
+  .mat-mdc-text-field-wrapper {
+    background-color: #ffffff !important;
+  }
+}
+
+mat-card-title {
+  color: #077187 !important;
+  font-size: 30px !important;
+  font-style: bold !important;
+  margin-top: 10px !important;
+  margin-bottom: 30px !important;
+}
+
+mat-card {
+  padding: 10px !important;
+  background-color: rgba(255, 255, 255, 0) !important;
+  box-shadow: none !important;
+}
+
+table {
+  margin-top: 25px !important;
+}
+
 mat-card-actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
 }
 
-mat-card {
-  padding: 10px !important;
-  background-color: rgba(255, 255, 255, 0) !important;
-  border: none !important;
-  box-shadow: none !important;
+.mat-mdc-header-row {
+  background: #005f73 !important;
+  color: #ffffff !important;
+  height: 40px !important;
 }
 
-mat-card-header {
-  margin-bottom: 20px;
+.mat-mdc-row:hover {
+  background: #eaebf5 !important;
+  cursor: pointer;
 }

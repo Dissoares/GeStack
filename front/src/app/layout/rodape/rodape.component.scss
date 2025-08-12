@@ -3,7 +3,7 @@
 }
 
 .rodape {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: #077187;
   color: white;
   margin-top: auto;
 }
@@ -20,23 +20,19 @@
 .rodape-infomacoes {
   display: flex;
   align-items: center;
-
   .rodape-icone {
     font-size: 32px;
     color: #4caf50;
     margin-right: 5px;
   }
-
   .rodape-texto {
     display: flex;
     flex-direction: column;
-
     .titulo {
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 4px;
     }
-
     .subtitulo {
       font-size: 14px;
       color: rgba(255, 255, 255, 0.8);
@@ -54,7 +50,6 @@
   color: rgba(255, 255, 255, 0.8);
   max-width: 1200px;
   margin: 0 auto;
-
   .versao {
     background: rgba(255, 255, 255, 0.1);
     padding: 4px 12px;

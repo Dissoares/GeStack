@@ -1,20 +1,20 @@
 import { CamposFormularioComponent } from '../../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AuthService, UsuarioService } from '../../../services';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { Component, inject, OnInit } from '@angular/core';
-import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NivelAcessoEnum } from '../../../core/enums';
+import { UsuarioService } from '../../../services';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../../core/models';
 import { ToastrService } from 'ngx-toastr';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-gerenciar-usuarios',
@@ -33,6 +33,7 @@ import { ToastrService } from 'ngx-toastr';
   ],
   templateUrl: './gerenciar-usuarios.component.html',
   styleUrls: ['./gerenciar-usuarios.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class GerenciarUsuariosComponent
   extends CamposFormularioComponent
@@ -103,9 +104,7 @@ export class GerenciarUsuariosComponent
     return NivelAcessoEnum.getById(id)?.nivel || '';
   }
 
-  public desativar(id: number) {
-    
-  }
+  public desativar(id: number) {}
 
   public limpar(): void {
     this.listaUsuarios = [];

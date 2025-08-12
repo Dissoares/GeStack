@@ -9,12 +9,11 @@
   border-radius: 0px !important;
   cursor: pointer;
   &:hover {
-    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    background: linear-gradient(135deg, #fbffff 0%, #f4feff 100%);
     .barra-icones {
-      background: linear-gradient(135deg, #2196f3 0%, #9c27b0 100%);
+      background: #005f73;
       .icone {
         color: white;
-        transform: scale(1.1);
       }
     }
     .indicador {
@@ -22,19 +21,14 @@
     }
   }
   &.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    .barra-menus {
-      color: white;
-    }
+    background: #eaeff5 !important;
     .barra-icones {
-      background: rgba(255, 255, 255, 0.2);
+      background: #005f73;
       .icone {
         color: white;
       }
     }
     .indicador {
-      color: white;
       opacity: 1;
     }
   }
@@ -58,13 +52,10 @@
   align-items: center;
   justify-content: center;
   background: #f1f5f9;
-  transition: all 0.3s ease;
   margin-right: 16px;
 }
 
 .icone {
-  font-size: 20px;
-  transition: all 0.3s ease;
   color: #64748b;
 }
 
@@ -76,8 +67,5 @@
 
 .indicador {
   font-size: 18px;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.3s ease;
-  color: #94a3b8;
+  color: #005f73;
 }

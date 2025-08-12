@@ -5,33 +5,33 @@
 
   <mat-card-content>
     <form [formGroup]="formulario" class="container">
-      <mat-form-field appearance="outline" class="field-3">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Nome</mat-label>
         <input matInput formControlName="nome" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="field-3">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>E-mail</mat-label>
         <input matInput type="email" formControlName="email" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="field-3">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Data Cadastro</mat-label>
         <input matInput type="text" formControlName="dataCadastro" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="field-3">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Data Cadastro</mat-label>
         <input matInput type="text" formControlName="dataCadastro" />
       </mat-form-field>
     </form>
 
     <mat-card-actions>
-      <button mat-flat-button color="primary" (click)="filtrar()">
-        Pesquisar
+      <button class="btn-primary" mat-flat-button (click)="filtrar()">
+        <mat-icon>search</mat-icon> Pesquisar
       </button>
-      <button mat-stroked-button color="accent" (click)="limpar()">
-        Limpar
+      <button class="btn-secondary" mat-stroked-button (click)="limpar()">
+        <mat-icon>delete</mat-icon> Limpar
       </button>
     </mat-card-actions>
   </mat-card-content>
@@ -81,7 +81,7 @@
       <tr mat-row *matRowDef="let row; columns: colunasTabela"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons>
     </mat-paginator>
   </mat-card-content>
   }
