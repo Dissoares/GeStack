@@ -3,6 +3,7 @@ package br.com.gestack.domain.services;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.gestack.domain.repository.UsuarioRepository;
+import br.com.gestack.domain.dtos.ListagemUsuariosDTO;
 import br.com.gestack.domain.businnes.Usuario;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
@@ -36,8 +37,8 @@ public class UsuarioService {
         return usuarioRepository.findById(idUsuario);
     }
 
-    public List<Usuario> buscaPor(Usuario usuario) {
-        List<Usuario> listaUsuarios =  usuarioRepository.buscarPor(usuario);
+    public List<ListagemUsuariosDTO> buscaPor(Usuario usuario) {
+        List<ListagemUsuariosDTO> listaUsuarios =  usuarioRepository.buscarPor(usuario);
         return listaUsuarios;
     }
 }

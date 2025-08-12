@@ -5,24 +5,39 @@
 
   <mat-card-content>
     <form [formGroup]="formulario" class="container">
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
         <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome" />
+        <input matInput formControlName="nomeUsuario" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
         <mat-label>E-mail</mat-label>
         <input matInput type="email" formControlName="email" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
-        <mat-label>Data Cadastro</mat-label>
-        <input matInput type="text" formControlName="dataCadastro" />
+      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
+        <mat-label>Perfil</mat-label>
+        <mat-select formControlName="nivelAcesso">
+          <mat-option *ngFor="let nivelAcesso of listaNivelAcessoEnum" [value]="nivelAcesso.id">
+            {{ nivelAcesso.nivel }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Data Cadastro</mat-label>
-        <input matInput type="text" formControlName="dataCadastro" />
+        <input matInput [matDatepicker]="picker" formControlName="dataCadastro" />
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+        <mat-label>Status</mat-label>
+        <mat-select matInput type="text" formControlName="status">
+          <mat-option *ngFor="let status of listaStatusEnum" [value]="status.status">
+            {{ status.descricao }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
 
@@ -41,7 +56,7 @@
     <table mat-table [dataSource]="dadosTabela">
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef>Nome</th>
-        <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.nomeUsuario }}</td>
       </ng-container>
 
       <ng-container matColumnDef="email">
@@ -59,6 +74,21 @@
       <ng-container matColumnDef="dataCadastro">
         <th mat-header-cell *matHeaderCellDef>Data cadastro</th>
         <td mat-cell *matCellDef="let element">{{ element.dataCadastro }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lider">
+        <th mat-header-cell *matHeaderCellDef>Nome lider</th>
+        <td mat-cell *matCellDef="let element">{{ element.nomeLider }}</td>
+      </ng-container>
+      <ng-container matColumnDef="perfilLider">
+        <th mat-header-cell *matHeaderCellDef>Perfil Lider</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getDescricaoPerfil(element.perfilLider) }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="squad">
+        <th mat-header-cell *matHeaderCellDef>Squads</th>
+        <td mat-cell *matCellDef="let element">{{ element.nomeSquad }}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">

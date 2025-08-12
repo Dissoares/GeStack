@@ -2,7 +2,7 @@ export class NivelAcessoEnum {
   public static readonly ADMIN = new NivelAcessoEnum(1, 'ADMINISTRADOR');
   public static readonly LIDER_DESENVOLVIMENTO = new NivelAcessoEnum(
     2,
-    'LÍDER DE DESENVOLVIMENTO'
+    'LÍDER DESENV.'
   );
   public static readonly LIDER_NEGOCIO = new NivelAcessoEnum(
     3,

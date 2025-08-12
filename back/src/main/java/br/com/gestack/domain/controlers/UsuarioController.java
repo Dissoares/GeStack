@@ -1,6 +1,7 @@
 package br.com.gestack.domain.controlers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import br.com.gestack.domain.dtos.ListagemUsuariosDTO;
 import br.com.gestack.domain.services.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,7 +18,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/buscarTodos")
-    public List<Usuario> buscarPor(Usuario usuario) {
+    public List<ListagemUsuariosDTO> buscarPor(Usuario usuario) {
         return usuarioService.buscaPor(usuario);
     }
 

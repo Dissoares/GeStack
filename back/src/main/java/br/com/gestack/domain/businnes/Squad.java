@@ -1,7 +1,8 @@
 package br.com.gestack.domain.businnes;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
@@ -14,6 +15,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idSquad")
 @Table(name = "squad")
 public class Squad {
 
@@ -30,7 +32,6 @@ public class Squad {
     private Usuario lider;
 
     @OneToMany(mappedBy = "squad")
-    @JsonManagedReference
     private List<Usuario> membros;
 
     @Column(nullable = false)

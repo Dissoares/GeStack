@@ -8,33 +8,34 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NivelAcessoEnum, StatusEnum } from '../../../core/enums';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { NivelAcessoEnum } from '../../../core/enums';
 import { UsuarioService } from '../../../services';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../../core/models';
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
   selector: 'app-gerenciar-usuarios',
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    MatDatepickerModule,
     MatFormFieldModule,
+    MatPaginatorModule,
     MatButtonModule,
     MatSelectModule,
+    MatTableModule,
     MatInputModule,
     MatCardModule,
     MatIconModule,
     CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
   ],
   templateUrl: './gerenciar-usuarios.component.html',
   styleUrls: ['./gerenciar-usuarios.component.scss'],
@@ -46,6 +47,9 @@ export class GerenciarUsuariosComponent
 {
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
 
+  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
+    NivelAcessoEnum.getAll();
+  public listaStatusEnum: Array<StatusEnum> = StatusEnum.getAll();
   public dadosTabela = new MatTableDataSource<Usuario>([]);
   public colunasTabela: Array<string> = [
     'nome',
@@ -53,6 +57,9 @@ export class GerenciarUsuariosComponent
     'perfil',
     'dataCadastro',
     'status',
+    'lider',
+    'perfilLider',
+    'squad',
     'acoes',
   ];
 
@@ -75,13 +82,16 @@ export class GerenciarUsuariosComponent
   private criarFormulario(): void {
     this.formulario = this.fb.group({
       idUsuario: [null],
-      nome: [null],
+      nomeUsuario: [null],
       email: [null],
       senha: [null],
       confirmarSenha: [null],
       nivelAcesso: [null],
       dataCadastro: [null],
       status: [null],
+      nomeLider: [null],
+      perfilLider: [null],
+      nomeSquad: [null],
     });
   }
 

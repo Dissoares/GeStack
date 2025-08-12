@@ -1,6 +1,8 @@
 package br.com.gestack.domain.businnes;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import br.com.gestack.domain.utils.NivelAcessoConverter;
 import br.com.gestack.domain.enums.NivelAcessoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -15,6 +17,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUsuario")
 @Table(name = "usuario")
 public class Usuario {
 
@@ -35,9 +38,8 @@ public class Usuario {
     @Column(name = "nivel_acesso", nullable = false)
     private NivelAcessoEnum nivelAcesso;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "squad_fk")
-    @JsonBackReference
     private Squad squad;
 
     @Column(nullable = false)

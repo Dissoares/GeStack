@@ -1,6 +1,7 @@
 import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
+  importProvidersFrom,
   ApplicationConfig,
 } from '@angular/core';
 import {
@@ -9,8 +10,11 @@ import {
   provideHttpClient,
 } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideRouter, withRouterConfig } from '@angular/router';
+import { MatNativeDateModule } from '@angular/material/core';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 
@@ -30,5 +34,7 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    importProvidersFrom(MatDatepickerModule, MatNativeDateModule),
   ],
 };
