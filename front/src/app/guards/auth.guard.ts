@@ -11,31 +11,36 @@ export class AuthGuard implements CanActivate {
     const permissoesAcesso = route.data['permissoes'] as Array<number>;
     const rotaLogin = route.routeConfig?.path === 'auth';
 
-       
+    const token = localStorage.getItem('token');
+    if (token && this.authService.isTokenExpirado(token)) {
+      console.warn('Token expirado detectado pelo AuthGuard.');
+      this.authService.logout();
+      return new Observable<boolean>((observer) => {
+        observer.next(false);
+        observer.complete();
+      });
+    }
+
     return this.authService.usuarioLogado$.pipe(
       take(1),
       map((usuario) => {
         if (rotaLogin && usuario) {
-           console.log("rotaLogin && usuario", rotaLogin)
           this.redirecionarBaseadoNoNivelAcesso();
           return false;
         }
 
         if (!usuario && permissoesAcesso) {
-           console.log("permissoesAcesso", rotaLogin)
           this.authService.logout();
           return false;
         }
 
         if (usuario && permissoesAcesso) {
-           console.log("usuario e permissoesAcesso", rotaLogin)
           if (permissoesAcesso.includes(usuario.nivelAcesso)) {
             return true;
           }
           this.redirecionarBaseadoNoNivelAcesso();
           return false;
         }
-         console.log("eslse", rotaLogin)
         return true;
       })
     );

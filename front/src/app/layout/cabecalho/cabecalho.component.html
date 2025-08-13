@@ -10,6 +10,10 @@
 
   <span class="spaco-menu"></span>
 
+  <div *ngIf="tempoRestante" class="contador-token">
+    Expira em: {{ tempoRestante }}
+  </div>
+
   <div class="usuario-container">
     <button
       mat-button

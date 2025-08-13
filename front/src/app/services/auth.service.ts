@@ -49,6 +49,11 @@ export class AuthService {
       return;
     }
     try {
+      if (this.isTokenExpirado(token)) {
+        console.warn('Token expirado. Fazendo logout.');
+        this.removerAcesso();
+        return;
+      }
       const usuario = this.decodificarToken(token);
       this.setUsuarioLogado(usuario);
     } catch (error) {
@@ -58,12 +63,27 @@ export class AuthService {
 
   private processarToken(token: string): void {
     try {
+      if (this.isTokenExpirado(token)) {
+        console.warn('Token recebido já está expirado.');
+        throw new Error('Token expirado');
+      }
       localStorage.setItem(this.LOCAL_STORAGE.TOKEN, token);
       const usuario = this.decodificarToken(token);
       this.setUsuarioLogado(usuario);
     } catch (error) {
       console.error('Erro ao processar token:', error);
       throw error;
+    }
+  }
+
+  public isTokenExpirado(token: string): boolean {
+    try {
+      const decoded: any = jwtDecode(token);
+      if (!decoded.exp) return true;
+      const expMs = decoded.exp * 1000;
+      return Date.now() > expMs;
+    } catch (e) {
+      return true;
     }
   }
 
