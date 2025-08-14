@@ -37,12 +37,16 @@ public class Usuario {
     @JsonBackReference
     private Squad squad;
 
-    @Column(name = "E_LIDER", nullable = false)
+    @Column(name = "EH_LIDER", nullable = false)
     private Boolean isLider = false;
 
     @Column(name = "DATA_CADASTRO", nullable = false)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCadastro;
+
+    @Column(name = "DATA_MODIFICACAO", nullable = true)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime dataModificacao;
 
     @Column(name = "STATUS", nullable = false)
     private Boolean status = true;

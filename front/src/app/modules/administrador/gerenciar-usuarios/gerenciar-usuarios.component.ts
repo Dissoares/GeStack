@@ -56,10 +56,9 @@ export class GerenciarUsuariosComponent
     'email',
     'perfil',
     'dataCadastro',
-    'status',
+    'squad',
     'lider',
     'perfilLider',
-    'squad',
     'acoes',
   ];
 

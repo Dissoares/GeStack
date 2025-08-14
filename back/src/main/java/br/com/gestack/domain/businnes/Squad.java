@@ -2,8 +2,11 @@ package br.com.gestack.domain.businnes;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.*;
 
 @Setter
@@ -26,6 +29,14 @@ public class Squad {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LIDER_FK", referencedColumnName = "ID_USUARIO", nullable = false, unique = true)
     private Usuario lider;
+
+    @Column(name = "DATA_CADASTRO", nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime dataCadastro;
+
+    @Column(name = "DATA_MODIFICACAO", nullable = true)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime dataModificacao;
 
     @Column(name = "ATIVO", nullable = false)
     private Boolean status = true;
