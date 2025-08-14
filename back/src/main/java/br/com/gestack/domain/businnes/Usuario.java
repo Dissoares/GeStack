@@ -33,7 +33,7 @@ public class Usuario {
     private NivelAcessoEnum nivelAcesso;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SQUAD_FK")
+    @JoinColumn(name = "SQUAD_FK", nullable = true)
     @JsonBackReference
     private Squad squad;
 
@@ -47,5 +47,3 @@ public class Usuario {
     @Column(name = "STATUS", nullable = false)
     private Boolean status = true;
 }
-
-

@@ -19,7 +19,7 @@ public class Squad {
     @Column(name = "SQUAD_NOME", unique = true, nullable = false, length = 100)
     private String nome;
 
-    @OneToMany(mappedBy = "squad", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "squad", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Usuario> membros = new ArrayList<>();
 
