@@ -1,10 +1,10 @@
 package br.com.gestack.domain.businnes;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.*;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.*;
 
 @Setter
 @Getter
@@ -23,8 +23,8 @@ public class Squad {
     @JsonManagedReference
     private List<Usuario> membros = new ArrayList<>();
 
-    @JoinColumn(name = "LIDER_FK", nullable = true)
-    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LIDER_FK", referencedColumnName = "ID_USUARIO", nullable = false, unique = true)
     private Usuario lider;
 
     @Column(name = "ATIVO", nullable = false)

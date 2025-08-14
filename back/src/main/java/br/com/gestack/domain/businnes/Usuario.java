@@ -46,7 +46,6 @@ public class Usuario {
 
     @Column(name = "STATUS", nullable = false)
     private Boolean status = true;
-
 }
 
 
