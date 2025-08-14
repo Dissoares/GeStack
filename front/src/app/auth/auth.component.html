@@ -1,62 +1,39 @@
-<div class="container">
-  <div class="formulario">
+<div class="auth-container">
+  <div class="auth-form">
     <mat-card>
       <mat-card-header>
         <mat-card-title>
-          <mat-icon> {{ ehCadastro ? "person_add" : "login" }} </mat-icon>
-          <mat-card-subtitle>{{
-            ehCadastro ? "Cadastro" : "Login"
-            }}</mat-card-subtitle>
+          <mat-icon>{{ ehCadastro ? "person_add" : "login" }}</mat-icon>
+          {{ ehCadastro ? "Cadastro" : "Login" }}
         </mat-card-title>
       </mat-card-header>
 
       <form [formGroup]="formulario">
-        <mat-form-field appearance="fill" *ngIf="ehCadastro">
+        <mat-form-field appearance="outline" floatLabel="always" class="field-4" *ngIf="ehCadastro">
           <mat-label>Nome</mat-label>
           <mat-icon matPrefix>badge</mat-icon>
           <input matInput formControlName="nome" />
-          <mat-error *ngIf="formulario.get('nome')?.hasError('required')">
-            Nome é obrigatório
-          </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline" floatLabel="always" class="field-4">
           <mat-label>E-mail</mat-label>
           <mat-icon matPrefix>alternate_email</mat-icon>
           <input matInput type="email" formControlName="email" />
-          <mat-error *ngIf="formulario.get('email')?.hasError('required')">
-            E-mail é obrigatório
-          </mat-error>
-          <mat-error *ngIf="formulario.get('email')?.hasError('email')">
-            Por favor, insira um e-mail válido
-          </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline" floatLabel="always" class="field-4">
           <mat-label>Senha</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
           <input matInput type="password" formControlName="senha" />
-          <mat-error *ngIf="formulario.get('senha')?.hasError('required')">
-            Senha é obrigatória
-          </mat-error>
-          <mat-error *ngIf="formulario.get('senha')?.hasError('minlength')">
-            Senha deve ter no mínimo 6 caracteres
-          </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" *ngIf="ehCadastro">
+        <mat-form-field appearance="outline" floatLabel="always" class="field-4" *ngIf="ehCadastro">
           <mat-label>Confirmar Senha</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
           <input matInput type="password" formControlName="confirmarSenha" />
-          <mat-error *ngIf="formulario.get('confirmarSenha')?.hasError('required')">
-            Confirmação de senha é obrigatória
-          </mat-error>
-          <mat-error *ngIf="formulario.hasError('senhasNaoConferem')">
-            As senhas não coincidem
-          </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" *ngIf="ehCadastro">
+        <mat-form-field appearance="outline" floatLabel="always" class="field-4" *ngIf="ehCadastro">
           <mat-label>Perfil</mat-label>
           <mat-icon matPrefix>person</mat-icon>
           <mat-select formControlName="nivelAcesso">
@@ -64,19 +41,15 @@
               {{ nivelAcesso.nivel }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="formulario.get('nivelAcesso')?.hasError('required')">
-            Permissão é obrigatória
-          </mat-error>
         </mat-form-field>
       </form>
 
-      <mat-card-actions>
-        <button mat-flat-button color="primary" (click)="ehCadastro ? cadastrar() : login()">
+      <mat-card-actions style="display: flex; align-self: center">
+        <button mat-flat-button class="btn-primary" (click)="ehCadastro ? cadastrar() : login()" [disabled]="formulario.invalid">
           <mat-icon>{{ ehCadastro ? "person_add" : "login" }}</mat-icon>
           {{ ehCadastro ? "Cadastrar" : "Acessar" }}
         </button>
-        ||
-        <button mat-stroked-button color="accent" (click)="ehCadastro = !ehCadastro">
+        <button mat-stroked-button class="btn-secondary" (click)="ehCadastro = !ehCadastro">
           <mat-icon>{{ ehCadastro ? "login" : "person_add" }}</mat-icon>
           {{ ehCadastro ? "Acessar" : "Cadastrar" }}
         </button>
@@ -84,5 +57,5 @@
     </mat-card>
   </div>
 
-  <div class="banner"></div>
+  <div class="auth-image"></div>
 </div>
