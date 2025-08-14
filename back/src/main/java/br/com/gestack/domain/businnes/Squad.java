@@ -1,39 +1,32 @@
 package br.com.gestack.domain.businnes;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import lombok.Builder;
-import lombok.Data; 
 
+@Setter
+@Getter
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idSquad")
-@Table(name = "squad")
+@Table(schema = "PUBLIC", name = "SQUAD")
 public class Squad {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_SQUAD")
     private Long idSquad;
 
-    @Column(nullable = false)
+    @Column(name = "SQUAD_NOME", unique = true, nullable = false, length = 100)
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "lider_fk")
-    @JsonIgnore
+    @OneToMany(mappedBy = "squad", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Usuario> membros = new ArrayList<>();
+
+    @JoinColumn(name = "LIDER_FK", nullable = true)
+    @JsonBackReference
     private Usuario lider;
 
-    @OneToMany(mappedBy = "squad")
-    private List<Usuario> membros;
-
-    @Column(nullable = false)
-    private Boolean ativo = true;
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean status = true;
 }

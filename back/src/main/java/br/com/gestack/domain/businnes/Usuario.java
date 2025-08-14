@@ -1,53 +1,52 @@
 package br.com.gestack.domain.businnes;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import br.com.gestack.domain.utils.NivelAcessoConverter;
 import br.com.gestack.domain.enums.NivelAcessoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import java.time.LocalDate;
 import lombok.*;
 
+@Setter
+@Getter
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUsuario")
-@Table(name = "usuario")
+@Table(schema = "PUBLIC", name = "USUARIO")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_USUARIO")
     private Long idUsuario;
 
-    @Column(nullable = false)
+    @Column(name = "NOME", nullable = false, length = 250)
     private String nome;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "EMAIL", unique = true, nullable = false, length = 250)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "SENHA", nullable = false, length = 250)
     private String senha;
 
     @Convert(converter = NivelAcessoConverter.class)
-    @Column(name = "nivel_acesso", nullable = false)
+    @Column(name = "NIVEL_ACESSO", nullable = false)
     private NivelAcessoEnum nivelAcesso;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "squad_fk")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SQUAD_FK")
+    @JsonBackReference
     private Squad squad;
 
-    @Column(nullable = false)
+    @Column(name = "E_LIDER", nullable = false)
+    private Boolean isLider = false;
+
+    @Column(name = "DATA_CADASTRO", nullable = false)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCadastro;
 
-    @Column(nullable = false)
+    @Column(name = "STATUS", nullable = false)
     private Boolean status = true;
+
 }
 
 
