@@ -9,6 +9,7 @@ export class Usuario {
   public confirmarSenha?: string;
   public nivelAcesso!: NivelAcessoEnum;
   public squad?: Squad;
+  public ehLider!: boolean;
   public dataCadastro?: Date | string;
   public status?: boolean;
 

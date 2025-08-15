@@ -13,6 +13,7 @@ export class NivelAcessoEnum {
     'DESENVOLVEDOR'
   );
   public static readonly ANALISTA = new NivelAcessoEnum(5, 'ANALISTA');
+  public static readonly AREA = new NivelAcessoEnum(6, 'AREA');
 
   private constructor(
     public readonly id: number,
