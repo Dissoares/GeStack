@@ -60,6 +60,16 @@ export class MenuLateralComponent implements OnInit {
           titulo: 'Gestão de Usuários',
           icone: 'groups',
         },
+        {
+          rota: 'atividade/criar',
+          titulo: 'Criar Atividade',
+          icone: 'add_box',
+        },
+        {
+          rota: 'sistema/cadastrar',
+          titulo: 'Cadastrar Sistema',
+          icone: 'list_alt_add',
+        },
       ];
     }
 

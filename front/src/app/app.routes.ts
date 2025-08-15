@@ -54,6 +54,36 @@ export const routes: Routes = [
         },
       },
       {
+        path: 'atividade',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./modules/atividade/atividade.routing').then(
+            (m) => m.ROTAS_ATIVIDADE
+          ),
+        data: {
+          permissoes: [
+            NivelAcessoEnum.DESENVOLVEDOR.id,
+            NivelAcessoEnum.ANALISTA.id,
+            NivelAcessoEnum.ADMIN.id,
+          ],
+        },
+      },
+      {
+        path: 'sistema',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./modules/sistemas/sistemas.routing').then(
+            (m) => m.ROTAS_SISTEMA
+          ),
+        data: {
+          permissoes: [
+            NivelAcessoEnum.DESENVOLVEDOR.id,
+            NivelAcessoEnum.ANALISTA.id,
+            NivelAcessoEnum.ADMIN.id,
+          ],
+        },
+      },
+      {
         path: '**',
         redirectTo: '/auth',
         pathMatch: 'full',
