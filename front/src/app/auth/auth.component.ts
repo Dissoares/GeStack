@@ -46,6 +46,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
 
   public ngOnInit(): void {
     this.criarFormulario();
+    this.verificarSeEhNivelLider();
   }
 
   private criarFormulario(): void {
@@ -58,13 +59,30 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       nivelAcesso: [null],
       dataCadastro: [null],
       status: [null],
+      ehLider: [null],
     });
 
     if (this.ehCadastro) {
       this.formulario.get('nome')?.addValidators(Validators.required);
       this.formulario.get('confirmarSenha')?.addValidators(Validators.required);
       this.formulario.get('nivelAcesso')?.addValidators(Validators.required);
+      this.formulario.get('ehLider')?.addValidators(Validators.required);
     }
+  }
+
+  public verificarSeEhNivelLider(): void {
+    this.formulario
+      .get('nivelAcesso')
+      ?.valueChanges.subscribe((nivelAcesso: number) => {
+        if (
+          nivelAcesso === NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id ||
+          nivelAcesso === NivelAcessoEnum.LIDER_NEGOCIO.id
+        ) {
+          this.formulario.get('ehLider')?.setValue(true);
+        } else {
+          this.formulario.get('ehLider')?.setValue(false);
+        }
+      });
   }
 
   public cadastrar(): void {
