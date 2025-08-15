@@ -1,11 +1,10 @@
 package br.com.gestack.domain.businnes;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
-
+import lombok.Getter;
+import lombok.Setter;
 @Setter
 @Getter
 @Entity
@@ -46,4 +45,3 @@ public class Sistema {
     @OneToMany(mappedBy = "sistema", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Atividade> atividades = new ArrayList<>();
 }
-

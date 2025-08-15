@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.*;
-
 @Setter
 @Getter
 @Entity
@@ -34,7 +33,7 @@ public class Squad {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCadastro;
 
-    @Column(name = "DATA_MODIFICACAO", nullable = true)
+    @Column(name = "DATA_MODIFICACAO")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataModificacao;
 

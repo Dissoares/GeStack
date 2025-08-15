@@ -1,15 +1,14 @@
 package br.com.gestack.domain.businnes;
 
 import br.com.gestack.domain.enums.StatusTarefaEnum;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
+import lombok.Getter;
+import lombok.Setter;
 
 @Setter
 @Getter
@@ -44,15 +43,15 @@ public class Atividade {
     private Usuario responsavel;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ANALISTA_FK", nullable = true)
+    @JoinColumn(name = "ANALISTA_FK")
     private Usuario analistaResponsavel;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LIDER_FK", nullable = true)
+    @JoinColumn(name = "LIDER_FK")
     private Usuario lider;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SPRINT_FK", nullable = true)
+    @JoinColumn(name = "SPRINT_FK")
     private Sprint sprint;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,11 +59,11 @@ public class Atividade {
     private Sistema sistema;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SOLICITANTE_FK", nullable = true)
+    @JoinColumn(name = "SOLICITANTE_FK")
     private Usuario solicitante;
 
     @Column(name = "TIPO_DEMANDA", length = 50)
-    private String demanda; // melhoria, correção, criação, etc.
+    private String demanda;
 
     @Column(name = "PRIORIDADE", length = 20)
     private String prioridade;
@@ -76,7 +75,7 @@ public class Atividade {
     private Integer pontosReais;
 
     @Column(name = "TEMPO_ESTIMADO")
-    private Integer tempoEstimado; // em horas ou dias, como definido
+    private Integer tempoEstimado;
 
     @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
@@ -90,6 +89,6 @@ public class Atividade {
     @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Anexo> anexos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<RegistroAtividade> registrosAtividades = new ArrayList<>();
 }

@@ -1,9 +1,9 @@
 package br.com.gestack.domain.businnes;
 
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -16,16 +16,16 @@ public class Comentario {
     @Column(name = "ID_COMENTARIO")
     private Long idComentario;
 
+    @Column(name = "COMENTARIO", length = 1000)
+    private String comentario;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TAREFA_FK", nullable = false)
-    private Atividade tarefa;
+    @JoinColumn(name = "ATIVIDADE_FK", nullable = false)
+    private Atividade atividade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USUARIO_FK", nullable = false)
     private Usuario autor;
-
-    @Column(name = "COMENTARIO", nullable = false, columnDefinition = "TEXT")
-    private String comentario;
 
     @Column(name = "DATA_COMENTARIO", nullable = false)
     private LocalDateTime dataComentario = LocalDateTime.now();

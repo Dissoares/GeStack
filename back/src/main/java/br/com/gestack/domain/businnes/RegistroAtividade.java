@@ -1,9 +1,9 @@
 package br.com.gestack.domain.businnes;
 
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -22,6 +22,10 @@ public class RegistroAtividade {
 
     @Column(name = "ACAO", nullable = false, length = 255)
     private String acao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ATIVIDADE_FK", nullable = false)
+    private Atividade atividade;
 
     @Column(name = "DATA_ACAO", nullable = false)
     private LocalDateTime dataAcao = LocalDateTime.now();

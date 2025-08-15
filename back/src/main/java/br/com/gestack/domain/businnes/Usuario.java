@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
-
 @Setter
 @Getter
 @Entity
@@ -33,7 +32,7 @@ public class Usuario {
     private NivelAcessoEnum nivelAcesso;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SQUAD_FK", nullable = true)
+    @JoinColumn(name = "SQUAD_FK")
     @JsonBackReference
     private Squad squad;
 
@@ -44,7 +43,7 @@ public class Usuario {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCadastro;
 
-    @Column(name = "DATA_MODIFICACAO", nullable = true)
+    @Column(name = "DATA_MODIFICACAO")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataModificacao;
 
