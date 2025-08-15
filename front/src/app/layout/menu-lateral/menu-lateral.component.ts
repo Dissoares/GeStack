@@ -63,12 +63,12 @@ export class MenuLateralComponent implements OnInit {
         {
           rota: 'atividade/criar',
           titulo: 'Criar Atividade',
-          icone: 'add_box',
+          icone: 'add',
         },
         {
           rota: 'sistema/cadastrar',
           titulo: 'Cadastrar Sistema',
-          icone: 'list_alt_add',
+          icone: 'add_to_queue',
         },
       ];
     }
