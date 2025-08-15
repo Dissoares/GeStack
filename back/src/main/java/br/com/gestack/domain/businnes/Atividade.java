@@ -1,0 +1,95 @@
+package br.com.gestack.domain.businnes;
+
+import br.com.gestack.domain.enums.StatusTarefaEnum;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+
+@Setter
+@Getter
+@Entity
+@Table(schema = "GESQUAD", name = "TAREFA")
+public class Atividade {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TAREFA")
+    private Long idTarefa;
+
+    @Column(name = "TITULO", nullable = false, length = 200)
+    private String titulo;
+
+    @Column(name = "DESCRICAO", columnDefinition = "TEXT")
+    private String descricao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS", nullable = false, length = 20)
+    private StatusTarefaEnum status;
+
+    @Column(name = "PRAZO")
+    private LocalDate prazo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SQUAD_FK", nullable = false)
+    private Squad squad;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "RESPONSAVEL_FK", nullable = false)
+    private Usuario responsavel;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ANALISTA_FK", nullable = true)
+    private Usuario analistaResponsavel;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LIDER_FK", nullable = true)
+    private Usuario lider;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SPRINT_FK", nullable = true)
+    private Sprint sprint;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SISTEMA_FK", nullable = false)
+    private Sistema sistema;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SOLICITANTE_FK", nullable = true)
+    private Usuario solicitante;
+
+    @Column(name = "TIPO_DEMANDA", length = 50)
+    private String demanda; // melhoria, correção, criação, etc.
+
+    @Column(name = "PRIORIDADE", length = 20)
+    private String prioridade;
+
+    @Column(name = "PONTOS_ESTIMADOS")
+    private Integer pontosEstimados;
+
+    @Column(name = "PONTOS_REAIS")
+    private Integer pontosReais;
+
+    @Column(name = "TEMPO_ESTIMADO")
+    private Integer tempoEstimado; // em horas ou dias, como definido
+
+    @Column(name = "DATA_CRIACAO")
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "DATA_CONCLUSAO")
+    private LocalDateTime dataConclusao;
+
+    @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Anexo> anexos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RegistroAtividade> registrosAtividades = new ArrayList<>();
+}

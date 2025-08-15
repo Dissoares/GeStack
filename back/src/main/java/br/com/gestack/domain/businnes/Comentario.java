@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
-@Table(schema = "PUBLIC", name = "COMENTARIO_TAREFA")
+@Table(schema = "GESQUAD", name = "COMENTARIO_TAREFA")
 public class Comentario {
 
     @Id
@@ -18,7 +18,7 @@ public class Comentario {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TAREFA_FK", nullable = false)
-    private Tarefa tarefa;
+    private Atividade tarefa;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USUARIO_FK", nullable = false)

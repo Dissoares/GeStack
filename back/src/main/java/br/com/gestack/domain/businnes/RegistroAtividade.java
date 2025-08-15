@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
-@Table(schema = "PUBLIC", name = "REGISTRO_ATIVIDADE")
+@Table(schema = "GESQUAD", name = "REGISTRO_ATIVIDADE")
 public class RegistroAtividade {
 
     @Id

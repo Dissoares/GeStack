@@ -11,7 +11,7 @@ import lombok.*;
 @Setter
 @Getter
 @Entity
-@Table(schema = "PUBLIC", name = "USUARIO")
+@Table(schema = "GESQUAD", name = "USUARIO")
 public class Usuario {
 
     @Id
@@ -38,7 +38,7 @@ public class Usuario {
     private Squad squad;
 
     @Column(name = "EH_LIDER", nullable = false)
-    private Boolean isLider = false;
+    private Boolean ehLider;
 
     @Column(name = "DATA_CADASTRO", nullable = false)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
