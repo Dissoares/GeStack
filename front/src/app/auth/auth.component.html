@@ -8,7 +8,7 @@
         </mat-card-title>
       </mat-card-header>
 
-      <form [formGroup]="formulario">
+      <form [formGroup]="formulario" (ngSubmit)="ehCadastro ? cadastrar() : login()">
         <mat-form-field appearance="outline" floatLabel="always" class="field-4" *ngIf="ehCadastro">
           <mat-label>Nome</mat-label>
           <mat-icon matPrefix>badge</mat-icon>
@@ -42,18 +42,20 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </form>
 
-      <mat-card-actions style="display: flex; align-self: center">
-        <button mat-flat-button class="btn-primary" (click)="ehCadastro ? cadastrar() : login()" [disabled]="formulario.invalid">
-          <mat-icon>{{ ehCadastro ? "person_add" : "login" }}</mat-icon>
-          {{ ehCadastro ? "Cadastrar" : "Acessar" }}
-        </button>
-        <button mat-stroked-button class="btn-secondary" (click)="ehCadastro = !ehCadastro">
-          <mat-icon>{{ ehCadastro ? "login" : "person_add" }}</mat-icon>
-          {{ ehCadastro ? "Acessar" : "Cadastrar" }}
-        </button>
-      </mat-card-actions>
+        <mat-card-actions style="display: flex; align-self: center">
+          <button type="submit" mat-flat-button class="btn-primary" [disabled]="formulario.invalid">
+            <mat-icon>{{ ehCadastro ? "person_add" : "login" }}</mat-icon>
+            {{ ehCadastro ? "Cadastrar" : "Acessar" }}
+          </button>
+
+          <button type="button" mat-stroked-button class="btn-secondary" (click)="ehCadastro = !ehCadastro">
+            <mat-icon>{{ ehCadastro ? "login" : "person_add" }}</mat-icon>
+            {{ ehCadastro ? "Acessar" : "Cadastrar" }}
+          </button>
+        </mat-card-actions>
+        
+      </form>
     </mat-card>
   </div>
 
