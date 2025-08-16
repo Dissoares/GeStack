@@ -7,16 +7,16 @@
     <form [formGroup]="formulario" class="container">
       <mat-form-field appearance="outline" floatLabel="always" class="field-12">
         <mat-label>Título da Atividade</mat-label>
-        <input matInput type="text" formControlName="tituloAtividade" />
+        <input matInput type="text" formControlName="titulo" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-12">
         <mat-label>Descrição</mat-label>
-        <textarea matInput formControlName="descricaoAtividade" maxlength="1200"
+        <textarea matInput formControlName="descricao" maxlength="1200"
           rows="8">
         </textarea>
         <mat-hint align="end">
-          {{ formulario.get("descricaoAtividade")?.value?.length || 0 }} / 1200
+          {{ formulario.get("descricao")?.value?.length || 0 }} / 1200
         </mat-hint>
       </mat-form-field>
     </form>
