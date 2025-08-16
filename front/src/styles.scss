@@ -21,22 +21,31 @@ html {
   padding: 0;
 }
 
-// .btn-primary {
-//   background-color: #077187 !important;
-//   color: #ffffff;
-// }
+.btn-primary {
+  text-transform: uppercase !important;
+  min-width: 150px !important;
+  border-radius: 10px !important;
+  background-color: #077187 !important;
+  color: #ffffff;
+}
 
-// .btn-secondary {
-//   background: #eaeff5 !important;
-//   color: #005f73 !important;
-//   border: 1px solid #005f73 !important;
-// }
-
-.btn-primary,
 .btn-secondary {
   text-transform: uppercase !important;
-  width: 150px !important;
-  border-radius: 4px;
+  min-width: 150px !important;
+  border-radius: 10px !important;
+  background: #eaeff5 !important;
+  color: #005f73 !important;
+  border: 1px solid #005f73 !important;
+}
+
+.mat-mdc-unelevated-button[disabled],
+.mat-mdc-unelevated-button.mat-mdc-button-disabled {
+  text-transform: uppercase !important;
+  min-width: 150px !important;
+  border-radius: 10px !important;
+  background-color: #d6d8dc !important;
+  color: #8a8d91 !important;
+  border: 1px solid #bfc2c7 !important;
 }
 
 .mat-mdc-mini-fab.mat-warn {
@@ -96,4 +105,11 @@ mat-paginator {
 .mat-mdc-row:hover {
   background: #eaebf5 !important;
   cursor: pointer;
+}
+
+.fundo-modal {
+  background: rgba(0, 0, 0, 0.779) !important;
+  transition: all 1s ease !important;
+  backdrop-filter: blur(2px) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
 }
