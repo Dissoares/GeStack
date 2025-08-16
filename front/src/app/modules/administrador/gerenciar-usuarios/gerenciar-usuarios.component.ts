@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { UsuarioService } from '../../../services';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../../core/models';
 import { ToastrService } from 'ngx-toastr';
@@ -64,14 +65,24 @@ export class GerenciarUsuariosComponent
 
   constructor(
     private readonly usuarioService: UsuarioService,
-    private readonly toastrService: ToastrService
+    private readonly toastrService: ToastrService,
+    private readonly route: ActivatedRoute
   ) {
     super(inject(FormBuilder));
   }
 
   public ngOnInit(): void {
     this.criarFormulario();
-    this.filtrar();
+    this.iniciarListagem();
+  }
+
+  public iniciarListagem(): void {
+    const usuarios = this.route.snapshot.data['usuarios'] as Array<Usuario>;
+
+    this.dadosTabela.data = usuarios;
+    if (!usuarios.length) {
+      this.toastrService.warning('Nenhum usuário encontrado.', 'Informação!');
+    }
   }
 
   public ngAfterViewInit(): void {

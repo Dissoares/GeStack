@@ -1,3 +1,4 @@
+import { GerenciarUsuariosResolver } from '../../resolvers';
 import { Routes } from '@angular/router';
 
 export const ROTAS_ADMINISTRADOR: Routes = [
@@ -15,6 +16,9 @@ export const ROTAS_ADMINISTRADOR: Routes = [
   },
   {
     path: 'gerenciar-usuarios',
+    resolve: {
+      usuarios: GerenciarUsuariosResolver,
+    },
     loadComponent: () =>
       import('./gerenciar-usuarios/gerenciar-usuarios.component').then(
         (c) => c.GerenciarUsuariosComponent
