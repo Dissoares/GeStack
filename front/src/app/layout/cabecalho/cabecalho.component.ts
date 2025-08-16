@@ -4,12 +4,15 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  inject,
 } from '@angular/core';
 import { UsuarioToken } from '../../core/interfaces/usuario-token';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ModalAcessoExpiradoComponent } from '../../dialogs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
 import { NivelAcessoEnum } from '../../core/enums';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services';
@@ -35,6 +38,7 @@ export class CabecalhoComponent implements OnInit, OnDestroy {
   public usuarioLogado?: UsuarioToken | null;
   public tempoRestante: string = '';
   private intervalo?: any;
+  readonly dialog = inject(MatDialog);
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -111,7 +115,8 @@ export class CabecalhoComponent implements OnInit, OnDestroy {
 
         if (diff <= 0) {
           this.tempoRestante = 'Expirado';
-          this.authService.logout();
+          this.pararContador();
+          this.abrirModaAcesso();
           return;
         }
 
@@ -133,5 +138,20 @@ export class CabecalhoComponent implements OnInit, OnDestroy {
     if (!this.tempoRestante) return false;
     const minutos = Number(this.tempoRestante.split(':')[1] ?? 0);
     return minutos < 3;
+  }
+
+  public abrirModaAcesso(): void {
+    const dialogRef = this.dialog.open(ModalAcessoExpiradoComponent, {
+      width: '420px',
+      maxWidth: '90vw',
+      disableClose: true,
+      backdropClass: 'fundo-modal',
+    });
+
+    dialogRef.afterClosed().subscribe((resultado) => {
+      if (resultado === 'logout') {
+        this.authService.logout();
+      }
+    });
   }
 }

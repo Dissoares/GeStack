@@ -1,0 +1,1 @@
+export * from './modal-acesso-expirado/modal-acesso-expirado.component'
