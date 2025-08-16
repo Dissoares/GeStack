@@ -127,7 +127,15 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
         this.exibirMensagem('Logado com sucesso.', 'Sucesso!');
         setTimeout(() => window.location.reload(), 500);
       },
-      error: () => this.exibirMensagem('Erro ao fazer login.', 'Erro!'),
+      error: (erro) => {
+        const msg = erro.error?.message;
+
+        if (msg === 'Senha inválida') {
+          this.exibirMensagem('Senha inválida', 'Erro!');
+        } else {
+          this.exibirMensagem(msg, 'Erro!');
+        }
+      },
     });
   }
 
