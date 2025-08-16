@@ -1,1 +1,13 @@
+<div *ngIf="carregando$ | async" class="spinner-container">
+  <div>
+    <div class="carregamento">
+      <div class="ponto"></div>
+      <div class="ponto"></div>
+      <div class="ponto"></div>
+      <div class="ponto"></div>
+      <div class="ponto"></div>
+    </div>
+  </div>
+</div>
+
 <router-outlet />

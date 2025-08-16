@@ -1,12 +1,18 @@
-import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
+import { LoadingService } from './services';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('gestack');
+  public carregando$: Observable<boolean>;
+
+  constructor(private loadingService: LoadingService) {
+    this.carregando$ = this.loadingService.carregando$;
+  }
 }

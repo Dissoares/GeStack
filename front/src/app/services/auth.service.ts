@@ -13,12 +13,9 @@ export class AuthService {
   private readonly apiUrl = environment.apiUrl;
   private readonly LOCAL_STORAGE = { TOKEN: 'token' } as const;
   private readonly API_ENDPOINT = { AUTH: 'auth' } as const;
-  private readonly usuarioLogado = new BehaviorSubject<UsuarioToken | null>(
-    null
-  );
-  private readonly nivelAcesso = new BehaviorSubject<NivelAcessoEnum | null>(
-    null
-  );
+  private readonly usuarioLogado = new BehaviorSubject<UsuarioToken | null>(null);
+  private readonly nivelAcesso = new BehaviorSubject<NivelAcessoEnum | null>(null);
+  public token$ = new BehaviorSubject<string | null>(localStorage.getItem(this.LOCAL_STORAGE.TOKEN));
 
   public readonly usuarioLogado$ = this.usuarioLogado.asObservable();
   public readonly nivelAcesso$ = this.nivelAcesso.asObservable();
