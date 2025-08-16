@@ -1,0 +1,71 @@
+<mat-card class="modal-container">
+  @if(estadoExpirado){
+
+  <div class="cabecalho">
+    <mat-icon>schedule</mat-icon>
+    <mat-card-title style="margin-bottom: 10px !important">Sessão Expirada</mat-card-title>
+    <mat-card-subtitle>Faça login para continuar usando o sistema.</mat-card-subtitle>
+  </div>
+
+  <mat-card-content class="conteudo-sessao">
+    <div class="container-contador">
+      <p class="texto-contador">Essa janela será fechada em:</p>
+      <div class="circulo-contador">
+        <strong class="numero-contador">{{ contadorAutoRedirecionar }}</strong>
+        segundos
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="acoes-sessao">
+    <button type="button" mat-flat-button class="btn-primary" (click)="refazerLogin()">
+      <mat-icon>person_shield</mat-icon>
+      Login
+    </button>
+
+    <button type="button" mat-stroked-button class="btn-secondary" [mat-dialog-close]>
+      <mat-icon>logout</mat-icon>
+      Sair
+    </button>
+  </mat-card-actions>
+  } @if(estadoLogin){
+
+  <div class="cabecalho">
+    <mat-icon>person</mat-icon>
+    <mat-card-title>Login</mat-card-title>
+  </div>
+
+  <mat-card-content class="conteudo-login">
+    <form [formGroup]="formulario" class="formulario-login">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>E-mail</mat-label>
+        <mat-icon matPrefix>alternate_email</mat-icon>
+        <input matInput type="email" formControlName="email" autocomplete="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Senha</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput [type]="mostrarSenha ? 'text' : 'password'" formControlName="senha" />
+        <button matSuffix type="button" mat-icon-button (click)="visualizarSenha()">
+          <mat-icon>
+            {{ mostrarSenha ? "visibility_off" : "visibility" }}
+          </mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions class="acoes-login">
+    <button type="submit" mat-flat-button class="btn-primary" (click)="login()" [disabled]="formulario.invalid">
+      <mat-icon>login</mat-icon>
+      Acessar
+    </button>
+
+    <button type="button" mat-stroked-button class="btn-secondary" (click)="cancelar()">
+      <mat-icon>arrow_back</mat-icon>
+      Voltar
+    </button>
+  </mat-card-actions>
+  }
+</mat-card>

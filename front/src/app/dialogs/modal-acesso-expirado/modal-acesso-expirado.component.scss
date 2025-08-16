@@ -1,0 +1,81 @@
+.cabecalho {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  mat-icon {
+    color: #005f73;
+  }
+}
+
+.conteudo-sessao {
+  padding: 24px;
+  text-align: center;
+
+  .container-contador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: #005f73;
+    border-radius: 12px;
+
+    .circulo-contador {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      color: #fff;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      animation: pulseWarning 3s infinite;
+      .numero-contador {
+        font-size: 20px;
+        font-weight: bold;
+        color: #f48d06de;
+      }
+    }
+
+    .texto-contador {
+      margin: 0;
+      font-size: 14px;
+      color: #fff;
+    }
+  }
+}
+
+.conteudo-login {
+  padding: 24px;
+
+  .formulario-login {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .campo-formulario {
+      width: 100%;
+    }
+  }
+}
+
+.acoes-sessao,
+.acoes-login {
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes pulseWarning {
+  0% {
+    box-shadow: 0 0 0 5px rgba(0, 73, 84, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(0, 98, 111, 0.085);
+  }
+  100% {
+    box-shadow: 0 0 0 1px rgba(0, 145, 255, 0);
+  }
+}
