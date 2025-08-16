@@ -9,7 +9,7 @@ export class LoadingService {
   public carregando$ = this.carregando.asObservable();
 
   public mostrarSpinner(opcao: boolean) {
-    const tempoExibicao = opcao === true ? 0 : 5000;
+    const tempoExibicao = opcao === true ? 0 : 500;
 
     setTimeout(() => this.carregando.next(opcao), tempoExibicao);
   }
