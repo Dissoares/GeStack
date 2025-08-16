@@ -10,17 +10,17 @@
 
   <span class="spaco-menu"></span>
 
-  <div *ngIf="tempoRestante" class="contador-token">
-    Expira em: {{ tempoRestante }}
+  @if(tempoRestante){
+  <div class="contador-acesso" [class.warning]="isWarning()">
+    <span class="contador-tempo">
+      <mat-icon class="contador-icon">access_time</mat-icon>
+      {{ tempoRestante }}
+    </span>
   </div>
+  }
 
   <div class="usuario-container">
-    <button
-      mat-button
-      class="botao-usuario"
-      [matMenuTriggerFor]="menuUsuario"
-      #menuTrigger="matMenuTrigger"
-    >
+    <button mat-button class="botao-usuario" [matMenuTriggerFor]="menuUsuario" #menuTrigger="matMenuTrigger">
       <div class="avatar-usuario">
         {{ pegarPrimeiraLetraDoNome(usuarioLogado?.nome) }}
       </div>

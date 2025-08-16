@@ -1,5 +1,5 @@
 .cabecalho {
-   background: #005f73;
+  background: #005f73;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 0 24px;
   height: 70px;
@@ -160,4 +160,42 @@
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 10px;
+}
+
+.contador-acesso {
+  .contador-icon {
+    margin-right: 5px;
+    color: #ffffff8f;
+  }
+
+  .contador-tempo {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #ffffffce;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &.warning {
+    .contador-tempo {
+      background: rgba(69, 0, 0, 0.882);
+      color: #ffffff8f;
+      animation: pulseWarning 2s infinite;
+    }
+  }
+}
+
+@keyframes pulseWarning {
+  0% {
+    box-shadow: 0 0 0 0 rgba(84, 0, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(111, 0, 0, 0.085);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
 }

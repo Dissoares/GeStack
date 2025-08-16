@@ -96,7 +96,8 @@ export class CabecalhoComponent implements OnInit, OnDestroy {
   }
 
   private iniciarContador(): void {
-    const token = localStorage.getItem('token');
+    const token = this.authService.token$.value;
+
     if (!token) return;
 
     try {
@@ -122,9 +123,15 @@ export class CabecalhoComponent implements OnInit, OnDestroy {
           `${horas.toString().padStart(2, '0')}:` +
           `${minutos.toString().padStart(2, '0')}:` +
           `${segundos.toString().padStart(2, '0')}`;
-      }, 1000);
+      });
     } catch (e) {
       console.error('Erro ao decodificar token para contador', e);
     }
+  }
+
+  public isWarning(): boolean {
+    if (!this.tempoRestante) return false;
+    const minutos = Number(this.tempoRestante.split(':')[1] ?? 0);
+    return minutos < 3;
   }
 }
