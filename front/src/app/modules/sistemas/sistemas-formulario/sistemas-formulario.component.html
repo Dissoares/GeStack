@@ -1,3 +1,65 @@
-<p>
-  sistemas-formulario works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><mat-icon>add</mat-icon>Cadastrar Sistema</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="formulario" class="container">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-12">
+        <mat-label>Nome do Sistema</mat-label>
+        <mat-icon matPrefix>laptop_windows</mat-icon>
+        <input matInput formControlName="nome" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-12">
+        <mat-label>Descrição</mat-label>
+
+        <textarea matInput formControlName="descricao" maxlength="1200" rows="8">
+        </textarea>
+        <mat-hint align="end">
+          {{ formulario.get("descricao")?.value?.length || 0 }} / 1200
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-6">
+        <mat-label>Stack</mat-label>
+        <mat-icon matPrefix>label</mat-icon>
+        <input matInput formControlName="stack" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-6">
+        <mat-label>Àrea Responsável</mat-label>
+        <mat-icon matPrefix>business_center</mat-icon>
+        <input matInput formControlName="areaResponsavel" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
+        <mat-label>Link do protótipo</mat-label>
+        <mat-icon matPrefix>link</mat-icon>
+        <input matInput formControlName="linkPrototipo" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
+        <mat-label>Link da documentação</mat-label>
+        <mat-icon matPrefix>link</mat-icon>
+        <input matInput formControlName="linkDocumentacao" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
+        <mat-label>Link do GitHub / Gitlab</mat-label>
+        <mat-icon matPrefix>link</mat-icon>
+        <input matInput formControlName="linkGit" />
+      </mat-form-field>
+    </form>
+
+    <mat-card-actions>
+      <button type="submit" mat-flat-button class="btn-primary" (click)="cadastrar()">
+        <mat-icon>add</mat-icon>
+        Cadastrar
+      </button>
+      <button type="button" mat-flat-button class="btn-secondary" (click)="cancelar()">
+        <mat-icon>add</mat-icon>
+        Cancelar
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>

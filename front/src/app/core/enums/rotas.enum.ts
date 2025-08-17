@@ -1,4 +1,5 @@
 export class RotasEnum {
+  static readonly HOME = '';
 
   static readonly ADMINISTRADOR = {
     ROTA: 'administrador',
@@ -11,7 +12,7 @@ export class RotasEnum {
     LISTAGEM: 'listagem',
     FORMULARIO: 'formulario',
   };
-  
+
   static readonly MEMBRO = {
     ROTA: 'squad',
     LISTAGEM: 'listagem',
