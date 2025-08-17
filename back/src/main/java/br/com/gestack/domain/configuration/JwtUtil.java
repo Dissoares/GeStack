@@ -3,10 +3,12 @@ package br.com.gestack.domain.configuration;
 import org.springframework.stereotype.Component;
 import br.com.gestack.domain.businnes.Usuario;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.time.format.DateTimeFormatter;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+
+import java.nio.charset.StandardCharsets;
+import java.time.format.DateTimeFormatter;
 import java.security.Key;
 import java.util.HashMap;
 import java.util.Date;
@@ -15,12 +17,13 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    private final long EXPIRATION_TIME = 86400000;
+    private static final String SECRET_STRING = "w4pZy3F8kQ2v9X7Nf6vG5J9yH8tL1qM3vP2rS6aX7bY8cD9eF0gH1iJ2kL3mN4oP";
+    private final Key SECRET_KEY = Keys.hmacShaKeyFor(SECRET_STRING.getBytes(StandardCharsets.UTF_8));
+
+    private static final long EXPIRATION_TIME = 24 * 60 * 60 * 1000;
 
     public String generateToken(Usuario usuario) {
         Map<String, Object> claims = new HashMap<>();
-
         claims.put("idUsuario", usuario.getIdUsuario());
         claims.put("nome", usuario.getNome());
         claims.put("email", usuario.getEmail());
@@ -37,29 +40,22 @@ public class JwtUtil {
             claims.put("squadNome", usuario.getSquad().getNome());
         }
 
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(usuario.getEmail())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SECRET_KEY, SignatureAlgorithm.HS512)
                 .compact();
-
-        return token;
     }
 
     public String extractUsername(String token) {
         return getClaims(token).getSubject();
     }
 
-    public Object extractClaim(String token, String claimName) {
-        return getClaims(token).get(claimName);
-    }
-
     public Map<String, Object> extractAllClaims(String token) {
         Claims claims = getClaims(token);
         Map<String, Object> customClaims = new HashMap<>();
-
         customClaims.put("idUsuario", claims.get("idUsuario"));
         customClaims.put("nome", claims.get("nome"));
         customClaims.put("email", claims.get("email"));
@@ -68,7 +64,6 @@ public class JwtUtil {
         customClaims.put("dataCadastro", claims.get("dataCadastro"));
         customClaims.put("squadId", claims.get("squadId"));
         customClaims.put("squadNome", claims.get("squadNome"));
-
         return customClaims;
     }
 
@@ -86,14 +81,6 @@ public class JwtUtil {
             return !claims.getExpiration().before(new Date());
         } catch (Exception e) {
             return false;
-        }
-    }
-
-    public boolean isTokenExpired(String token) {
-        try {
-            return getClaims(token).getExpiration().before(new Date());
-        } catch (Exception e) {
-            return true;
         }
     }
 }
