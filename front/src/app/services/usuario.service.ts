@@ -16,7 +16,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) {}
 
   public cadastro(usuario: Usuario): Observable<Usuario> {
-    usuario.status = true;
+    usuario.ativo = true;
     return this.http.post<Usuario>(
       `${this.apiUrl}${this.endPointUrl}/cadastrar`,
       usuario
