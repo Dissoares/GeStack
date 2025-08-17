@@ -3,7 +3,6 @@ package br.com.gestack.domain.businnes;
 import br.com.gestack.domain.enums.StatusTarefaEnum;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

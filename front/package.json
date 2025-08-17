@@ -29,6 +29,7 @@
     "@angular/material": "^20.1.4",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
+    "@tinymce/tinymce-angular": "^9.1.0",
     "jwt-decode": "^4.0.0",
     "luxon": "^3.7.1",
     "ngx-toastr": "^19.0.0",

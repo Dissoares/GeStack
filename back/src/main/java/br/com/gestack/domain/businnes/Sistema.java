@@ -23,9 +23,6 @@ public class Sistema {
     @Column(name = "DESCRICAO", length = 1000)
     private String descricao;
 
-    @Column(name = "STACK", length = 250)
-    private String stack;
-
     @Column(name = "AREA_RESPONSAVEL", length = 250)
     private String areaResponsavel;
 
@@ -44,8 +41,7 @@ public class Sistema {
     @OneToMany(mappedBy = "sistema", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Atividade> atividades = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(schema = "GESQUAD", name = "SISTEMA_SKILL", joinColumns = @JoinColumn(name = "ID_SISTEMA"), inverseJoinColumns = @JoinColumn(name = "ID_SKILL"))
+    @ManyToMany(mappedBy = "sistema", fetch = FetchType.LAZY)
     private List<Skill> skills = new ArrayList<>();
 
     @Column(name = "DATA_CADASTRO")
