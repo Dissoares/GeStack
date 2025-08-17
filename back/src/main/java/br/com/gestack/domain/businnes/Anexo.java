@@ -24,9 +24,6 @@ public class Anexo {
     @Column(name = "TIPO", length = 50)
     private String tipo;
 
-    @Column(name = "DATA_CRIACAO", nullable = false)
-    private LocalDateTime dataCriacao = LocalDateTime.now();
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ATIVIDADE_FK", nullable = false)
     private Atividade atividade;
@@ -34,4 +31,10 @@ public class Anexo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USUARIO_FK", nullable = false)
     private Usuario autor;
+
+    @Column(name = "DATA_CRIACAO", nullable = false)
+    private LocalDateTime dataCriacao = LocalDateTime.now();
+
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo = true;
 }

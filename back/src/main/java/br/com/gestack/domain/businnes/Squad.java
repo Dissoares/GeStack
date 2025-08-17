@@ -1,9 +1,8 @@
 package br.com.gestack.domain.businnes;
 
 import com.fasterxml.jackson.annotation.*;
-import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +37,5 @@ public class Squad {
     private LocalDateTime dataModificacao;
 
     @Column(name = "ATIVO", nullable = false)
-    private Boolean status = true;
+    private Boolean ativo = true;
 }

@@ -1,6 +1,7 @@
 package br.com.gestack.domain.businnes;
 
 import br.com.gestack.domain.enums.StatusSprintEnum;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -44,4 +45,10 @@ public class Sprint {
 
     @Column(name = "PONTOS_TOTAL_REAIS")
     private Integer pontosTotalReais;
+
+    @Column(name = "DATA_CADASTRO")
+    private LocalDateTime dataCadastro;
+
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo = true;
 }

@@ -77,9 +77,6 @@ public class Atividade {
     @Column(name = "TEMPO_ESTIMADO")
     private Integer tempoEstimado;
 
-    @Column(name = "DATA_CRIACAO")
-    private LocalDateTime dataCriacao;
-
     @Column(name = "DATA_CONCLUSAO")
     private LocalDateTime dataConclusao;
 
@@ -91,4 +88,10 @@ public class Atividade {
 
     @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<RegistroAtividade> registrosAtividades = new ArrayList<>();
+
+    @Column(name = "DATA_CRIACAO")
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo = true;
 }

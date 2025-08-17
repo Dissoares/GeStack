@@ -29,4 +29,8 @@ public class Comentario {
 
     @Column(name = "DATA_COMENTARIO", nullable = false)
     private LocalDateTime dataComentario = LocalDateTime.now();
+
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo = true;
+
 }

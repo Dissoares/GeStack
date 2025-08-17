@@ -29,4 +29,8 @@ public class RegistroAtividade {
 
     @Column(name = "DATA_ACAO", nullable = false)
     private LocalDateTime dataAcao = LocalDateTime.now();
+
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo = true;
+
 }

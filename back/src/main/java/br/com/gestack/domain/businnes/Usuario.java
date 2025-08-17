@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
+
 @Setter
 @Getter
 @Entity
@@ -47,6 +48,6 @@ public class Usuario {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataModificacao;
 
-    @Column(name = "STATUS", nullable = false)
-    private Boolean status = true;
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo = true;
 }
