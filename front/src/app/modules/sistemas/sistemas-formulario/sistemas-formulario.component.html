@@ -21,15 +21,19 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-6">
-        <mat-label>Stack</mat-label>
-        <mat-icon matPrefix>label</mat-icon>
-        <input matInput formControlName="stack" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" floatLabel="always" class="field-6">
         <mat-label>Àrea Responsável</mat-label>
         <mat-icon matPrefix>business_center</mat-icon>
         <input matInput formControlName="areaResponsavel" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-6">
+        <mat-label>Skills</mat-label>
+        <mat-icon matPrefix>label</mat-icon>
+        <mat-select matInput type="text" formControlName="skills" multiple>
+          <mat-option *ngFor="let skill of listaSkillsEnum" [value]="skill">
+            {{ skill.descricao }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-4">
