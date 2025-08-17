@@ -1,6 +1,8 @@
 package br.com.gestack.domain.businnes;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -39,9 +41,13 @@ public class Sistema {
     @Column(name = "LINK_PRODUCAO", length = 250)
     private String linkProducao;
 
-    @Column(nullable = false)
-    private Boolean status = true;
+    @Column(name = "DATA_CADASTRO")
+    private LocalDateTime dataCadastro;
 
     @OneToMany(mappedBy = "sistema", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Atividade> atividades = new ArrayList<>();
+
+    @Column(nullable = false)
+    private Boolean ativo = true;
+
 }
