@@ -1,5 +1,5 @@
 export class Sistema {
-  public idSistema!: number;
+  public idSistema?: number;
   public nome!: string;
   public descricao!: string;
   public stack?: string;
@@ -9,7 +9,7 @@ export class Sistema {
   public linkGit?: string;
   public linkProducao?: string;
   public dataCadastro?: Date;
-  public ativo: boolean = true;
+  public ativo!: boolean;
 
   constructor(init?: Partial<Sistema>) {
     Object.assign(this, init);
