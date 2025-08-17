@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CamposFormularioComponent } from '../../components/index.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RotasEnum, SkillCategoriaEnum } from '../../core/enums';
@@ -13,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-skill-formulario',
@@ -26,6 +34,8 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatIconModule,
     CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   templateUrl: './skill-formulario.component.html',
   styleUrls: ['./skill-formulario.component.scss'],
@@ -34,14 +44,24 @@ export class SkillFormularioComponent
   extends CamposFormularioComponent
   implements OnInit
 {
+  @ViewChild(MatPaginator) public paginator!: MatPaginator;
   private readonly service = inject(SkillService);
   private readonly toastr = inject(ToastrService);
   private readonly router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   public listaCategoriaSkillsEnum: Array<SkillCategoriaEnum> =
     SkillCategoriaEnum.getAll();
 
-  public listaSkills: Array<Skill> = [];
+  public dadosTabela = new MatTableDataSource<Skill>([]);
+  public colunasTabela: Array<string> = [
+    'id',
+    'descricao',
+    'categoria',
+    'dataCadastro',
+    'status',
+    'acoes',
+  ];
 
   constructor() {
     super(inject(FormBuilder));
@@ -50,6 +70,10 @@ export class SkillFormularioComponent
   public ngOnInit() {
     this.criarFormulario();
     this.listarSkills();
+    setTimeout(() => {
+      this.dadosTabela.paginator = this.paginator;
+      this.cdr.detectChanges();
+    },1000);
   }
 
   private criarFormulario(): void {
@@ -57,6 +81,7 @@ export class SkillFormularioComponent
       idSkill: [null],
       descricao: [null, Validators.required],
       categoria: [null, Validators.required],
+      ativo: [{ value: true, disabled: true }],
     });
   }
 
@@ -75,6 +100,7 @@ export class SkillFormularioComponent
           ? this.toastr.success('Skill cadastrada com sucesso!', 'Sucesso')
           : null;
         this.limparFormulario();
+        this.listarSkills();
       },
       error: (erro) => {
         console.error(erro);
@@ -86,9 +112,14 @@ export class SkillFormularioComponent
   public listarSkills(): void {
     this.service.buscarTudo().subscribe({
       next: (resultado) => {
-        !resultado.length
-          ? this.toastr.info('Nenhum resultado encrontrado.', 'Informação!')
-          : (this.listaSkills = resultado);
+        if (!resultado.length) {
+          this.toastr.info('Nenhum resultado encontrado.', 'Informação!');
+        }
+        this.dadosTabela.data = resultado;
+        setTimeout(() => {
+          this.dadosTabela.paginator = this.paginator;
+          this.cdr.detectChanges();
+        });
       },
       error: (erro) => {
         this.toastr.error('Erro ao carregar skills', 'Erro');
@@ -96,8 +127,14 @@ export class SkillFormularioComponent
     });
   }
 
+  public getDescricaoSkill(id: number): string {
+    return SkillCategoriaEnum.getById(id)?.descricao || '';
+  }
+
   public cancelar(): void {
     this.limparFormulario();
     this.router.navigate([RotasEnum.HOME]);
   }
+
+  public desativar(id: number) {}
 }

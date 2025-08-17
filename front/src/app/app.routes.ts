@@ -87,7 +87,7 @@ export const routes: Routes = [
         path: 'skill',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/skills/skill.routing').then(
+          import('./modules/skills/skills.routing').then(
             (m) => m.ROTAS_SKILL
           ),
         data: {
