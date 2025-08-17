@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><mat-icon>add</mat-icon>Cadastrar Sistema</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="formulario" class="container">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-6">
+        <mat-label>Nome da Skill</mat-label>
+        <mat-icon matPrefix>laptop_windows</mat-icon>
+        <input matInput formControlName="descricao" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-6">
+        <mat-label>Categoria</mat-label>
+        <mat-icon matPrefix>label</mat-icon>
+        <mat-select matInput type="text" formControlName="categoria">
+          <mat-option *ngFor="let categoria of listaCategoriaSkillsEnum" [value]="categoria.id">
+            {{ categoria.descricao }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+
+    <mat-card-actions>
+      <button type="submit" mat-flat-button class="btn-primary" (click)="cadastrar()">
+        <mat-icon>add</mat-icon>
+        Cadastrar
+      </button>
+      <button type="button" mat-flat-button class="btn-secondary" (click)="cancelar()">
+        <mat-icon>add</mat-icon>
+        Cancelar
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>

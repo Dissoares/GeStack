@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NivelAcessoEnum, RotasEnum } from '../../core/enums';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -69,6 +68,11 @@ export class MenuLateralComponent implements OnInit {
           rota: 'sistema/cadastrar',
           titulo: 'Cadastrar Sistema',
           icone: 'add_to_queue',
+        },
+        {
+          rota: 'skill/cadastrar',
+          titulo: 'Cadastrar Skill',
+          icone: 'add',
         },
       ];
     }

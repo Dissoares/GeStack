@@ -1,5 +1,5 @@
 import { Atividade } from './Atividade';
-import { Skills } from './skills';
+import { Skill } from './skill';
 
 export class Sistema {
   public idSistema?: number;
@@ -12,7 +12,7 @@ export class Sistema {
   public linkProducao?: string;
   public dataCadastro?: Date;
   public atividades?: Array<Atividade>;
-  public skills?: Array<Skills>;
+  public skills?: Array<Skill>;
   public ativo?: boolean;
 
   constructor(init?: Partial<Sistema>) {

@@ -1,5 +1,7 @@
 package br.com.gestack.domain.businnes;
 
+import br.com.gestack.domain.enums.SkillCategoriaEnum;
+import br.com.gestack.domain.utils.SkillEnumConverter;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,13 +21,10 @@ public class Skill {
     private String descricao;
 
     @Column(name = "CATEGORIA")
-    private String categoria;
-
-    @Column(name = "TAG")
-    private String tag;
+    private Integer categoria;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SISTEMA_FK", nullable = false)
+    @JoinColumn(name = "SISTEMA_FK")
     private Sistema sistema;
 
     @Column(name = "DATA_CADASTRO")

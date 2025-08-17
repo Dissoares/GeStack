@@ -1,4 +1,4 @@
 export * from './rotas.enum';
 export * from './nivel-acesso.enum';
 export * from './status.enum';
-export * from './skills.enum';
+export * from './skill-categoria.enum';

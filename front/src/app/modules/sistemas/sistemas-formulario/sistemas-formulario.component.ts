@@ -2,12 +2,11 @@ import { CamposFormularioComponent } from '../../../components/index.component';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { RotasEnum, SkillsEnum } from '../../../core/enums';
+import { RotasEnum } from '../../../core/enums';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { SistemaService } from '../../../services';
@@ -15,12 +14,12 @@ import { Sistema } from '../../../core/models';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sistemas-formulario',
   standalone: true,
   imports: [
+    MatAutocompleteModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatButtonModule,
@@ -29,8 +28,6 @@ import { map, Observable } from 'rxjs';
     MatCardModule,
     MatIconModule,
     CommonModule,
-    MatChipsModule,
-    MatAutocompleteModule,
   ],
   templateUrl: './sistemas-formulario.component.html',
   styleUrls: ['./sistemas-formulario.component.scss'],
@@ -43,7 +40,7 @@ export class SistemasFormularioComponent
   private readonly toastrService = inject(ToastrService);
   private readonly router = inject(Router);
 
-  public listaSkillsEnum: Array<SkillsEnum> = SkillsEnum.getAll();
+  public listaSkillsEnum: Array<any> = [];
 
   constructor() {
     super(inject(FormBuilder));
@@ -78,9 +75,7 @@ export class SistemasFormularioComponent
 
     const sistema: Sistema = this.formulario.value;
 
-    const listaId = this.formulario.value.skills.map(
-      (skill: SkillsEnum) => skill.id
-    );
+    const listaId = this.formulario.value.skills.map((skill: any) => skill.id);
 
     sistema.skills = listaId;
 

@@ -1,5 +1,5 @@
 export * from './usuario'
 export * from './squad'
 export * from './sistema'
-export * from './skills'
+export * from './skill'
 export * from './Atividade'
