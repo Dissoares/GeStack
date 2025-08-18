@@ -81,7 +81,7 @@ export class SkillFormularioComponent
   private criarFormulario(): void {
     this.formulario = this.fb.group({
       idSkill: [null],
-      descricao: [null, Validators.required],
+      nome: [null, Validators.required],
       categoria: [null, Validators.required],
       dataCadastro: [null],
       dataModificacao: [null],

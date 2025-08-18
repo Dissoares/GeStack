@@ -2,7 +2,7 @@ import { Usuario } from './usuario';
 
 export class Skill {
   public idSkill?: number;
-  public descricao!: string;
+  public nome!: string;
   public categoria!: string;
   public dataCadastro?: string;
   public dataModificacao?: string;

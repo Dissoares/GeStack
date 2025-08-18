@@ -18,8 +18,8 @@ public class Skill {
     @Column(name = "ID_SKILL")
     private Long idSkill;
 
-    @Column(name = "DESCRICAO", nullable = false, unique = true)
-    private String descricao;
+    @Column(name = "NOME", nullable = false, unique = true)
+    private String nome;
 
     @Column(name = "CATEGORIA")
     private Integer categoria;
