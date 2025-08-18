@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title><mat-icon>add</mat-icon>Cadastrar Sistema</mat-card-title>
+    <mat-card-title><mat-icon>add</mat-icon>Cadastrar Skills</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <form [formGroup]="formulario" class="container">
@@ -21,9 +21,9 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-4">
-        <mat-label>Nome da Skill</mat-label>
+        <mat-label>Status</mat-label>
         <mat-icon matPrefix>laptop_windows</mat-icon>
-        <mat-select formControlName="ativo">
+        <mat-select formControlName="ativo" [disabled]="!ehEdicao">
           <mat-option [value]="true">Ativo</mat-option>
           <mat-option [value]="false">Inativo</mat-option>
         </mat-select>
@@ -31,9 +31,9 @@
     </form>
 
     <mat-card-actions>
-      <button type="submit" mat-flat-button class="btn-primary" (click)="cadastrar()">
-        <mat-icon>add</mat-icon>
-        Cadastrar
+      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
+        <mat-icon>{{ ehEdicao ? "save" : "add" }} </mat-icon>
+        {{ ehEdicao ? "salvar" : "Cadastrar" }}
       </button>
       <button type="button" mat-flat-button class="btn-secondary" (click)="cancelar()">
         <mat-icon>add</mat-icon>
@@ -66,7 +66,14 @@
     <ng-container matColumnDef="dataCadastro">
       <th mat-header-cell *matHeaderCellDef>Data Cadastro</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.dataCadastro | date : "dd/MM/yyyy" }}
+        {{ element.dataCadastro | date : "dd/MM/yyyy hh:mm" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dataModificacao">
+      <th mat-header-cell *matHeaderCellDef>Data Modificação</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.dataModificacao | date : "dd/MM/yyyy hh:mm" }}
       </td>
     </ng-container>
 
@@ -80,8 +87,11 @@
     <ng-container matColumnDef="acoes">
       <th mat-header-cell *matHeaderCellDef>Ações</th>
       <td mat-cell *matCellDef="let element">
-        <button matMiniFab color="warn" (click)="desativar(element.idUsuario)">
+        <button matMiniFab color="warn" (click)="desativar(element.idSkill)">
           <mat-icon>do_not_disturb_on</mat-icon>
+        </button>
+        <button matMiniFab color="warn" (click)="editar(element)">
+          <mat-icon>edit</mat-icon>
         </button>
       </td>
     </ng-container>
