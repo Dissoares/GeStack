@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import br.com.gestack.domain.utils.NivelAcessoConverter;
 import br.com.gestack.domain.enums.NivelAcessoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
@@ -48,6 +49,22 @@ public class Usuario {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataModificacao;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MODIFICADO_POR")
+    @JsonIgnore
+    private Usuario modificadoPor;
+
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo = true;
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCadastro = LocalDateTime.now();
+        this.ativo = true;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.dataModificacao = LocalDateTime.now();
+    }
 }

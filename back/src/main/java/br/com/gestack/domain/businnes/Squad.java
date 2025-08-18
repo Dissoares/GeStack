@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.*;
+
 @Setter
 @Getter
 @Entity
@@ -36,6 +36,21 @@ public class Squad {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataModificacao;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MODIFICADO_POR")
+    private Usuario modificadoPor;
+
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo = true;
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCadastro = LocalDateTime.now();
+        this.ativo = true;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.dataModificacao = LocalDateTime.now();
+    }
 }

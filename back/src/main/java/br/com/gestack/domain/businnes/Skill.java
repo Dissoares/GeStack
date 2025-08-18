@@ -1,7 +1,8 @@
 package br.com.gestack.domain.businnes;
 
-import br.com.gestack.domain.enums.SkillCategoriaEnum;
-import br.com.gestack.domain.utils.SkillEnumConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,9 +28,30 @@ public class Skill {
     @JoinColumn(name = "SISTEMA_FK")
     private Sistema sistema;
 
-    @Column(name = "DATA_CADASTRO")
+    @CreationTimestamp
+    @Column(name = "DATA_CADASTRO", updatable = false)
     private LocalDateTime dataCadastro;
+
+    @UpdateTimestamp
+    @Column(name = "DATA_MODIFICACAO")
+    private LocalDateTime dataModificacao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MODIFICADO_POR")
+    @JsonIgnore
+    private Usuario modificadoPor;
 
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo = true;
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCadastro = LocalDateTime.now();
+        this.ativo = true;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.dataModificacao = LocalDateTime.now();
+    }
 }

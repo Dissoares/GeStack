@@ -1,5 +1,6 @@
 package br.com.gestack.domain.businnes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,9 +33,29 @@ public class Anexo {
     @JoinColumn(name = "USUARIO_FK", nullable = false)
     private Usuario autor;
 
-    @Column(name = "DATA_CRIACAO", nullable = false)
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    @Column(name = "DATA_CADASTRO", nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime dataCadastro;
+
+    @Column(name = "DATA_MODIFICACAO")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime dataModificacao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MODIFICADO_POR")
+    private Usuario modificadoPor;
 
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo = true;
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCadastro = LocalDateTime.now();
+        this.ativo = true;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.dataModificacao = LocalDateTime.now();
+    }
 }
