@@ -7,10 +7,10 @@ import { CommonModule } from '@angular/common';
   selector: 'app-erro',
   standalone: true,
   imports: [CommonModule, MatFormFieldModule],
-  templateUrl: './erros-campos-formulario.component.html',
-  styleUrls: ['./erros-campos-formulario.component.scss'],
+  templateUrl: './erros-formulario.component.html',
+  styleUrls: ['./erros-formulario.component.scss'],
 })
-export class ErrosCamposFormularioComponent {
+export class ErrosFormularioComponent {
   @Input() dadosCampo!: AbstractControl | FormControl | null;
   public campoVazio = new FormControl();
 
@@ -21,10 +21,9 @@ export class ErrosCamposFormularioComponent {
     if (erro['cpfInvalido']) return 'Digite um CPF inválido';
     if (erro['emailInvalido']) return 'Digite um E-mail válido';
     if (erro['emailsNaoCoincidem']) return 'E-mails não coincidem';
-    if (erro['minlength'])
-      return `O tamanho mínimo é ${
-        erro['minlength']['requiredLength'] + 3
-      } caracteres`;
+    if (erro['minlength'])return `O tamanho mínimo é ${erro['minlength']['requiredLength'] + 3} caracteres`;
+    if (erro['nomeDuplicado']) return 'Nome duplicado';
+    
     return 'Erro desconhecido';
   }
 }

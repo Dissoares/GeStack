@@ -5,9 +5,12 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
+import {
+  CamposFormularioComponent,
+  ErrosFormularioComponent,
+} from '../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CamposFormularioComponent } from '../../components/index.component';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,16 +29,17 @@ import { Router } from '@angular/router';
   selector: 'app-skill-formulario',
   standalone: true,
   imports: [
+    ErrosFormularioComponent,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatPaginatorModule,
     MatButtonModule,
     MatSelectModule,
     MatInputModule,
+    MatTableModule,
     MatCardModule,
     MatIconModule,
     CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
   ],
   templateUrl: './skill-formulario.component.html',
   styleUrls: ['./skill-formulario.component.scss'],
@@ -71,7 +75,11 @@ export class SkillFormularioComponent
 
   public ngOnInit() {
     this.criarFormulario();
-    if (this.ehEdicao || !this.ehEdicao) this.listarSkills();
+    this.iniciarListagem();
+  }
+
+  public iniciarListagem(): void {
+    this.listarSkills();
     setTimeout(() => {
       this.dadosTabela.paginator = this.paginator;
       this.cdr.detectChanges();
@@ -97,7 +105,7 @@ export class SkillFormularioComponent
       return;
     }
 
-    const skill: Skill = this.formulario.value;
+    const skill: Skill = this.formulario.getRawValue();
     const metodo = this.ehEdicao
       ? this.service.atualizar(skill)
       : this.service.cadastrar(skill);
@@ -115,10 +123,12 @@ export class SkillFormularioComponent
         this.listarSkills();
       },
       error: (erro) => {
-        const msg = this.ehEdicao
-          ? 'Não foi possível atualizar a Skill'
-          : 'Erro ao cadastrar a Skill';
-        this.toastr.error(msg, 'Erro');
+        if (erro.status === 409) {
+          this.formulario.get('nome')?.setErrors({ nomeDuplicado: true });
+          return;
+        }
+
+        this.toastr.error('Erro inesperado.', erro.status);
         console.error(erro);
       },
     });
