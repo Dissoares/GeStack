@@ -97,7 +97,7 @@ export class GerenciarUsuariosComponent
       senha: [null],
       confirmarSenha: [null],
       nivelAcesso: [null],
-      dataCadastro: [null],
+      dataCriacao: [null],
       status: [null],
       nomeLider: [null],
       perfilLider: [null],
