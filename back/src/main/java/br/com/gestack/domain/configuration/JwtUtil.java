@@ -30,11 +30,6 @@ public class JwtUtil {
         claims.put("nivelAcesso", usuario.getNivelAcesso().getId());
         claims.put("ativo", usuario.getAtivo());
 
-        if (usuario.getDataCadastro() != null) {
-            claims.put("dataCadastro", usuario.getDataCadastro()
-                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
-        }
-
         if (usuario.getSquad() != null) {
             claims.put("squadId", usuario.getSquad().getIdSquad());
             claims.put("squadNome", usuario.getSquad().getNome());
@@ -61,7 +56,6 @@ public class JwtUtil {
         customClaims.put("email", claims.get("email"));
         customClaims.put("nivelAcesso", claims.get("nivelAcesso"));
         customClaims.put("ativo", claims.get("ativo"));
-        customClaims.put("dataCadastro", claims.get("dataCadastro"));
         customClaims.put("squadId", claims.get("squadId"));
         customClaims.put("squadNome", claims.get("squadNome"));
         return customClaims;

@@ -23,7 +23,6 @@ public class SkillService {
     private final UsuarioRepository usuarioRepository;
 
     public Skill cadastrar(Skill skill) {
-        skill.setDataCadastro(LocalDateTime.now());
         return skillRepository.save(skill);
     }
 
