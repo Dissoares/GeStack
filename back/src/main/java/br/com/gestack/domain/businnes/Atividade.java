@@ -1,7 +1,6 @@
 package br.com.gestack.domain.businnes;
 
 import br.com.gestack.domain.enums.StatusTarefaEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -14,8 +13,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(schema = "GESQUAD", name = "TAREFA")
-public class Atividade {
-
+public class Atividade extends Auditoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TAREFA")
@@ -88,30 +86,4 @@ public class Atividade {
 
     @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<RegistroAtividade> registrosAtividades = new ArrayList<>();
-
-    @Column(name = "DATA_CADASTRO", nullable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataCadastro;
-
-    @Column(name = "DATA_MODIFICACAO")
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataModificacao;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MODIFICADO_POR")
-    private Usuario modificadoPor;
-
-    @Column(name = "ATIVO", nullable = false)
-    private Boolean ativo = true;
-
-    @PrePersist
-    public void prePersist() {
-        this.dataCadastro = LocalDateTime.now();
-        this.ativo = true;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.dataModificacao = LocalDateTime.now();
-    }
 }

@@ -1,8 +1,6 @@
 package br.com.gestack.domain.businnes;
 
 import br.com.gestack.domain.enums.StatusSprintEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,8 +12,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(schema = "GESQUAD", name = "SPRINT")
-public class Sprint {
-
+public class Sprint extends Auditoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_SPRINT")
@@ -46,30 +43,4 @@ public class Sprint {
 
     @Column(name = "PONTOS_TOTAL_REAIS")
     private Integer pontosTotalReais;
-
-    @Column(name = "DATA_CADASTRO", nullable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataCadastro;
-
-    @Column(name = "DATA_MODIFICACAO")
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataModificacao;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MODIFICADO_POR")
-    private Usuario modificadoPor;
-
-    @Column(name = "ATIVO", nullable = false)
-    private Boolean ativo = true;
-
-    @PrePersist
-    public void prePersist() {
-        this.dataCadastro = LocalDateTime.now();
-        this.ativo = true;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.dataModificacao = LocalDateTime.now();
-    }
 }

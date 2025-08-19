@@ -1,7 +1,6 @@
 package br.com.gestack.domain.businnes;
 
 import com.fasterxml.jackson.annotation.*;
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import lombok.*;
 @Getter
 @Entity
 @Table(schema = "GESQUAD", name = "SQUAD")
-public class Squad {
+public class Squad extends Auditoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_SQUAD")
@@ -27,30 +26,4 @@ public class Squad {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LIDER_FK", referencedColumnName = "ID_USUARIO", nullable = false, unique = true)
     private Usuario lider;
-
-    @Column(name = "DATA_CADASTRO", nullable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataCadastro;
-
-    @Column(name = "DATA_MODIFICACAO")
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataModificacao;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MODIFICADO_POR")
-    private Usuario modificadoPor;
-
-    @Column(name = "ATIVO", nullable = false)
-    private Boolean ativo = true;
-
-    @PrePersist
-    public void prePersist() {
-        this.dataCadastro = LocalDateTime.now();
-        this.ativo = true;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.dataModificacao = LocalDateTime.now();
-    }
 }

@@ -3,9 +3,6 @@ package br.com.gestack.domain.businnes;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import br.com.gestack.domain.utils.NivelAcessoConverter;
 import br.com.gestack.domain.enums.NivelAcessoEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,8 +10,7 @@ import lombok.*;
 @Getter
 @Entity
 @Table(schema = "GESQUAD", name = "USUARIO")
-public class Usuario {
-
+public class Usuario extends Auditoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_USUARIO")
@@ -40,31 +36,4 @@ public class Usuario {
 
     @Column(name = "EH_LIDER", nullable = false)
     private Boolean ehLider;
-
-    @Column(name = "DATA_CADASTRO", nullable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataCadastro;
-
-    @Column(name = "DATA_MODIFICACAO")
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataModificacao;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MODIFICADO_POR")
-    @JsonIgnore
-    private Usuario modificadoPor;
-
-    @Column(name = "ATIVO", nullable = false)
-    private Boolean ativo = true;
-
-    @PrePersist
-    public void prePersist() {
-        this.dataCadastro = LocalDateTime.now();
-        this.ativo = true;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.dataModificacao = LocalDateTime.now();
-    }
 }
