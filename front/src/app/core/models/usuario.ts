@@ -11,6 +11,7 @@ export class Usuario {
   public squad?: Squad;
   public ehLider!: boolean;
   public dataCadastro?: Date | string;
+  public criadoPor?: Usuario;
   public ativo?: boolean;
 
   constructor(init?: Partial<Usuario>) {
