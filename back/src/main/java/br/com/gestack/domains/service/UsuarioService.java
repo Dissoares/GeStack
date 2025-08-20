@@ -1,14 +1,13 @@
 package br.com.gestack.domains.service;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.gestack.domains.repository.UsuarioRepository;
+import org.springframework.data.repository.query.Param;
 import br.com.gestack.api.dto.ListagemUsuariosDTO;
 import br.com.gestack.domains.entities.Usuario;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
-
 import java.util.Optional;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class UsuarioService {
     }
 
     public List<ListagemUsuariosDTO> buscaPor(Usuario usuario) {
-        List<ListagemUsuariosDTO> listaUsuarios = usuarioRepository.buscarPor(usuario);
-        return listaUsuarios;
+        Integer nivelAcesso = usuario.getNivelAcesso() != null ? usuario.getNivelAcesso().getId() : null;
+         return usuarioRepository.buscarPor(usuario.getNome(), usuario.getEmail(), nivelAcesso, usuario.getDataCriacao(), usuario.getAtivo());
     }
 }

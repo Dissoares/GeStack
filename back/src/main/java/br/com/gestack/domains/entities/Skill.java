@@ -24,4 +24,7 @@ public class Skill extends Auditoria {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SISTEMA_FK")
     private Sistema sistema;
+
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo = true;
 }

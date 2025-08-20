@@ -20,14 +20,7 @@ public class SkillController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<Skill> cadastrar(@RequestBody Skill skill) {
-
         return ResponseEntity.ok(skillService.cadastrar(skill));
-//        try {
-//
-//            return ResponseEntity.status(HttpStatus.CREATED).build();
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-//        }
     }
 
     @GetMapping("/buscarTudo")

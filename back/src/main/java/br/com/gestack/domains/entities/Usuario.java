@@ -1,9 +1,9 @@
 package br.com.gestack.domains.entities;
 
-import br.com.gestack.common.Auditoria;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import br.com.gestack.utils.NivelAcessoConverter;
 import br.com.gestack.core.enums.NivelAcessoEnum;
+import br.com.gestack.common.Auditoria;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,4 +37,7 @@ public class Usuario extends Auditoria {
 
     @Column(name = "EH_LIDER", nullable = false)
     private Boolean ehLider;
+
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo = true;
 }
