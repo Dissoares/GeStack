@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.boot.SpringApplication;
 
 @Configuration
-@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @SpringBootApplication
 public class GeStackApplication {
 

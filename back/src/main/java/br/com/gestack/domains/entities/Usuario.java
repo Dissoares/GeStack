@@ -3,7 +3,6 @@ package br.com.gestack.domains.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import br.com.gestack.utils.NivelAcessoConverter;
 import br.com.gestack.core.enums.NivelAcessoEnum;
-import br.com.gestack.common.Auditoria;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +10,7 @@ import lombok.*;
 @Getter
 @Entity
 @Table(schema = "GESQUAD", name = "USUARIO")
-public class Usuario extends Auditoria {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_USUARIO")

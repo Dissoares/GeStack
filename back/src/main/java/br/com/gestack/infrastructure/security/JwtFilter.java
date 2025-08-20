@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @AllArgsConstructor
 @Component
-public class JwtFilter extends OncePerRequestFilter  {
+public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final UsuarioRepository usuarioRepository;
@@ -46,8 +46,6 @@ public class JwtFilter extends OncePerRequestFilter  {
                 System.out.println("Token inválido: " + e.getMessage());
             }
         }
-
-        System.out.println("Usuário autenticado: " + SecurityContextHolder.getContext().getAuthentication());
         chain.doFilter(request, response);
     }
 }

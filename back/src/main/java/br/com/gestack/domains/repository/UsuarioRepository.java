@@ -34,13 +34,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
                 (:nome IS NULL OR LOWER(u.nome) LIKE LOWER(CONCAT('%', :nome, '%')))
                   AND (:email IS NULL OR LOWER(u.email) LIKE LOWER(CONCAT('%', :email, '%')))
                   AND (:nivelAcesso IS NULL OR u.nivel_acesso = :nivelAcesso)
-                  AND (:dataCriacao IS NULL OR u.data_criacao >= :dataCriacao)
                   AND (:ativo IS NULL OR u.ativo = :ativo
                 ) 
             """, nativeQuery = true)
     List<ListagemUsuariosDTO> buscarPor(@Param("nome") String nome,
                                         @Param("email") String email,
                                         @Param("nivelAcesso") Integer nivelAcesso,
-                                        @Param("dataCriacao") LocalDateTime dataCriacao,
                                         @Param("ativo") Boolean ativo);
 }

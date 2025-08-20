@@ -35,17 +35,8 @@ public class SkillController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<Skill> atualizar(@RequestBody Skill skill, Authentication auth) {
-        Usuario usuarioLogado = (Usuario) auth.getPrincipal();
-        Usuario usuario = usuarioRepository.findById(usuarioLogado.getIdUsuario()).orElseThrow(() -> new RuntimeException("Usuário logado não encontrado"));
-        skill.setModificadoPor(usuario);
-
-        try {
-            Skill atualizado = skillService.atualizar(skill);
-            return ResponseEntity.ok(atualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+    public ResponseEntity<Skill> atualizar(@RequestBody Skill skill) {
+        return ResponseEntity.ok(skillService.atualizar(skill));
     }
 
 }
