@@ -1,5 +1,6 @@
 import {
   ChangeDetectorRef,
+  AfterViewInit,
   Component,
   ViewChild,
   inject,
@@ -23,7 +24,6 @@ import { CommonModule } from '@angular/common';
 import { SkillService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import { Skill } from '../../core/models';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-skill-formulario',
@@ -46,13 +46,12 @@ import { Router } from '@angular/router';
 })
 export class SkillFormularioComponent
   extends CamposFormularioComponent
-  implements OnInit
+  implements OnInit, AfterViewInit
 {
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
   private readonly service = inject(SkillService);
   private readonly toastr = inject(ToastrService);
-  private readonly router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   public listaCategoriaSkillsEnum: Array<SkillCategoriaEnum> =
     SkillCategoriaEnum.getAll();
@@ -73,17 +72,13 @@ export class SkillFormularioComponent
     super(inject(FormBuilder));
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.criarFormulario();
-    this.iniciarListagem();
   }
 
-  public iniciarListagem(): void {
+  public ngAfterViewInit(): void {
+    this.dadosTabela.paginator = this.paginator;
     this.listarSkills();
-    setTimeout(() => {
-      this.dadosTabela.paginator = this.paginator;
-      this.cdr.detectChanges();
-    }, 1000);
   }
 
   private criarFormulario(): void {
@@ -91,7 +86,7 @@ export class SkillFormularioComponent
       idSkill: [null],
       nome: [null, Validators.required],
       categoria: [null, Validators.required],
-      dataCadastro: [null],
+      dataCriacao: [null],
       dataModificacao: [null],
       modificadoPor: [null],
       ativo: [{ value: true, disabled: true }],
@@ -120,6 +115,7 @@ export class SkillFormularioComponent
         }
 
         this.limparFormulario();
+        this.preencherEDesativarCampoStatus();
         this.listarSkills();
       },
       error: (erro) => {
@@ -137,17 +133,17 @@ export class SkillFormularioComponent
   public listarSkills(): void {
     this.service.buscarTudo().subscribe({
       next: (resultado) => {
-        if (!resultado.length) {
-          this.toastr.info('Nenhum resultado encontrado.', 'Informação!');
-        }
+        !resultado.length
+          ? this.toastr.info('Nenhum resultado encontrado.', 'Informação!')
+          : null;
+
         this.dadosTabela.data = resultado;
-        setTimeout(() => {
-          this.dadosTabela.paginator = this.paginator;
-          this.cdr.detectChanges();
-        });
+        this.dadosTabela.paginator = this.paginator;
       },
       error: (erro) => {
-        this.toastr.error('Erro ao carregar skills', erro);
+        erro && erro.message
+          ? this.toastr.error('Erro ao carregar skills', erro)
+          : null;
       },
     });
   }
@@ -158,28 +154,60 @@ export class SkillFormularioComponent
         resultado
           ? this.toastr.success('Skill desativada com sucesso!.', 'Sucesso!')
           : null;
+
+        this.listarSkills();
       },
       error: (erro) => {
-        this.toastr.error('Não foi possível desativar essa Skill', erro);
+        erro && erro.message
+          ? this.toastr.error('Não foi possível desativar', erro.message)
+          : null;
       },
     });
-  }
-
-  public editar(skill: Skill): void {
-    this.formulario.patchValue(skill);
-    this.formulario.get('ativo')?.enable();
-    this.dadosTabela.data = this.dadosTabela.data.filter((s) => s !== skill);
-    this.ehEdicao = true;
   }
 
   public getDescricaoSkill(id: number): string {
     return SkillCategoriaEnum.getById(id)?.descricao || '';
   }
 
+  public editar(skill: Skill): void {
+    if (this.formulario.valid) {
+      this.toastr.info('Só é possivel uma edição por vez', 'Aviso!');
+      return;
+    }
+    this.formulario.patchValue(skill);
+    this.formulario.get('ativo')?.enable();
+
+    const index = this.dadosTabela.data.indexOf(skill);
+    if (index > -1) {
+      this.dadosTabela.data.splice(index, 1);
+
+      if (this.paginator) {
+        this.dadosTabela.paginator = this.paginator;
+      }
+
+      this.ehEdicao = true;
+      this.cdr.detectChanges();
+    }
+  }
+
   public cancelar(): void {
-    const status = this.formulario.get('ativo')?.value;
+    const dados: Skill = this.formulario.value;
+
+    if (this.ehEdicao) {
+      this.dadosTabela.data.unshift(dados);
+      if (this.paginator) {
+        this.dadosTabela.paginator = this.paginator;
+      }
+    }
+
     this.limparFormulario();
-    this.formulario.get('ativo')?.setValue(status);
+
     this.ehEdicao = false;
+    this.preencherEDesativarCampoStatus();
+  }
+
+  public preencherEDesativarCampoStatus(): void {
+    this.formulario.get('ativo')?.setValue(true);
+    this.formulario.get('ativo')?.disable();
   }
 }

@@ -7,6 +7,7 @@ export class Skill {
   public dataCadastro?: string;
   public dataModificacao?: string;
   public modificadoPor?: Usuario;
+  public ativo?: boolean;
 
   constructor(init?: Partial<Skill>) {
     Object.assign(this, init);

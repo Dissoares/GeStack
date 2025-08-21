@@ -29,11 +29,11 @@ public abstract class Auditoria {
 
     @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MODIFICADO_POR")
+    @JoinColumn(name = "MODIFICADO_POR", insertable = false)
     @JsonIgnore
     private Usuario modificadoPor;
 
     @LastModifiedDate
-    @Column(name = "DATA_MODIFICACAO")
+    @Column(name = "DATA_MODIFICACAO", insertable = false)
     private LocalDateTime dataModificacao;
 }

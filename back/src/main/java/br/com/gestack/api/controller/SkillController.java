@@ -1,11 +1,10 @@
 package br.com.gestack.api.controller;
 
 import br.com.gestack.domains.repository.UsuarioRepository;
-import org.springframework.security.core.Authentication;
+import org.springframework.dao.DataIntegrityViolationException;
 import br.com.gestack.domains.service.SkillService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import br.com.gestack.domains.entities.Usuario;
 import br.com.gestack.domains.entities.Skill;
 import org.springframework.http.HttpStatus;
 import lombok.AllArgsConstructor;
@@ -19,8 +18,14 @@ public class SkillController {
     private final UsuarioRepository usuarioRepository;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Skill> cadastrar(@RequestBody Skill skill) {
-        return ResponseEntity.ok(skillService.cadastrar(skill));
+    public ResponseEntity<Object> cadastrar(@RequestBody Skill skill) {
+        try {
+            Skill cadastrado = skillService.cadastrar(skill);
+            return ResponseEntity.ok(cadastrado);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Skill já existe");
+        }
     }
 
     @GetMapping("/buscarTudo")
@@ -35,8 +40,13 @@ public class SkillController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<Skill> atualizar(@RequestBody Skill skill) {
-        return ResponseEntity.ok(skillService.atualizar(skill));
+    public ResponseEntity<Object> atualizar(@RequestBody Skill skill) {
+        try {
+            Skill atualizado = skillService.atualizar(skill);
+            return ResponseEntity.ok(atualizado);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Skill já existe");
+        }
     }
-
 }

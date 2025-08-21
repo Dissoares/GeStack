@@ -1,7 +1,7 @@
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from './services';
-import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
@@ -11,8 +11,13 @@ import { Observable } from 'rxjs';
 })
 export class App {
   public carregando$: Observable<boolean>;
+  private cdr = inject(ChangeDetectorRef);
 
   constructor(private loadingService: LoadingService) {
     this.carregando$ = this.loadingService.carregando$;
+  }
+
+  public ngAfterViewInit() {
+    this.cdr.detectChanges();
   }
 }
