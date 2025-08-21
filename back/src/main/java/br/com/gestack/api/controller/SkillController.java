@@ -33,6 +33,12 @@ public class SkillController {
         return skillService.buscarTudo();
     }
 
+    @PutMapping("/ativar/{idSkill}")
+    public ResponseEntity<Skill> ativar(@PathVariable Long idSkill) {
+        Skill skill = skillService.ativar(idSkill);
+        return ResponseEntity.ok(skill);
+    }
+
     @PutMapping("/desativar/{idSkill}")
     public ResponseEntity<Skill> desativar(@PathVariable Long idSkill) {
         Skill skill = skillService.desativar(idSkill);

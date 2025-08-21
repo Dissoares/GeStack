@@ -117,3 +117,7 @@ mat-paginator {
 .linha-destacada {
   background: linear-gradient(360deg, #f5f7fa 0%, #c3cfe2 100%) !important;
 }
+
+.mdc-switch__track::after {
+  background-color: #005f73 !important;
+}

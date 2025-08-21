@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 import br.com.gestack.domains.entities.Skill;
 import lombok.AllArgsConstructor;
-
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,12 +22,20 @@ public class SkillService {
         return skillRepository.findAll(Sort.by(Sort.Direction.DESC, "dataCriacao"));
     }
 
-    public Skill desativar(Long idSkill) {
-        Skill skill = skillRepository.findById(idSkill)
-                .orElseThrow(() -> new RuntimeException("Skill não encontrada"));
+    public Skill ativar(Long idSkill) {
+        Skill skill = buscarSkillPorId(idSkill);
+        skill.setAtivo(true);
+        return skillRepository.save(skill);
+    }
 
+    public Skill desativar(Long idSkill) {
+        Skill skill = buscarSkillPorId(idSkill);
         skill.setAtivo(false);
         return skillRepository.save(skill);
+    }
+
+    public Skill buscarSkillPorId(Long idSkill){
+        return skillRepository.findById(idSkill).orElseThrow(() -> new RuntimeException("Skill não encontrada"));
     }
 
     public Skill atualizar(Skill skill) {

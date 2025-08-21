@@ -150,19 +150,26 @@ export class SkillFormularioComponent
     });
   }
 
-  public desativar(idSkill: number) {
-    this.service.desativar(idSkill).subscribe({
+  public ativaDesativar(skill: Skill) {
+    this.service.ativaDesativar(skill).subscribe({
       next: (resultado) => {
-        resultado
-          ? this.toastr.success('Skill desativada com sucesso!.', 'Sucesso!')
-          : null;
-
-        this.listarSkills();
+        if (resultado.ativo) {
+          this.toastr.success('Skill reativada com sucesso!..', 'Sucesso!');
+        } else {
+          this.toastr.info('Skill desativada.', 'Informação!');
+        }
+        const index = this.dadosTabela.data.findIndex(
+          (s) => s.idSkill === resultado.idSkill
+        );
+        if (index !== -1) {
+          this.dadosTabela.data[index] = resultado;
+        }
       },
       error: (erro) => {
-        erro && erro.message
-          ? this.toastr.error('Não foi possível desativar', erro.message)
-          : null;
+        this.toastr.error(
+          'Não foi possível alterar o status da skill',
+          erro?.message
+        );
       },
     });
   }

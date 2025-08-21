@@ -90,7 +90,7 @@
         Status
       </th>
       <td style="width: 10%; text-align: center" mat-cell *matCellDef="let element">
-        <mat-slide-toggle [checked]="element.ativo" (change)="desativar(element.idSkill)" class="green-toggle">
+        <mat-slide-toggle [checked]="element.ativo" (change)="ativaDesativar(element)" class="green-toggle">
         </mat-slide-toggle>
       </td>
     </ng-container>

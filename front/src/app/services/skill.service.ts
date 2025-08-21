@@ -26,11 +26,12 @@ export class SkillService {
     );
   }
 
-  public desativar(idSkill: number): Observable<Skill> {
-    return this.http.put<Skill>(
-      `${this.apiUrl}${this.endPointUrl}/desativar/${idSkill}`,
-      {}
-    );
+  public ativaDesativar(skill: Skill): Observable<Skill> {
+    const urlEndpoint = skill.ativo
+      ? `${this.apiUrl}${this.endPointUrl}/desativar/${skill.idSkill}`
+      : `${this.apiUrl}${this.endPointUrl}/ativar/${skill.idSkill}`;
+
+    return this.http.put<Skill>(urlEndpoint, {});
   }
 
   public atualizar(skill: Skill): Observable<Skill> {
