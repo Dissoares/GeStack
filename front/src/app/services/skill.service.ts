@@ -27,7 +27,7 @@ export class SkillService {
   }
 
   public ativaDesativar(skill: Skill): Observable<Skill> {
-    const urlEndpoint = skill.ativo
+    const urlEndpoint = !skill.ativo
       ? `${this.apiUrl}${this.endPointUrl}/desativar/${skill.idSkill}`
       : `${this.apiUrl}${this.endPointUrl}/ativar/${skill.idSkill}`;
 

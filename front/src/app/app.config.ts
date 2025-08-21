@@ -24,6 +24,9 @@ export const appConfig: ApplicationConfig = {
     provideToastr({
       positionClass: 'toast-top-right',
       preventDuplicates: true,
+      timeOut: 1000,
+      closeButton: true,
+      progressBar: true,
     }),
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     importProvidersFrom(MatDatepickerModule, MatNativeDateModule),

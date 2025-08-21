@@ -147,11 +147,13 @@ export class SkillFormularioComponent
   }
 
   public ativaDesativar(skill: Skill) {
+    skill.ativo = !skill.ativo;
+
     this.service.ativaDesativar(skill).subscribe({
       next: (resultado) => {
         if (resultado.ativo) {
           this.toastr.success('Skill reativada com sucesso!..', 'Sucesso!');
-        } else {
+        } else if (!resultado.ativo) {
           this.toastr.info('Skill desativada.', 'Informação!');
         }
         const index = this.dadosTabela.data.findIndex(
