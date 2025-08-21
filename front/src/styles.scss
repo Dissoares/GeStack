@@ -49,14 +49,14 @@ html {
 }
 
 .mat-mdc-mini-fab.mat-warn {
-  background-color: #6f0707;
+  background-color: #005f73;
   color: white;
   box-shadow: none !important;
   border-radius: 90px !important;
 }
 
 .mat-mdc-mini-fab.mat-warn:hover {
-  background-color: #be0000;
+  background-color: #188196;
   border-radius: 90px !important;
 }
 
@@ -114,14 +114,6 @@ mat-paginator {
   -webkit-backdrop-filter: blur(2px) !important;
 }
 
-.mat-row:nth-child(odd) {
-  background-color: #f1f7f8 !important; 
-}
-
-.mat-row:nth-child(even) {
-  background-color: #ffffff !important; 
-}
-
 .linha-destacada {
-   background-color: #eef4f8 !important;
+  background: linear-gradient(360deg, #f5f7fa 0%, #c3cfe2 100%) !important;
 }

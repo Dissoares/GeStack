@@ -12,6 +12,7 @@ import {
 } from '../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,6 +32,7 @@ import { Skill } from '../../core/models';
   standalone: true,
   imports: [
     ErrosFormularioComponent,
+    MatSlideToggleModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatPaginatorModule,

@@ -90,9 +90,8 @@
         Status
       </th>
       <td style="width: 10%; text-align: center" mat-cell *matCellDef="let element">
-        <span [ngClass]="element.ativo ? 'ativo' : 'inativo'">
-          {{ element.ativo ? "Ativo" : "Inativo" }}
-        </span>
+        <mat-slide-toggle [checked]="element.ativo" (change)="desativar(element.idSkill)" class="green-toggle">
+        </mat-slide-toggle>
       </td>
     </ng-container>
 
@@ -101,10 +100,7 @@
         Ações
       </th>
       <td style="width: 10%; text-align: center" mat-cell *matCellDef="let element">
-        <button matMiniFab color="warn" (click)="desativar(element.idSkill)">
-          <mat-icon>do_not_disturb_on</mat-icon>
-        </button>
-        <button matMiniFab color="warn" (click)="editar(element)">
+        <button mat-mini-fab color="warn" (click)="editar(element)" [disabled]="!element.ativo">
           <mat-icon>edit</mat-icon>
         </button>
       </td>

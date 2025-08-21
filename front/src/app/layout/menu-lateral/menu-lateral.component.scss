@@ -9,7 +9,7 @@
   border-radius: 0px !important;
   cursor: pointer;
   &:hover {
-    background: linear-gradient(135deg, #fbffff 0%, #f4feff 100%);
+    background: linear-gradient(360deg, #f5f7fa 0%, #c3cfe2 100%) !important;
     .barra-icones {
       background: #005f73;
       .icone {
@@ -21,7 +21,7 @@
     }
   }
   &.active {
-    background: #eaeff5 !important;
+    background: linear-gradient(360deg, #f5f7fa 0%, #c3cfe2 100%) !important;
     .barra-icones {
       background: #005f73;
       .icone {
