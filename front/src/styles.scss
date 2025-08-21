@@ -48,16 +48,25 @@ html {
   border: 1px solid #bfc2c7 !important;
 }
 
-.mat-mdc-mini-fab.mat-warn {
-  background-color: #005f73;
-  color: white;
+.mat-mdc-mini-fab {
   box-shadow: none !important;
   border-radius: 90px !important;
+  margin: 5px !important;
+  color: #ffffff !important;
 }
 
-.mat-mdc-mini-fab.mat-warn:hover {
-  background-color: #188196;
-  border-radius: 90px !important;
+.mat-mdc-mini-fab.mat-warn {
+  background-color: #730000c9;
+  &:hover {
+    background-color: #730000;
+  }
+}
+
+.mat-mdc-mini-fab.mat-primary {
+  background-color: #005f73;
+  &:hover {
+    background-color: #188196;
+  }
 }
 
 .mat-mdc-form-field.mat-form-field-appearance-outline {

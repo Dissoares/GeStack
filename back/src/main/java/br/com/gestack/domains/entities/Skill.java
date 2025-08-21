@@ -26,5 +26,10 @@ public class Skill extends Auditoria {
     private Sistema sistema;
 
     @Column(name = "ATIVO", nullable = false)
-    private Boolean ativo = true;
+    private Boolean ativo;
+
+    @PrePersist
+    public void prePersist() {
+        if(ativo == null) ativo = true;
+    }
 }

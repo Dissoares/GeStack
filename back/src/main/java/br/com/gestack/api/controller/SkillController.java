@@ -55,4 +55,10 @@ public class SkillController {
                     .body("Skill já existe");
         }
     }
+
+    @DeleteMapping("/excluir/{idSkill}")
+    public ResponseEntity<Void> excluir(@PathVariable Long idSkill) {
+        skillService.excluir(idSkill);
+        return ResponseEntity.noContent().build();
+    }
 }

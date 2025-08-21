@@ -41,4 +41,8 @@ public class SkillService {
     public Skill atualizar(Skill skill) {
         return skillRepository.save(skill);
     }
+
+    public void excluir (Long idSkill) {
+        skillRepository.deleteById(idSkill);
+    }
 }

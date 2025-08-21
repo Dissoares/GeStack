@@ -40,4 +40,10 @@ export class SkillService {
       skill
     );
   }
+
+  public excluir(idSkill: number): Observable<Skill> {
+    return this.http.delete<Skill>(
+      `${this.apiUrl}${this.endPointUrl}/excluir/${idSkill}`
+    );
+  }
 }
