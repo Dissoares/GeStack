@@ -113,3 +113,15 @@ mat-paginator {
   backdrop-filter: blur(2px) !important;
   -webkit-backdrop-filter: blur(2px) !important;
 }
+
+.mat-row:nth-child(odd) {
+  background-color: #f1f7f8 !important; 
+}
+
+.mat-row:nth-child(even) {
+  background-color: #ffffff !important; 
+}
+
+.linha-destacada {
+   background-color: #eef4f8 !important;
+}
