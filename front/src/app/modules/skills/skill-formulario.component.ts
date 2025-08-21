@@ -11,15 +11,16 @@ import {
   ErrosFormularioComponent,
 } from '../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { SkillCategoriaEnum } from '../../core/enums';
+import { campoObrigatorio } from '../../validators';
 import { CommonModule } from '@angular/common';
 import { SkillService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
@@ -84,8 +85,8 @@ export class SkillFormularioComponent
   private criarFormulario(): void {
     this.formulario = this.fb.group({
       idSkill: [null],
-      nome: [null, Validators.required],
-      categoria: [null, Validators.required],
+      nome: [null, [campoObrigatorio()]],
+      categoria: [null, [campoObrigatorio()]],
       dataCriacao: [null],
       dataModificacao: [null],
       modificadoPor: [null],
@@ -95,7 +96,6 @@ export class SkillFormularioComponent
 
   public salvar(): void {
     if (this.formulario.invalid) {
-      this.toastr.error('Preencha todos os campos obrigatórios', 'Erro!');
       this.marcarFormularioComoTocado();
       return;
     }
