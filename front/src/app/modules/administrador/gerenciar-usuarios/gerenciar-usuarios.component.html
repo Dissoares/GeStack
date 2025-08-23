@@ -5,17 +5,17 @@
 
   <mat-card-content>
     <form [formGroup]="formulario" class="container">
-      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Nome</mat-label>
         <input matInput formControlName="nomeUsuario" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>E-mail</mat-label>
         <input matInput type="email" formControlName="email" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" floatLabel="always" class="field-4">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-2">
         <mat-label>Perfil</mat-label>
         <mat-select formControlName="nivelAcesso">
           <mat-option *ngFor="let nivelAcesso of listaNivelAcessoEnum" [value]="nivelAcesso.id">
@@ -24,14 +24,14 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-2">
         <mat-label>Data Cadastro</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="dataCriacao" />
         <mat-datepicker #picker></mat-datepicker>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-2">
         <mat-label>Status</mat-label>
         <mat-select matInput type="text" formControlName="status">
           <mat-option *ngFor="let status of listaStatusEnum" [value]="status.status">
@@ -55,55 +55,47 @@
   <mat-card-content>
     <table mat-table [dataSource]="dadosTabela">
       <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef style="width: 15%">Nome</th>
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
         <td mat-cell *matCellDef="let element">{{ element.nomeUsuario }}</td>
       </ng-container>
 
       <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef style="width: 10%">E-mail</th>
+        <th mat-header-cell *matHeaderCellDef>E-mail</th>
         <td mat-cell *matCellDef="let element">{{ element.email }}</td>
       </ng-container>
 
       <ng-container matColumnDef="perfil">
-        <th mat-header-cell *matHeaderCellDef style="width: 11%">Usuário</th>
+        <th mat-header-cell *matHeaderCellDef>Perfil</th>
         <td mat-cell *matCellDef="let element">
           {{ getDescricaoPerfil(element.nivelAcesso) }}
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="squad">
+        <th mat-header-cell *matHeaderCellDef>Squad</th>
+        <td mat-cell *matCellDef="let element">{{ element.nomeSquad }}</td>
+      </ng-container>
+
       <ng-container matColumnDef="dataCadastro">
-        <th mat-header-cell *matHeaderCellDef style="width: 5%">Cadastro</th>
+        <th mat-header-cell *matHeaderCellDef>Data Cadastro</th>
         <td mat-cell *matCellDef="let element">
           {{ element.dataCriacao | date : "dd/MM/yyyy" }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="squad">
-        <th mat-header-cell *matHeaderCellDef style="width: 15%">
-          Nome da Squad
+      <ng-container matColumnDef="status">
+        <th style="width: 10%; text-align: center" mat-header-cell *matHeaderCellDef>
+          Ativo
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.nomeSquad }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="lider">
-        <th mat-header-cell *matHeaderCellDef style="width: 15%">
-          Líder da squad
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element.nomeLider }}</td>
-      </ng-container>
-      <ng-container matColumnDef="perfilLider">
-        <th mat-header-cell *matHeaderCellDef style="width: 20%">
-          Perfil do Lider
-        </th>
-        <td mat-cell *matCellDef="let element">
-          {{ getDescricaoPerfil(element.perfilLider) }}
+        <td style="width: 10%; text-align: center" mat-cell *matCellDef="let element">
+          <mat-slide-toggle [checked]="element.ativo" (change)="ativaDesativar(element)" class="green-toggle">
+          </mat-slide-toggle>
         </td>
       </ng-container>
-
       <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef style="width: 5%">Ações</th>
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let element">
-          <button matMiniFab color="warn" (click)="desativar(element.idUsuario)">
+          <button matMiniFab color="warn">
             <mat-icon>do_not_disturb_on</mat-icon>
           </button>
         </td>

@@ -1,6 +1,3 @@
-import { CamposFormularioComponent } from '../../../components/index.component';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {
   ViewEncapsulation,
   Component,
@@ -8,6 +5,10 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
+import { CamposFormularioComponent } from '../../../components/index.component';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +27,7 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-gerenciar-usuarios',
   standalone: true,
   imports: [
+    MatSlideToggleModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -56,10 +58,9 @@ export class GerenciarUsuariosComponent
     'nome',
     'email',
     'perfil',
-    'dataCadastro',
     'squad',
-    'lider',
-    'perfilLider',
+    'dataCadastro',
+    'status',
     'acoes',
   ];
 
@@ -129,7 +130,9 @@ export class GerenciarUsuariosComponent
     return NivelAcessoEnum.getById(id)?.nivel || '';
   }
 
-  public desativar(id: number) {}
+  public ativaDesativar(usuario: Usuario) {
+    usuario.ativo = !usuario.ativo;
+  }
 
   public limpar(): void {
     this.dadosTabela.data = [];
