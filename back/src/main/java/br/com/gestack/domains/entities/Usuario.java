@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import br.com.gestack.utils.NivelAcessoConverter;
 import br.com.gestack.core.enums.NivelAcessoEnum;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 
 @Setter
@@ -36,6 +38,9 @@ public class Usuario {
 
     @Column(name = "EH_LIDER", nullable = false)
     private Boolean ehLider;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RegistroEscala> escala = new ArrayList<>();
 
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo = true;

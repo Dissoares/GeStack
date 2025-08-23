@@ -1,4 +1,5 @@
 import { NivelAcessoEnum } from '../enums';
+import { Escala } from './escala';
 import { Squad } from './squad';
 
 export class Usuario {
@@ -12,6 +13,7 @@ export class Usuario {
   public ehLider!: boolean;
   public dataCadastro?: Date | string;
   public criadoPor?: Usuario;
+  public escala?:Array<Escala>
   public ativo?: boolean;
 
   constructor(init?: Partial<Usuario>) {
