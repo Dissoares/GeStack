@@ -1,55 +1,67 @@
 ::ng-deep .cdk-overlay-backdrop {
-  background: rgba(0, 0, 0, 0.779) !important;
-  transition: all 1s ease !important;
-  backdrop-filter: blur(2px) !important;
-  -webkit-backdrop-filter: blur(2px) !important;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
 mat-card {
   display: flex;
   flex-direction: column;
-  padding: 0px !important;
+  padding: 0 !important;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 mat-card-header {
   display: flex;
   justify-content: center;
-  padding: 0px !important;
-  margin: 0px !important;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  position: relative;
 }
 
 mat-card-title {
-  font-weight: 500;
+  font-weight: 600;
+  margin-bottom: 10px !important;
 }
 
-mat-dialog-content {
-  display: flex;
-  justify-content: center !important;
-  flex-direction: column !important;
-  align-items: center;
+mat-card-subtitle {
+  padding: 5px;
+  text-align: center;
 }
 
 .icone-aviso {
-  padding: 0px !important;
-  margin: 0px !important;
-  width: 50px;
-  height: 50px;
-  font-size: 50px;
+  margin-top: 5px;
+  width: 60px;
+  height: 60px;
+  font-size: 60px;
   color: #730000;
 }
 
 .alerta {
   font-size: 12px;
   text-align: center;
-  margin: 0px !important;
-  color: #730000 !important;
+  margin: 0;
+  color: #730000;
 }
 
 .btn-fechar {
-  position: absolute !important;
-  right: 6px !important;
-  top: 6px !important;
-  background: transparent !important;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .acoes {
@@ -57,5 +69,7 @@ mat-dialog-content {
   justify-content: center;
   gap: 12px;
   border-top: 1px solid #e0e0e0;
-  margin-top: 20px !important;
+  margin-top: 20px;
+  padding: 12px 0;
+  background-color: rgba(210, 224, 228, 0.822);
 }
