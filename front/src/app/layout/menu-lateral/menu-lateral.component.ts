@@ -45,23 +45,8 @@ export class MenuLateralComponent implements OnInit {
           icone: 'dashboard',
         },
         {
-          rota: 'lideranca/squad/gerenciar',
-          titulo: 'Gestão de Squads',
-          icone: 'person',
-        },
-        {
-          rota: 'lideranca/equipe/gerenciar',
-          titulo: 'Gestão de Equipes',
-          icone: 'groups',
-        },
-        {
-          rota: 'administrador/gerenciar-usuarios',
-          titulo: 'Gestão de Usuários',
-          icone: 'groups',
-        },
-        {
-          rota: 'atividade/criar',
-          titulo: 'Criar Atividade',
+          rota: 'skill/cadastrar',
+          titulo: 'Cadastrar Skill',
           icone: 'add',
         },
         {
@@ -70,8 +55,18 @@ export class MenuLateralComponent implements OnInit {
           icone: 'add_to_queue',
         },
         {
-          rota: 'skill/cadastrar',
-          titulo: 'Cadastrar Skill',
+          rota: 'administrador/gerenciar-usuarios',
+          titulo: 'Gestão de Usuários',
+          icone: 'groups',
+        },
+        {
+          rota: 'lideranca/squad/gerenciar',
+          titulo: 'Gestão de Squads',
+          icone: 'person',
+        },
+        {
+          rota: 'atividade/criar',
+          titulo: 'Criar Atividade',
           icone: 'add',
         },
       ];

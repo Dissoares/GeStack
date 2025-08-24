@@ -14,11 +14,6 @@ export const ROTAS_LIDERANCA: Routes = [
       import('./squads/squads.routing').then((m) => m.ROTAS_SQUAD),
   },
   {
-    path: 'equipe',
-    loadChildren: () =>
-      import('./equipe/equipe.routing').then((m) => m.ROTAS_EQUIPE),
-  },
-  {
     path: 'perfil',
     loadComponent: () =>
       import('./../perfil/perfil.component').then((c) => c.PerfilComponent),
