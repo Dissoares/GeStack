@@ -4,7 +4,7 @@
   </button>
 
   <mat-dialog-content>
-    <mat-icon class="icone-aviso">gpp_maybe</mat-icon>
+    <mat-icon class="icone-aviso"> {{ dados.icone ? dados.icone : 'gpp_maybe' }}</mat-icon>
     <mat-card-header>
       <mat-card-title>{{ dados.titulo || "Confirmação" }}</mat-card-title>
     </mat-card-header>
@@ -17,7 +17,7 @@
     </mat-card-subtitle>
 
     <p class="alerta">
-      {{ dados.alerta || "Não será possível desfazer essa ação." }}
+      {{ dados.alerta || "Essa ação não poderá ser desfeita." }}
     </p>
   </mat-dialog-content>
 

@@ -208,10 +208,8 @@ export class SkillFormularioComponent
     this.dialogService
       .openDialog({
         titulo: 'Confirmação!',
-        //acao:'Excluir',
-        mensagem: 'Tem certeza que deseja excluir esta Skill?',
-        // alerta:'Não será possível desfazer essa ação.',
-        textoConfirmacao: 'Confirmar',
+        acao: 'Excluir',
+        textoConfirmacao: 'Excluir',
         textoCancelamento: 'Cancelar',
       })
       .subscribe((resultado) => {
