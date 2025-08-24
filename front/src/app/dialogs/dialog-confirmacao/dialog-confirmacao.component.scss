@@ -1,0 +1,61 @@
+::ng-deep .cdk-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.779) !important;
+  transition: all 1s ease !important;
+  backdrop-filter: blur(2px) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0px !important;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+mat-card-title {
+  font-weight: 500;
+}
+
+mat-dialog-content {
+  display: flex;
+  justify-content: center !important;
+  flex-direction: column !important;
+  align-items: center;
+}
+
+.icone-aviso {
+  padding: 0px !important;
+  margin: 0px !important;
+  width: 50px;
+  height: 50px;
+  font-size: 50px;
+  color: #730000;
+}
+
+.alerta {
+  font-size: 12px;
+  text-align: center;
+  margin: 0px !important;
+  color: #730000 !important;
+}
+
+.btn-fechar {
+  position: absolute !important;
+  right: 6px !important;
+  top: 6px !important;
+  background: transparent !important;
+}
+
+.acoes {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 20px !important;
+}

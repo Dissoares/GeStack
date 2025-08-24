@@ -1,0 +1,34 @@
+<mat-card>
+  <button type="button" mat-icon-button class="btn-fechar" (click)="aoCancelar()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-dialog-content>
+    <mat-icon class="icone-aviso">warning</mat-icon>
+    <mat-card-header>
+      <mat-card-title>{{ dados.titulo || "Confirmação" }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-subtitle>
+      {{
+      dados.mensagem
+      ? dados.mensagem
+      : " Tem certeza que deseja " + dados.acao
+      }}
+    </mat-card-subtitle>
+
+    <p class="alerta">
+      {{ dados.alerta || "Não será possível desfazer essa ação." }}
+    </p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="acoes">
+    <button type="button" mat-flat-button class="btn-primary" (click)="aoConfirmar()">
+      <mat-icon>check</mat-icon>
+      {{ dados.textoConfirmacao || "Confirmar" }}
+    </button>
+    <button type="button" mat-flat-button class="btn-secondary" (click)="aoCancelar()">
+      <mat-icon>cancel</mat-icon>
+      {{ dados.textoCancelamento || "Cancelar" }}
+    </button>
+  </mat-dialog-actions>
+</mat-card>

@@ -4,6 +4,7 @@ import {
 } from '../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { DialogConfirmacaoService, SkillService } from '../../services';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Component, ViewChild, inject, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +17,6 @@ import { MatCardModule } from '@angular/material/card';
 import { SkillCategoriaEnum } from '../../core/enums';
 import { campoObrigatorio } from '../../validators';
 import { CommonModule } from '@angular/common';
-import { SkillService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import { Skill } from '../../core/models';
 
@@ -45,6 +45,7 @@ export class SkillFormularioComponent
   implements OnInit
 {
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
+  private readonly dialogService = inject(DialogConfirmacaoService);
   private readonly service = inject(SkillService);
   private readonly toastr = inject(ToastrService);
 
@@ -204,16 +205,29 @@ export class SkillFormularioComponent
   }
 
   public excluir(idSkill: number): void {
-    this.service.excluir(idSkill).subscribe({
-      next: () => {
-        this.toastr.success('Skill excluída com sucesso!', 'Sucesso!');
-        this.dadosTabela.data = this.dadosTabela.data.filter(
-          (s) => s.idSkill !== idSkill
-        );
-      },
-      error: (erro) => {
-        this.toastr.error('Não foi excluir essa skill', erro?.message);
-      },
-    });
+    this.dialogService
+      .openDialog({
+        titulo: 'Confirmação!',
+        //acao:'Excluir',
+        mensagem: 'Tem certeza que deseja excluir esta Skill?',
+        // alerta:'Não será possível desfazer essa ação.',
+        textoConfirmacao: 'Confirmar',
+        textoCancelamento: 'Cancelar',
+      })
+      .subscribe((resultado) => {
+        if (resultado) {
+          this.service.excluir(idSkill).subscribe({
+            next: () => {
+              this.toastr.success('Skill excluída com sucesso!', 'Sucesso!');
+              this.dadosTabela.data = this.dadosTabela.data.filter(
+                (s) => s.idSkill !== idSkill
+              );
+            },
+            error: (erro) => {
+              this.toastr.error('Não foi excluir essa skill', erro?.message);
+            },
+          });
+        }
+      });
   }
 }
