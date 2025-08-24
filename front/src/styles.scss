@@ -21,21 +21,31 @@ html {
   padding: 0;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-secondary {
   text-transform: uppercase !important;
-  min-width: 150px !important;
   border-radius: 10px !important;
+  min-width: 150px !important;
+}
+
+.btn-primary {
   background-color: #077187 !important;
-  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #007d96 !important;
 }
 
 .btn-secondary {
-  text-transform: uppercase !important;
-  min-width: 150px !important;
-  border-radius: 10px !important;
-  background: #eaeff5 !important;
-  color: #005f73 !important;
-  border: 1px solid #005f73 !important;
+  background: rgba(228, 210, 210, 0.26) !important;
+  color: #730000 !important;
+  border: 1px solid #730000 !important;
+}
+
+.btn-secondary:hover {
+  background: rgba(228, 210, 210, 0.87) !important;
+  color: #8b0000 !important;
+  border: 1px solid #8b0000 !important;
 }
 
 .mat-mdc-unelevated-button[disabled],
