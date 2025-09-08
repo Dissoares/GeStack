@@ -13,8 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
-import { NivelAcessoEnum } from '../../core/enums';
 import { CommonModule } from '@angular/common';
+import { PerfilEnum } from '../../core/enums';
 import { AuthService } from '../../services';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
@@ -77,8 +77,8 @@ export class CabecalhoComponent implements OnInit, OnDestroy {
     return nomeUsuario ? nomeUsuario.charAt(0).toUpperCase() : '';
   }
 
-  public getDescricaoNivelAcesso(id: any): string {
-    return NivelAcessoEnum.getById(id)?.nivel || '';
+  public getDescricaoPerfil(id: any): string {
+    return PerfilEnum.getById(id)?.descricao || '';
   }
 
   public abrirPerfil(): void {

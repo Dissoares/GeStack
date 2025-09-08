@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((usuario) => {
         if (rotaLogin && usuario) {
-          this.redirecionarBaseadoNoNivelAcesso();
+          this.redirecionarComBaseNoPerfil();
           return false;
         }
 
@@ -35,10 +35,10 @@ export class AuthGuard implements CanActivate {
         }
 
         if (usuario && permissoesAcesso) {
-          if (permissoesAcesso.includes(usuario.nivelAcesso)) {
+          if (permissoesAcesso.includes(usuario.perfil)) {
             return true;
           }
-          this.redirecionarBaseadoNoNivelAcesso();
+          this.redirecionarComBaseNoPerfil();
           return false;
         }
         return true;
@@ -46,7 +46,7 @@ export class AuthGuard implements CanActivate {
     );
   }
 
-  private redirecionarBaseadoNoNivelAcesso(): void {
+  private redirecionarComBaseNoPerfil(): void {
     if (this.authService.isAdmin()) {
       this.router.navigate(['/administrador/dashboard']);
     } else if (this.authService.isGeralLider()) {

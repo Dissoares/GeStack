@@ -7,7 +7,7 @@ export interface UsuarioToken {
   nome: string;
   senha: string;
   confirmarSenha?: string;
-  nivelAcesso: number;
+  perfil: number;
   squad?: number;
   dataCadastro?: Date | string;
   ativo?: boolean;

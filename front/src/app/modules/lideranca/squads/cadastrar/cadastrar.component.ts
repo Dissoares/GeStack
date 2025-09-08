@@ -5,9 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
-import { NivelAcessoEnum } from '../../../../core/enums';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { PerfilEnum } from '../../../../core/enums';
 import { AuthService } from '../../../../services';
 import { CommonModule } from '@angular/common';
 
@@ -32,8 +32,7 @@ export class CadastrarComponent
   implements OnInit
 {
   public formularioLider!: FormGroup;
-  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
-    NivelAcessoEnum.getAll();
+  public listaPerfilEnum = PerfilEnum.getAll();
   constructor(private authService: AuthService) {
     super(inject(FormBuilder));
   }
@@ -58,7 +57,7 @@ export class CadastrarComponent
       idUsuario: [null],
       nome: [{ value: null, disabled: true }],
       email: [null],
-      nivelAcesso: [{ value: null, disabled: true }],
+      perfil: [{ value: null, disabled: true }],
       dataCadastro: [null],
     });
   }

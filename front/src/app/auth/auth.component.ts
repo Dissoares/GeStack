@@ -8,8 +8,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { NivelAcessoEnum } from '../core/enums';
 import { CommonModule } from '@angular/common';
+import { PerfilEnum } from '../core/enums';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from '../core/models';
 import { LoginDto } from '../core/dtos';
@@ -32,8 +32,8 @@ import { DateTime } from 'luxon';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent extends CamposFormularioComponent implements OnInit {
-  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
-    NivelAcessoEnum.getAll();
+  public listaPerfilEnum =
+    PerfilEnum.getAll();
   public ehCadastro: boolean = false;
 
   constructor(
@@ -46,7 +46,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
 
   public ngOnInit(): void {
     this.criarFormulario();
-    this.verificarSeEhNivelLider();
+    this.verificarSePerfilEhLider();
   }
 
   private criarFormulario(): void {
@@ -56,7 +56,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       email: [null, Validators.required],
       senha: [null, Validators.required],
       confirmarSenha: [null],
-      nivelAcesso: [null],
+      perfil: [null],
       dataCadastro: [null],
       status: [null],
       ehLider: [null],
@@ -65,18 +65,18 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     if (this.ehCadastro) {
       this.formulario.get('nome')?.addValidators(Validators.required);
       this.formulario.get('confirmarSenha')?.addValidators(Validators.required);
-      this.formulario.get('nivelAcesso')?.addValidators(Validators.required);
+      this.formulario.get('perfil')?.addValidators(Validators.required);
       this.formulario.get('ehLider')?.addValidators(Validators.required);
     }
   }
 
-  public verificarSeEhNivelLider(): void {
+  public verificarSePerfilEhLider(): void {
     this.formulario
-      .get('nivelAcesso')
-      ?.valueChanges.subscribe((nivelAcesso: number) => {
+      .get('perfil')
+      ?.valueChanges.subscribe((perfil: number) => {
         if (
-          nivelAcesso === NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id ||
-          nivelAcesso === NivelAcessoEnum.LIDER_NEGOCIO.id
+          perfil === PerfilEnum.LIDER_DESENVOLVIMENTO.id ||
+          perfil === PerfilEnum.LIDER_NEGOCIO.id
         ) {
           this.formulario.get('ehLider')?.setValue(true);
         } else {

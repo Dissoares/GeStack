@@ -1,4 +1,4 @@
-import { NivelAcessoEnum } from './nivel-acesso.enum';
+import { PerfilEnum } from './perfil.enum';
 
 export class StatusAtividadeEnum {
   public static readonly A_FAZER = new StatusAtividadeEnum(1, 'A FAZER');
@@ -96,7 +96,7 @@ export class StatusAtividadeEnum {
     idPerfil: number
   ): StatusAtividadeEnum[] {
     switch (idPerfil) {
-      case NivelAcessoEnum.DESENVOLVEDOR.id:
+      case PerfilEnum.DESENVOLVEDOR.id:
         return [
           this.EM_ANDAMENTO,
           this.EM_IMPEDIMENTO,
@@ -104,7 +104,7 @@ export class StatusAtividadeEnum {
           this.PAUSADA,
           this.CONCLUIDA,
         ];
-      case NivelAcessoEnum.ANALISTA.id:
+      case PerfilEnum.ANALISTA_NEGOCIO.id:
         return [
           this.EM_ANALISE,
           this.EM_ANDAMENTO,
@@ -116,8 +116,8 @@ export class StatusAtividadeEnum {
           this.AGUARDANDO_VALIDACAO_AREA,
           this.VALIDADO_AREA,
         ];
-      case NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id ||
-        NivelAcessoEnum.LIDER_NEGOCIO.id:
+      case PerfilEnum.LIDER_DESENVOLVIMENTO.id ||
+        PerfilEnum.LIDER_NEGOCIO.id:
         return [
           this.A_FAZER,
           this.EM_ANALISE,
@@ -138,9 +138,9 @@ export class StatusAtividadeEnum {
           this.PAUSADA,
           this.CANCELADA,
         ];
-      case NivelAcessoEnum.ADMIN.id:
+      case PerfilEnum.ADMIN.id:
         return this.getAll();
-      case NivelAcessoEnum.AREA.id:
+      case PerfilEnum.REPRESENTANTE_AREA.id:
         return [
           this.AGUARDANDO_VALIDACAO_AREA,
           this.VALIDADO_AREA,

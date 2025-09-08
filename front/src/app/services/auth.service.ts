@@ -2,7 +2,7 @@ import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { UsuarioToken } from '../core/interfaces/usuario-token';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { NivelAcessoEnum } from '../core/enums';
+import { PerfilEnum } from '../core/enums';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginDto } from '../core/dtos';
@@ -13,12 +13,16 @@ export class AuthService {
   private readonly apiUrl = environment.apiUrl;
   private readonly LOCAL_STORAGE = { TOKEN: 'token' } as const;
   private readonly API_ENDPOINT = { AUTH: 'auth' } as const;
-  private readonly usuarioLogado = new BehaviorSubject<UsuarioToken | null>(null);
-  private readonly nivelAcesso = new BehaviorSubject<NivelAcessoEnum | null>(null);
-  public token$ = new BehaviorSubject<string | null>(localStorage.getItem(this.LOCAL_STORAGE.TOKEN));
+  private readonly usuarioLogado = new BehaviorSubject<UsuarioToken | null>(
+    null
+  );
+  private readonly perfil = new BehaviorSubject<PerfilEnum | null>(null);
+  public token$ = new BehaviorSubject<string | null>(
+    localStorage.getItem(this.LOCAL_STORAGE.TOKEN)
+  );
 
   public readonly usuarioLogado$ = this.usuarioLogado.asObservable();
-  public readonly nivelAcesso$ = this.nivelAcesso.asObservable();
+  public readonly perfil$ = this.perfil.asObservable();
 
   constructor(
     private readonly http: HttpClient,
@@ -90,55 +94,55 @@ export class AuthService {
 
   private setUsuarioLogado(usuario: UsuarioToken): void {
     this.usuarioLogado.next(usuario);
-    const nivelAcesso = NivelAcessoEnum.getById(usuario.nivelAcesso);
-    this.nivelAcesso.next(nivelAcesso ?? null);
+    const perfil = PerfilEnum.getById(usuario.perfil);
+    this.perfil.next(perfil ?? null);
   }
 
   public removerAcesso(): void {
     localStorage.removeItem(this.LOCAL_STORAGE.TOKEN);
     this.usuarioLogado.next(null);
-    this.nivelAcesso.next(null);
+    this.perfil.next(null);
   }
 
   public getNivelAcessoId(): number {
-    return this.nivelAcesso.value?.id ?? 0;
+    return this.perfil.value?.id ?? 0;
   }
 
-  private temAcesso(...niveis: Array<NivelAcessoEnum>): boolean {
-    return niveis.some((nivel) => nivel.id === this.getNivelAcessoId());
+  private temAcesso(...perfis: Array<PerfilEnum>): boolean {
+    return perfis.some((perfil) => perfil.id === this.getNivelAcessoId());
   }
 
   public isAdmin(): boolean {
-    return this.temAcesso(NivelAcessoEnum.ADMIN);
+    return this.temAcesso(PerfilEnum.ADMIN);
   }
 
   public isLiderDesenvolvimento(): boolean {
-    return this.temAcesso(NivelAcessoEnum.LIDER_DESENVOLVIMENTO);
+    return this.temAcesso(PerfilEnum.LIDER_DESENVOLVIMENTO);
   }
 
   public isLiderNegocio(): boolean {
-    return this.temAcesso(NivelAcessoEnum.LIDER_NEGOCIO);
+    return this.temAcesso(PerfilEnum.LIDER_NEGOCIO);
   }
 
   public isDesenvolvedor(): boolean {
-    return this.temAcesso(NivelAcessoEnum.DESENVOLVEDOR);
+    return this.temAcesso(PerfilEnum.DESENVOLVEDOR);
   }
 
   public isAnalista(): boolean {
-    return this.temAcesso(NivelAcessoEnum.ANALISTA);
+    return this.temAcesso(PerfilEnum.ANALISTA_NEGOCIO);
   }
 
   public isGeralLider(): boolean {
     return this.temAcesso(
-      NivelAcessoEnum.LIDER_DESENVOLVIMENTO,
-      NivelAcessoEnum.LIDER_NEGOCIO
+      PerfilEnum.LIDER_DESENVOLVIMENTO,
+      PerfilEnum.LIDER_NEGOCIO
     );
   }
 
   public isGeralMembro(): boolean {
     return this.temAcesso(
-      NivelAcessoEnum.DESENVOLVEDOR,
-      NivelAcessoEnum.ANALISTA
+      PerfilEnum.DESENVOLVEDOR,
+      PerfilEnum.ANALISTA_NEGOCIO
     );
   }
 

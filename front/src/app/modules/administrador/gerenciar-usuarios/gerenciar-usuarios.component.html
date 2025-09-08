@@ -17,9 +17,9 @@
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-2">
         <mat-label>Perfil</mat-label>
-        <mat-select formControlName="nivelAcesso">
-          <mat-option *ngFor="let nivelAcesso of listaNivelAcessoEnum" [value]="nivelAcesso.id">
-            {{ nivelAcesso.nivel }}
+        <mat-select formControlName="perfil">
+          <mat-option *ngFor="let perfil of listaPerfilEnum" [value]="perfil.id">
+            {{ perfil.descricao }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -67,7 +67,7 @@
       <ng-container matColumnDef="perfil">
         <th mat-header-cell *matHeaderCellDef>Perfil</th>
         <td mat-cell *matCellDef="let element">
-          {{ getDescricaoPerfil(element.nivelAcesso) }}
+          {{ getDescricaoPerfil(element.perfil) }}
         </td>
       </ng-container>
 

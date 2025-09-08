@@ -39,7 +39,7 @@ public class UsuarioService {
     }
 
     public List<ListagemUsuariosDTO> buscaPor(Usuario usuario) {
-        Integer nivelAcesso = usuario.getNivelAcesso() != null ? usuario.getNivelAcesso().getId() : null;
-         return usuarioRepository.buscarPor(usuario.getNome(), usuario.getEmail(), nivelAcesso, usuario.getAtivo());
+        Integer perfil = usuario.getPerfil() != null ? usuario.getPerfil().getId() : null;
+         return usuarioRepository.buscarPor(usuario.getNome(), usuario.getEmail(), perfil, usuario.getAtivo());
     }
 }

@@ -1,8 +1,8 @@
 package br.com.gestack.domains.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import br.com.gestack.utils.NivelAcessoConverter;
-import br.com.gestack.core.enums.NivelAcessoEnum;
+import br.com.gestack.utils.PerfilEnumConverter;
+import br.com.gestack.core.enums.PerfilEnum;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,9 @@ public class Usuario {
     @Column(name = "SENHA", nullable = false, length = 250)
     private String senha;
 
-    @Convert(converter = NivelAcessoConverter.class)
+    @Convert(converter = PerfilEnumConverter.class)
     @Column(name = "NIVEL_ACESSO", nullable = false)
-    private NivelAcessoEnum nivelAcesso;
+    private PerfilEnum perfil;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SQUAD_FK")

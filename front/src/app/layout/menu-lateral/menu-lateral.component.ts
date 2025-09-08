@@ -26,14 +26,14 @@ import { AuthService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuLateralComponent implements OnInit {
-  public nivelAcessoUsuario!: number;
+  public perfilUsuario!: number;
   public botoesMenu: Array<BotaoMenu> = [];
 
   constructor(private authService: AuthService) {}
 
   public ngOnInit(): void {
     this.iniciarItensDoMenu();
-    this.nivelAcessoUsuario = this.authService.getNivelAcessoId();
+    this.perfilUsuario = this.authService.getNivelAcessoId();
   }
 
   public iniciarItensDoMenu(): void {

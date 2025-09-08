@@ -7,8 +7,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { NivelAcessoEnum } from '../../core/enums';
 import { CommonModule } from '@angular/common';
+import { PerfilEnum } from '../../core/enums';
 import { AuthService } from '../../services';
 
 @Component({
@@ -31,8 +31,7 @@ export class PerfilComponent
   extends CamposFormularioComponent
   implements OnInit
 {
-  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
-    NivelAcessoEnum.getAll();
+  public listaPerfilEnum = PerfilEnum.getAll();
   public ehEdicao: boolean = false;
 
   constructor(private authService: AuthService) {
@@ -51,7 +50,7 @@ export class PerfilComponent
       email: [null],
       senha: [null],
       confirmarSenha: [null],
-      nivelAcesso: [null],
+      perfil: [null],
       dataCadastro: [null],
       ativo: [null],
     });

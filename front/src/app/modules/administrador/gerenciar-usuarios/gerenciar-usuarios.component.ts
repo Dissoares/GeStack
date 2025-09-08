@@ -12,7 +12,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NivelAcessoEnum, StatusEnum } from '../../../core/enums';
+import { PerfilEnum, StatusEnum } from '../../../core/enums';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -50,8 +50,7 @@ export class GerenciarUsuariosComponent
 {
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
 
-  public listaNivelAcessoEnum: Array<NivelAcessoEnum> =
-    NivelAcessoEnum.getAll();
+  public listaPerfilEnum: Array<PerfilEnum> = PerfilEnum.getAll();
   public listaStatusEnum: Array<StatusEnum> = StatusEnum.getAll();
   public dadosTabela = new MatTableDataSource<Usuario>([]);
   public colunasTabela: Array<string> = [
@@ -97,7 +96,7 @@ export class GerenciarUsuariosComponent
       email: [null],
       senha: [null],
       confirmarSenha: [null],
-      nivelAcesso: [null],
+      perfil: [null],
       dataCriacao: [null],
       status: [null],
       nomeLider: [null],
@@ -127,7 +126,7 @@ export class GerenciarUsuariosComponent
   }
 
   public getDescricaoPerfil(id: number): string {
-    return NivelAcessoEnum.getById(id)?.nivel || '';
+    return PerfilEnum.getById(id)?.descricao || '';
   }
 
   public ativaDesativar(usuario: Usuario) {

@@ -3,7 +3,7 @@ package br.com.gestack.core.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum NivelAcessoEnum {
+public enum PerfilEnum {
     ADMINISTRADOR(1),
     LIDER_DE_DESENVOLVIMENTO(2),
     LIDER_DE_NEGOCIO(3),
@@ -12,7 +12,7 @@ public enum NivelAcessoEnum {
 
     private final int id;
 
-    NivelAcessoEnum(int id) {
+    PerfilEnum(int id) {
         this.id = id;
     }
 
@@ -22,8 +22,8 @@ public enum NivelAcessoEnum {
     }
 
     @JsonCreator
-    public static NivelAcessoEnum fromId(int id) {
-        for (NivelAcessoEnum nivel : values()) {
+    public static PerfilEnum fromId(int id) {
+        for (PerfilEnum nivel : values()) {
             if (nivel.id == id) {
                 return nivel;
             }

@@ -36,9 +36,9 @@
         <mat-form-field appearance="outline" floatLabel="always" class="field-4" *ngIf="ehCadastro">
           <mat-label>Perfil</mat-label>
           <mat-icon matPrefix>person</mat-icon>
-          <mat-select formControlName="nivelAcesso">
-            <mat-option *ngFor="let nivelAcesso of listaNivelAcessoEnum" [value]="nivelAcesso.id">
-              {{ nivelAcesso.nivel }}
+          <mat-select formControlName="perfil">
+            <mat-option *ngFor="let perfil of listaPerfilEnum" [value]="perfil.id">
+              {{ perfil.descricao }}
             </mat-option>
           </mat-select>
         </mat-form-field>

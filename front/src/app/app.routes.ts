@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { NivelAcessoEnum } from './core/enums';
+import { PerfilEnum } from './core/enums';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -23,7 +23,7 @@ export const routes: Routes = [
           import('./modules/administrador/administrador.routing').then(
             (m) => m.ROTAS_ADMINISTRADOR
           ),
-        data: { permissoes: [NivelAcessoEnum.ADMIN.id] },
+        data: { permissoes: [PerfilEnum.ADMIN.id] },
       },
       {
         path: 'lideranca',
@@ -34,9 +34,9 @@ export const routes: Routes = [
           ),
         data: {
           permissoes: [
-            NivelAcessoEnum.LIDER_DESENVOLVIMENTO.id,
-            NivelAcessoEnum.LIDER_NEGOCIO.id,
-            NivelAcessoEnum.ADMIN.id,
+            PerfilEnum.LIDER_DESENVOLVIMENTO.id,
+            PerfilEnum.LIDER_NEGOCIO.id,
+            PerfilEnum.ADMIN.id,
           ],
         },
       },
@@ -47,9 +47,9 @@ export const routes: Routes = [
           import('./modules/membro/membro.routing').then((m) => m.ROTAS_MEMBRO),
         data: {
           permissoes: [
-            NivelAcessoEnum.DESENVOLVEDOR.id,
-            NivelAcessoEnum.ANALISTA.id,
-            NivelAcessoEnum.ADMIN.id,
+            PerfilEnum.DESENVOLVEDOR.id,
+            PerfilEnum.ANALISTA_NEGOCIO.id,
+            PerfilEnum.ADMIN.id,
           ],
         },
       },
@@ -62,9 +62,9 @@ export const routes: Routes = [
           ),
         data: {
           permissoes: [
-            NivelAcessoEnum.DESENVOLVEDOR.id,
-            NivelAcessoEnum.ANALISTA.id,
-            NivelAcessoEnum.ADMIN.id,
+            PerfilEnum.DESENVOLVEDOR.id,
+            PerfilEnum.ANALISTA_NEGOCIO.id,
+            PerfilEnum.ADMIN.id,
           ],
         },
       },
@@ -77,9 +77,9 @@ export const routes: Routes = [
           ),
         data: {
           permissoes: [
-            NivelAcessoEnum.DESENVOLVEDOR.id,
-            NivelAcessoEnum.ANALISTA.id,
-            NivelAcessoEnum.ADMIN.id,
+            PerfilEnum.DESENVOLVEDOR.id,
+            PerfilEnum.ANALISTA_NEGOCIO.id,
+            PerfilEnum.ADMIN.id,
           ],
         },
       },
@@ -87,14 +87,12 @@ export const routes: Routes = [
         path: 'skill',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/skills/skills.routing').then(
-            (m) => m.ROTAS_SKILL
-          ),
+          import('./modules/skills/skills.routing').then((m) => m.ROTAS_SKILL),
         data: {
           permissoes: [
-            NivelAcessoEnum.DESENVOLVEDOR.id,
-            NivelAcessoEnum.ANALISTA.id,
-            NivelAcessoEnum.ADMIN.id,
+            PerfilEnum.DESENVOLVEDOR.id,
+            PerfilEnum.ANALISTA_NEGOCIO.id,
+            PerfilEnum.ADMIN.id,
           ],
         },
       },
