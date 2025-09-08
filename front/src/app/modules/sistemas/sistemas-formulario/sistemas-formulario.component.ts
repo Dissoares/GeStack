@@ -2,15 +2,15 @@ import { CamposFormularioComponent } from '../../../components/index.component';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { RotasEnum } from '../../../core/enums';
+import { SistemaService, SkillService } from '../../../services';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { SistemaService } from '../../../services';
-import { Sistema } from '../../../core/models';
+import { Sistema, Skill } from '../../../core/models';
+import { RotasEnum } from '../../../core/enums';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -38,9 +38,10 @@ export class SistemasFormularioComponent
 {
   private readonly sistemaService = inject(SistemaService);
   private readonly toastrService = inject(ToastrService);
+  private readonly skillService = inject(SkillService);
   private readonly router = inject(Router);
 
-  public listaSkillsEnum: Array<any> = [];
+  public listaSkills: Array<Skill> = [];
 
   constructor() {
     super(inject(FormBuilder));
@@ -48,6 +49,7 @@ export class SistemasFormularioComponent
 
   public ngOnInit() {
     this.criarFormulario();
+    this.buscarSkills();
   }
 
   private criarFormulario(): void {
@@ -88,5 +90,16 @@ export class SistemasFormularioComponent
   public cancelar(): void {
     this.limparFormulario();
     this.router.navigate([RotasEnum.HOME]);
+  }
+
+  public buscarSkills(): void {
+    this.skillService.buscarTudo().subscribe({
+      next: (skills) => {
+        this.listaSkills = skills;
+      },
+      error: (erro) => {
+        console.log(erro);
+      },
+    });
   }
 }

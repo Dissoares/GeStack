@@ -153,7 +153,7 @@ export class SkillFormularioComponent
     this.service.ativaDesativar(skill).subscribe({
       next: (resultado) => {
         if (resultado.ativo) {
-          this.toastr.success('Skill reativada com sucesso!..', 'Sucesso!');
+          this.toastr.success('Ativado com sucesso!..', 'Sucesso!');
         } else if (!resultado.ativo) {
           this.toastr.info('Skill desativada.', 'Informação!');
         }
@@ -216,7 +216,7 @@ export class SkillFormularioComponent
         if (resultado) {
           this.service.excluir(idSkill).subscribe({
             next: () => {
-              this.toastr.success('Skill excluída com sucesso!', 'Sucesso!');
+              this.toastr.success('Excluído com sucesso!', 'Sucesso!');
               this.dadosTabela.data = this.dadosTabela.data.filter(
                 (s) => s.idSkill !== idSkill
               );

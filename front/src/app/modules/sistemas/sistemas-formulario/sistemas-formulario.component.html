@@ -30,8 +30,8 @@
         <mat-label>Skills</mat-label>
         <mat-icon matPrefix>label</mat-icon>
         <mat-select matInput type="text" formControlName="skills" multiple>
-          <mat-option *ngFor="let skill of listaSkillsEnum" [value]="skill">
-            {{ skill.descricao }}
+          <mat-option *ngFor="let skill of listaSkills" [value]="skill">
+            {{ skill.nome }}
           </mat-option>
         </mat-select>
       </mat-form-field>

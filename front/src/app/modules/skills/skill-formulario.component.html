@@ -28,7 +28,7 @@
     </form>
 
     <mat-card-actions>
-      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
+      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()" [disabled]="formulario.invalid">
         <mat-icon>{{ ehEdicao ? "save" : "add" }} </mat-icon>
         {{ ehEdicao ? "salvar" : "Cadastrar" }}
       </button>
