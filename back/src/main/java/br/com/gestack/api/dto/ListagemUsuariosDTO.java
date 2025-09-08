@@ -6,7 +6,7 @@ public interface ListagemUsuariosDTO {
     Long getIdUsuario();
     String getNomeUsuario();
     String getEmail();
-    Integer getNivelAcesso();
+    Integer getPerfil();
     LocalDateTime getDataCriacao();
     Boolean getAtivo();
     Long getIdSquad();

@@ -3,6 +3,7 @@ package br.com.gestack.domains.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import br.com.gestack.utils.PerfilEnumConverter;
 import br.com.gestack.core.enums.PerfilEnum;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class Usuario {
     private String senha;
 
     @Convert(converter = PerfilEnumConverter.class)
-    @Column(name = "NIVEL_ACESSO", nullable = false)
+    @Column(name = "PERFIL", nullable = false)
     private PerfilEnum perfil;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,11 +37,22 @@ public class Usuario {
     @JsonBackReference
     private Squad squad;
 
-    @Column(name = "EH_LIDER", nullable = false)
-    private Boolean ehLider;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RegistroEscala> escala = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CRIADO_POR")
+    private Usuario criadoPor;
+
+    @Column(name = "DATA_CRIACAO", nullable = false, updatable = false)
+    private LocalDateTime dataCriacao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MODIFICADO_POR")
+    private Usuario modificadoPor;
+
+    @Column(name = "DATA_MODIFICACAO")
+    private LocalDateTime dataModificacao;
 
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo = true;

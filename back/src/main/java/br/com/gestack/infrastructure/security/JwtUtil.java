@@ -28,6 +28,7 @@ public class JwtUtil {
         claims.put("email", usuario.getEmail());
         claims.put("perfil", usuario.getPerfil().getId());
         claims.put("ativo", usuario.getAtivo());
+        claims.put("dataCriacao", usuario.getDataCriacao().toString());
 
         if (usuario.getSquad() != null) {
             claims.put("squadId", usuario.getSquad().getIdSquad());
@@ -53,10 +54,11 @@ public class JwtUtil {
         customClaims.put("idUsuario", claims.get("idUsuario"));
         customClaims.put("nome", claims.get("nome"));
         customClaims.put("email", claims.get("email"));
-        customClaims.put("nivelAcesso", claims.get("nivelAcesso"));
+        customClaims.put("perfil", claims.get("perfil"));
         customClaims.put("ativo", claims.get("ativo"));
         customClaims.put("squadId", claims.get("squadId"));
         customClaims.put("squadNome", claims.get("squadNome"));
+        customClaims.put("dataCriacao", claims.get("dataCriacao"));
         return customClaims;
     }
 

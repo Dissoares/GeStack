@@ -11,7 +11,7 @@ export class Usuario {
   public perfil!: PerfilEnum;
   public squad?: Squad;
   public ehLider!: boolean;
-  public dataCadastro?: Date | string;
+  public dataCriacao?: Date | string;
   public criadoPor?: Usuario;
   public escala?: Array<Escala>;
   public ativo?: boolean;

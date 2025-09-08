@@ -17,6 +17,8 @@ export class UsuarioService {
 
   public cadastro(usuario: Usuario): Observable<Usuario> {
     usuario.criadoPor = { idUsuario: 1 } as Usuario;
+    usuario.ativo = true;
+    usuario.dataCriacao = new Date();
     return this.http.post<Usuario>(
       `${this.apiUrl}${this.endPointUrl}/cadastrar`,
       usuario

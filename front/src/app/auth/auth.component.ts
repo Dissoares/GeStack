@@ -13,7 +13,6 @@ import { PerfilEnum } from '../core/enums';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from '../core/models';
 import { LoginDto } from '../core/dtos';
-import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-auth',
@@ -32,8 +31,7 @@ import { DateTime } from 'luxon';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent extends CamposFormularioComponent implements OnInit {
-  public listaPerfilEnum =
-    PerfilEnum.getAll();
+  public listaPerfilEnum = PerfilEnum.getAll();
   public ehCadastro: boolean = false;
 
   constructor(
@@ -57,8 +55,8 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       senha: [null, Validators.required],
       confirmarSenha: [null],
       perfil: [null],
-      dataCadastro: [null],
-      status: [null],
+      dataCriacao: [null],
+      ativo: [null],
       ehLider: [null],
     });
 
@@ -71,18 +69,16 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
   }
 
   public verificarSePerfilEhLider(): void {
-    this.formulario
-      .get('perfil')
-      ?.valueChanges.subscribe((perfil: number) => {
-        if (
-          perfil === PerfilEnum.LIDER_DESENVOLVIMENTO.id ||
-          perfil === PerfilEnum.LIDER_NEGOCIO.id
-        ) {
-          this.formulario.get('ehLider')?.setValue(true);
-        } else {
-          this.formulario.get('ehLider')?.setValue(false);
-        }
-      });
+    this.formulario.get('perfil')?.valueChanges.subscribe((perfil: number) => {
+      if (
+        perfil === PerfilEnum.LIDER_DESENVOLVIMENTO.id ||
+        perfil === PerfilEnum.LIDER_NEGOCIO.id
+      ) {
+        this.formulario.get('ehLider')?.setValue(true);
+      } else {
+        this.formulario.get('ehLider')?.setValue(false);
+      }
+    });
   }
 
   public cadastrar(): void {
@@ -92,10 +88,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       return;
     }
 
-    const dadosCadastro: Usuario = {
-      ...this.formulario.value,
-      dataCadastro: this.dataDeHojeFormatada(),
-    };
+    const dadosCadastro: Usuario = this.formulario.value;
 
     if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
       this.exibirMensagem('Senhas não coincidem!', 'Aviso!');
@@ -151,11 +144,5 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       'Info!': () => this.toastr.info(mensagem, tipo, config),
     };
     mapTipo[tipo]();
-  }
-
-  private dataDeHojeFormatada(): string {
-    return DateTime.now()
-      .setZone('America/Sao_Paulo')
-      .toFormat('dd/MM/yyyy HH:mm');
   }
 }

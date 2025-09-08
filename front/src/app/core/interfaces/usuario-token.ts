@@ -9,6 +9,6 @@ export interface UsuarioToken {
   confirmarSenha?: string;
   perfil: number;
   squad?: number;
-  dataCadastro?: Date | string;
+  dataCriacao?: string;
   ativo?: boolean;
 }

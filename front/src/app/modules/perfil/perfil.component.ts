@@ -7,9 +7,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { UsuarioToken } from '../../core/interfaces';
 import { CommonModule } from '@angular/common';
 import { PerfilEnum } from '../../core/enums';
 import { AuthService } from '../../services';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-perfil',
@@ -51,17 +53,26 @@ export class PerfilComponent
       senha: [null],
       confirmarSenha: [null],
       perfil: [null],
-      dataCadastro: [null],
+      dataCriacao: [null],
       ativo: [null],
     });
   }
 
   public preencherFormulario(): void {
-    this.authService.usuarioLogado$.subscribe((usuario) => {
-      if (usuario) {
-        this.formulario.patchValue(usuario);
+    this.authService.usuarioLogado$.subscribe({
+      next: (usuario) => {
+        if (usuario?.dataCriacao) {
+          usuario.dataCriacao = DateTime.fromISO(usuario.dataCriacao)
+            .setLocale('pt-BR')
+            .toFormat('dd/MM/yyyy');
+        }
+
+        this.formulario.patchValue(usuario as UsuarioToken);
         this.desabilitarFormulario();
-      }
+      },
+      error: (erro) => {
+        console.log(erro);
+      },
     });
   }
 
