@@ -3,11 +3,10 @@ package br.com.gestack.infrastructure.security;
 import org.springframework.stereotype.Component;
 import br.com.gestack.domains.entities.Usuario;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.nio.charset.StandardCharsets;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.HashMap;
 import java.util.Date;
@@ -46,20 +45,6 @@ public class JwtUtil {
 
     public String extractUsername(String token) {
         return getClaims(token).getSubject();
-    }
-
-    public Map<String, Object> extractAllClaims(String token) {
-        Claims claims = getClaims(token);
-        Map<String, Object> customClaims = new HashMap<>();
-        customClaims.put("idUsuario", claims.get("idUsuario"));
-        customClaims.put("nome", claims.get("nome"));
-        customClaims.put("email", claims.get("email"));
-        customClaims.put("perfil", claims.get("perfil"));
-        customClaims.put("ativo", claims.get("ativo"));
-        customClaims.put("squadId", claims.get("squadId"));
-        customClaims.put("squadNome", claims.get("squadNome"));
-        customClaims.put("dataCriacao", claims.get("dataCriacao"));
-        return customClaims;
     }
 
     private Claims getClaims(String token) {
