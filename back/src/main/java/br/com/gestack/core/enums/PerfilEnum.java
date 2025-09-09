@@ -1,33 +1,28 @@
 package br.com.gestack.core.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import br.com.gestack.core.interfaces.BaseEnum;
 
-public enum PerfilEnum {
-    ADMINISTRADOR(1),
-    LIDER_DE_DESENVOLVIMENTO(2),
-    LIDER_DE_NEGOCIO(3),
-    DESENVOLVEDOR(4),
-    ANALISTA(5);
+public enum PerfilEnum implements BaseEnum<Integer> {
+    ADMINISTRADOR(1, "Administrador"),
+    LIDER_DE_DESENVOLVIMENTO(2, "Líder de Desenvolvimento"),
+    LIDER_DE_NEGOCIO(3, "Líder de Negócio"),
+    DESENVOLVEDOR(4, "Desenvolvedor"),
+    ANALISTA(5, "Analista");
 
-    private final int id;
+    private final Integer codigo;
+    private final String descricao;
 
-    PerfilEnum(int id) {
-        this.id = id;
+    PerfilEnum(Integer codigo, String descricao) {
+        this.codigo = codigo;
+        this.descricao = descricao;
     }
 
-    @JsonValue
-    public int getId() {
-        return id;
+    @Override
+    public Integer getCodigo() {
+        return codigo;
     }
 
-    @JsonCreator
-    public static PerfilEnum fromId(int id) {
-        for (PerfilEnum nivel : values()) {
-            if (nivel.id == id) {
-                return nivel;
-            }
-        }
-        throw new IllegalArgumentException("ID inválido para NivelAcessoEnum: " + id);
+    public String getDescricao() {
+        return descricao;
     }
 }
