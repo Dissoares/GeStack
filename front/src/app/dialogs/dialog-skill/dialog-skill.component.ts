@@ -1,19 +1,20 @@
+import { Component, Inject, inject, OnInit, ViewChild } from '@angular/core';
 import {
   CamposFormularioComponent,
   ErrosFormularioComponent,
 } from '../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogConfirmacaoService, SkillService } from '../../services';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Component, ViewChild, inject, OnInit } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { SkillCategoriaEnum } from '../../core/enums';
 import { campoObrigatorio } from '../../validators';
 import { CommonModule } from '@angular/common';
@@ -21,7 +22,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Skill } from '../../core/models';
 
 @Component({
-  selector: 'app-skill-formulario',
+  selector: 'app-dialog-skill',
   standalone: true,
   imports: [
     ErrosFormularioComponent,
@@ -37,20 +38,20 @@ import { Skill } from '../../core/models';
     MatIconModule,
     CommonModule,
   ],
-  templateUrl: './skill-formulario.component.html',
-  styleUrls: ['./skill-formulario.component.scss'],
+  templateUrl: './dialog-skill.component.html',
+  styleUrls: ['./dialog-skill.component.scss'],
 })
-export class SkillFormularioComponent
+export class DialogSkillComponent
   extends CamposFormularioComponent
   implements OnInit
 {
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
+
   private readonly dialogService = inject(DialogConfirmacaoService);
   private readonly service = inject(SkillService);
   private readonly toastr = inject(ToastrService);
 
-  public listaCategoriaSkillsEnum: Array<SkillCategoriaEnum> =
-    SkillCategoriaEnum.getAll();
+  public listaCategoriaSkillsEnum = SkillCategoriaEnum.getAll();
 
   public dadosTabela = new MatTableDataSource<Skill>([]);
   public colunasTabela: Array<string> = [
@@ -64,7 +65,7 @@ export class SkillFormularioComponent
   ];
   public ehEdicao: boolean = false;
 
-  constructor() {
+  constructor(public dialogRef: MatDialogRef<DialogSkillComponent>) {
     super(inject(FormBuilder));
   }
 
@@ -202,6 +203,7 @@ export class SkillFormularioComponent
     }
     this.limparFormulario();
     this.ehEdicao = false;
+    this.dialogRef.close();
   }
 
   public excluir(idSkill: number): void {

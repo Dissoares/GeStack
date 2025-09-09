@@ -84,19 +84,6 @@ export const routes: Routes = [
         },
       },
       {
-        path: 'skill',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('./modules/skills/skills.routing').then((m) => m.ROTAS_SKILL),
-        data: {
-          permissoes: [
-            PerfilEnum.DESENVOLVEDOR.id,
-            PerfilEnum.ANALISTA_NEGOCIO.id,
-            PerfilEnum.ADMIN.id,
-          ],
-        },
-      },
-      {
         path: '**',
         redirectTo: '/auth',
         pathMatch: 'full',
