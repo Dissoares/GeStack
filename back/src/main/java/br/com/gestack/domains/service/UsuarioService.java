@@ -39,7 +39,11 @@ public class UsuarioService {
     }
 
     public List<ListagemUsuariosDTO> buscaPor(Usuario usuario) {
-        Integer perfil = usuario.getPerfil() != null ? usuario.getPerfil().getId() : null;
+        Integer perfil = usuario.getPerfil() != null ? usuario.getPerfil().getCodigo() : null;
          return usuarioRepository.buscarPor(usuario.getNome(), usuario.getEmail(), perfil, usuario.getAtivo());
+    }
+
+    public List<ListagemUsuariosDTO> buscaPorNome(String nome) {
+        return usuarioRepository.findByNomeContainingIgnoreCase(nome);
     }
 }

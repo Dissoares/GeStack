@@ -1,7 +1,5 @@
 package br.com.gestack.domains.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import br.com.gestack.utils.PerfilEnumConverter;
 import br.com.gestack.core.enums.PerfilEnum;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
@@ -28,7 +26,6 @@ public class Usuario {
     @Column(name = "SENHA", nullable = false, length = 250)
     private String senha;
 
-    @Convert(converter = PerfilEnumConverter.class)
     @Column(name = "PERFIL", nullable = false)
     private PerfilEnum perfil;
 

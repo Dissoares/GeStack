@@ -13,10 +13,12 @@ import java.util.List;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByEmail(String email);
 
+    List<ListagemUsuariosDTO> findByNomeContainingIgnoreCase(String nome);
+
     @Query(value = """
                 SELECT
                     u.id_usuario AS idUsuario,
-                    u.nome AS nomeUsuario,
+                    u.nome AS nome,
                     u.email,
                     u.perfil AS perfil,
                     u.data_criacao AS dataCriacao,

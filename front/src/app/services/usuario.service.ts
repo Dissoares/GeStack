@@ -37,4 +37,16 @@ export class UsuarioService {
     });
     return filtrados;
   }
+
+  public buscarPorNome(nome: string): Observable<Array<Usuario>> {
+    let params = new HttpParams();
+    if (nome) {
+      params = params.set('nome', nome);
+    }
+
+    return this.http.get<Array<Usuario>>(
+      `${this.apiUrl}${this.endPointUrl}/buscarPorNome`,
+      { params }
+    );
+  }
 }

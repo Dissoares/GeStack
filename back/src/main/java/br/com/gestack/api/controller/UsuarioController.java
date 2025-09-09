@@ -22,6 +22,11 @@ public class UsuarioController {
         return usuarioService.buscaPor(usuario);
     }
 
+    @GetMapping("/buscarPorNome")
+    public List<ListagemUsuariosDTO> buscarPorNome(String nome) {
+        return usuarioService.buscaPorNome(nome);
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Busca um usuário pelo ID")
     public Optional<Usuario> buscarPorId(@PathVariable Long id) {

@@ -1,8 +1,13 @@
+import {
+  SistemaService,
+  UsuarioService,
+  SkillService,
+} from '../../../services';
 import { CamposFormularioComponent } from '../../../components/index.component';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { SistemaService, SkillService } from '../../../services';
+import { Sistema, Skill, Usuario } from '../../../core/models';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,7 +17,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { DialogSkillComponent } from '../../../dialogs';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Sistema, Skill } from '../../../core/models';
 import { MatDialog } from '@angular/material/dialog';
 import { RotasEnum } from '../../../core/enums';
 import { CommonModule } from '@angular/common';
@@ -51,11 +55,14 @@ export class SistemasFormularioComponent
     '#CFD8DC',
   ];
 
+  public listaResponsaveis: Array<Usuario> = [];
   public listaSkills: Array<Skill> = [];
+
   private coresMapeadas = new Map<string, string>();
   private indiceCorAtual: number = 0;
 
   private readonly sistemaService = inject(SistemaService);
+  private readonly usuarioService = inject(UsuarioService);
   private readonly toastrService = inject(ToastrService);
   private readonly skillService = inject(SkillService);
   private readonly dialog = inject(MatDialog);
@@ -67,6 +74,7 @@ export class SistemasFormularioComponent
 
   public ngOnInit() {
     this.criarFormulario();
+    this.buscarResponsaveisSistema();
     this.listarSkills();
   }
 
@@ -96,7 +104,7 @@ export class SistemasFormularioComponent
     const sistema: Sistema = this.formulario.value;
     const listaId = this.formulario.value.skills.map((skill: any) => skill.id);
     sistema.skills = listaId;
-    
+
     this.sistemaService.cadastrar(sistema).subscribe({
       next(resultado) {},
       error(erro) {},
@@ -106,6 +114,22 @@ export class SistemasFormularioComponent
   public cancelar(): void {
     this.limparFormulario();
     this.router.navigate([RotasEnum.HOME]);
+  }
+
+  public buscarResponsaveisSistema(): void {
+    this.formulario
+      .get('responsavel')
+      ?.valueChanges.subscribe((responsavel) => {
+        if (responsavel.length < 3) return;
+        this.usuarioService.buscarPorNome(responsavel).subscribe({
+          next: (resultado) => {
+            this.listaResponsaveis = resultado;
+          },
+          error: (erro) => {
+            console.log(erro);
+          },
+        });
+      });
   }
 
   public listarSkills(): void {
