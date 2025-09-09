@@ -1,5 +1,4 @@
 import { Sistema } from './sistema';
-import { Squad } from './squad';
 import { Usuario } from './usuario';
 
 export class Atividade {
@@ -8,7 +7,6 @@ export class Atividade {
   public descricao?: string;
   public status!: string;
   public prazo?: string;
-  public squad!: Squad;
   public responsavel!: Usuario;
   public analistaResponsavel?: Usuario;
   public lider?: Usuario;

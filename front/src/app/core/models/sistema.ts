@@ -1,11 +1,12 @@
 import { Atividade } from './Atividade';
 import { Skill } from './skill';
+import { Usuario } from './usuario';
 
 export class Sistema {
   public idSistema?: number;
   public nome!: string;
   public descricao!: string;
-  public areaResponsavel?: string;
+  public responsavel?: Usuario;
   public linkPrototipo?: string;
   public linkDocumentacao?: string;
   public linkGit?: string;

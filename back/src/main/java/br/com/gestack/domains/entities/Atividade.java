@@ -34,10 +34,6 @@ public class Atividade extends Auditoria {
     private LocalDate prazo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SQUAD_FK", nullable = false)
-    private Squad squad;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESPONSAVEL_FK", nullable = false)
     private Usuario responsavel;
 

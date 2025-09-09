@@ -1,24 +1,19 @@
-import { UsuarioToken } from '../core/interfaces/usuario-token';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../core/models';
-import { jwtDecode } from 'jwt-decode';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = environment.apiUrl;
-  private endPointUrl = '/usuario';
+  private readonly apiUrl = environment.apiUrl;
+  private readonly endPointUrl = '/usuario';
 
   constructor(private http: HttpClient) {}
 
   public cadastro(usuario: Usuario): Observable<Usuario> {
-    usuario.criadoPor = { idUsuario: 1 } as Usuario;
-    usuario.ativo = true;
-    usuario.dataCriacao = new Date();
     return this.http.post<Usuario>(
       `${this.apiUrl}${this.endPointUrl}/cadastrar`,
       usuario
@@ -26,22 +21,20 @@ export class UsuarioService {
   }
 
   public buscarPor(filtro: Usuario): Observable<Array<Usuario>> {
-    const params = new HttpParams({
-      fromObject: this.toQueryParams(filtro),
-    });
+    const params = new HttpParams({ fromObject: this.camposFiltrados(filtro) });
     return this.http.get<Array<Usuario>>(
       `${this.apiUrl}${this.endPointUrl}/buscarTodos`,
       { params }
     );
   }
 
-  private toQueryParams(obj: any): { [param: string]: string } {
-    const queryParams: { [key: string]: string } = {};
-    Object.keys(obj).forEach((key) => {
-      if (obj[key] !== undefined && obj[key] !== null) {
-        queryParams[key] = obj[key].toString();
+  private camposFiltrados(filtros: any): { [param: string]: string } {
+    const filtrados: { [campo: string]: string } = {};
+    Object.keys(filtros).forEach((campo) => {
+      if (filtros[campo] !== undefined && filtros[campo] !== null) {
+        filtrados[campo] = filtros[campo].toString();
       }
     });
-    return queryParams;
+    return filtrados;
   }
 }

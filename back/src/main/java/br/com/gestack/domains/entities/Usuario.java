@@ -32,19 +32,14 @@ public class Usuario {
     @Column(name = "PERFIL", nullable = false)
     private PerfilEnum perfil;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SQUAD_FK")
-    @JsonBackReference
-    private Squad squad;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RegistroEscala> escala = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CRIADO_POR")
+    @JoinColumn(name = "CRIADO_POR", updatable = false)
     private Usuario criadoPor;
 
-    @Column(name = "DATA_CRIACAO", nullable = false, updatable = false)
+    @Column(name = "DATA_CRIACAO", updatable = false)
     private LocalDateTime dataCriacao;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,6 +49,6 @@ public class Usuario {
     @Column(name = "DATA_MODIFICACAO")
     private LocalDateTime dataModificacao;
 
-    @Column(name = "ATIVO", nullable = false)
+    @Column(name = "ATIVO")
     private Boolean ativo = true;
 }

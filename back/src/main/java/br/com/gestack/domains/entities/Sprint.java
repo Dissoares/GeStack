@@ -32,9 +32,6 @@ public class Sprint extends Auditoria {
     @Column(name = "STATUS", nullable = false, length = 50)
     private StatusSprintEnum status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SQUAD_FK", nullable = false)
-    private Squad squad;
 
     @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Atividade> tarefas = new ArrayList<>();

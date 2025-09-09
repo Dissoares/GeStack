@@ -90,11 +90,6 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
 
     const dadosCadastro: Usuario = this.formulario.value;
 
-    if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
-      this.exibirMensagem('Senhas não coincidem!', 'Aviso!');
-      return;
-    }
-
     this.usuarioService.cadastro(dadosCadastro).subscribe({
       next: () => {
         this.exibirMensagem('Cadastro realizado com sucesso!', 'Sucesso!');

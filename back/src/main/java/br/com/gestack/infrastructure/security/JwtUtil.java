@@ -28,12 +28,7 @@ public class JwtUtil {
         claims.put("perfil", usuario.getPerfil().getId());
         claims.put("ativo", usuario.getAtivo());
         claims.put("dataCriacao", usuario.getDataCriacao().toString());
-
-        if (usuario.getSquad() != null) {
-            claims.put("squadId", usuario.getSquad().getIdSquad());
-            claims.put("squadNome", usuario.getSquad().getNome());
-        }
-
+        
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(usuario.getEmail())
