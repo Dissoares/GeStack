@@ -74,7 +74,6 @@ export class SistemasFormularioComponent
 
   public ngOnInit() {
     this.criarFormulario();
-    this.buscarResponsaveisSistema();
     this.listarSkills();
   }
 
@@ -116,20 +115,23 @@ export class SistemasFormularioComponent
     this.router.navigate([RotasEnum.HOME]);
   }
 
-  public buscarResponsaveisSistema(): void {
-    this.formulario
-      .get('responsavel')
-      ?.valueChanges.subscribe((responsavel) => {
-        if (responsavel.length < 3) return;
-        this.usuarioService.buscarPorNome(responsavel).subscribe({
-          next: (resultado) => {
-            this.listaResponsaveis = resultado;
-          },
-          error: (erro) => {
-            console.log(erro);
-          },
-        });
-      });
+  public displayUsuario(usuario: Usuario): string {
+    return usuario ? usuario.nome : '';
+  }
+
+  public removerResponsavelSelecionado(): void {
+    this.formulario.get('responsavel')?.reset();
+  }
+
+  public pesquisarResponsavel(nome: string): void {
+    this.usuarioService.buscarPor(nome).subscribe({
+      next: (resultado) => {
+        this.listaResponsaveis = resultado;
+      },
+      error: (erro) => {
+        console.log(erro);
+      },
+    });
   }
 
   public listarSkills(): void {

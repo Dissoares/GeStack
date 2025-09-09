@@ -20,7 +20,7 @@ export class UsuarioService {
     );
   }
 
-  public buscarPor(filtro: Usuario): Observable<Array<Usuario>> {
+  public filtrarPor(filtro: Usuario): Observable<Array<Usuario>> {
     const params = new HttpParams({ fromObject: this.camposFiltrados(filtro) });
     return this.http.get<Array<Usuario>>(
       `${this.apiUrl}${this.endPointUrl}/buscarTodos`,
@@ -38,7 +38,7 @@ export class UsuarioService {
     return filtrados;
   }
 
-  public buscarPorNome(nome: string): Observable<Array<Usuario>> {
+  public buscarPor(nome: string): Observable<Array<Usuario>> {
     let params = new HttpParams();
     if (nome) {
       params = params.set('nome', nome);

@@ -108,7 +108,7 @@ export class GerenciarUsuariosComponent
   public filtrar(): void {
     const filtro: Usuario = this.formulario.getRawValue();
 
-    this.usuarioService.buscarPor(filtro).subscribe({
+    this.usuarioService.filtrarPor(filtro).subscribe({
       next: (usuarios: Array<Usuario>) => {
         if (!usuarios.length) {
           this.toastrService.warning('Busca sem resultados.', 'Informação!');

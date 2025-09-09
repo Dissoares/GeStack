@@ -23,7 +23,21 @@
       <mat-form-field appearance="outline" floatLabel="always" class="field-6">
         <mat-label>Responsável</mat-label>
         <mat-icon matPrefix>business_center</mat-icon>
-        <input matInput formControlName="responsavel" />
+        <input matInput formControlName="responsavel" [matAutocomplete]="auto" #nome
+          (input)="pesquisarResponsavel(nome.value)" minlength="3" />
+
+        @if(this.formulario.get('responsavel')?.value &&
+        this.formulario.get('responsavel')?.value.email){
+        <button mat-icon-button matSuffix (click)="removerResponsavelSelecionado()">
+          <mat-icon>close</mat-icon>
+        </button>
+        }
+
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUsuario">
+          <mat-option *ngFor="let responsavel of listaResponsaveis" [value]="responsavel">
+            {{ responsavel.nome }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <div class="field-6" style="display: flex; gap: 10px">
