@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
 import { DialogSkillComponent } from '../../../dialogs';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +30,7 @@ import { Router } from '@angular/router';
     MatButtonModule,
     MatSelectModule,
     MatInputModule,
+    MatChipsModule,
     MatCardModule,
     MatIconModule,
     CommonModule,
@@ -40,13 +42,24 @@ export class SistemasFormularioComponent
   extends CamposFormularioComponent
   implements OnInit
 {
+  private listaCores: Array<string> = [
+    '#FFECB3',
+    '#D1C4E9',
+    '#BBDEFB',
+    '#E1BEE7',
+    '#FFE0B2',
+    '#CFD8DC',
+  ];
+
+  public listaSkills: Array<Skill> = [];
+  private coresMapeadas = new Map<string, string>();
+  private indiceCorAtual: number = 0;
+
   private readonly sistemaService = inject(SistemaService);
   private readonly toastrService = inject(ToastrService);
   private readonly skillService = inject(SkillService);
   private readonly dialog = inject(MatDialog);
   private readonly router = inject(Router);
-
-  public listaSkills: Array<Skill> = [];
 
   constructor() {
     super(inject(FormBuilder));
@@ -54,7 +67,7 @@ export class SistemasFormularioComponent
 
   public ngOnInit() {
     this.criarFormulario();
-    this.buscarSkills();
+    this.listarSkills();
   }
 
   private criarFormulario(): void {
@@ -81,11 +94,9 @@ export class SistemasFormularioComponent
     }
 
     const sistema: Sistema = this.formulario.value;
-
     const listaId = this.formulario.value.skills.map((skill: any) => skill.id);
-
     sistema.skills = listaId;
-
+    
     this.sistemaService.cadastrar(sistema).subscribe({
       next(resultado) {},
       error(erro) {},
@@ -97,7 +108,7 @@ export class SistemasFormularioComponent
     this.router.navigate([RotasEnum.HOME]);
   }
 
-  public buscarSkills(): void {
+  public listarSkills(): void {
     this.skillService.buscarTudo().subscribe({
       next: (skills: Array<Skill>) => {
         this.listaSkills = skills.filter((skills) => skills.ativo === true);
@@ -117,7 +128,25 @@ export class SistemasFormularioComponent
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.buscarSkills();
+      this.listarSkills();
     });
+  }
+
+  public getCoresTags(skill: Skill): string {
+    if (this.coresMapeadas.has(skill.nome)) {
+      return this.coresMapeadas.get(skill.nome)!;
+    }
+    const corSelecionada = this.listaCores[this.indiceCorAtual];
+    this.coresMapeadas.set(skill.nome, corSelecionada);
+    this.indiceCorAtual = (this.indiceCorAtual + 1) % this.listaCores.length;
+
+    return corSelecionada;
+  }
+
+  public removerSkill(selecionada: Skill): void {
+    const formulario = this.formulario.get('skills')?.value as Array<Skill>;
+    this.formulario
+      .get('skills')
+      ?.setValue(formulario.filter((skill) => skill !== selecionada));
   }
 }

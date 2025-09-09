@@ -26,11 +26,21 @@
         <input matInput formControlName="responsavel" />
       </mat-form-field>
 
-      <div class="field-6" style="display: flex; gap: 8px">
-        <mat-form-field appearance="outline" floatLabel="always" class="field-6">
+      <div class="field-6" style="display: flex; gap: 10px">
+        <mat-form-field appearance="outline" floatLabel="always" class="tags field-6">
           <mat-label>Skills</mat-label>
           <mat-icon matPrefix>label</mat-icon>
           <mat-select formControlName="skills" multiple>
+            <mat-select-trigger>
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let skill of formulario.get('skills')?.value"
+                  [style.background-color]="getCoresTags(skill)" [removable]="true" (removed)="removerSkill(skill)">
+                  {{ skill.nome }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-listbox>
+            </mat-select-trigger>
+
             <mat-option *ngFor="let skill of listaSkills" [value]="skill">
               {{ skill.nome }}
             </mat-option>
