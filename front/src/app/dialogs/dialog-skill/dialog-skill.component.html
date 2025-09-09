@@ -1,4 +1,8 @@
+@if(carregouListagem){
 <mat-card>
+  <button type="button" mat-icon-button class="btn-fechar" (click)="cancelar()">
+    <mat-icon>close</mat-icon>
+  </button>
   <mat-card-header>
     <mat-card-title><mat-icon>add</mat-icon>Cadastrar Skill</mat-card-title>
   </mat-card-header>
@@ -28,7 +32,7 @@
     </form>
 
     <mat-card-actions>
-      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()" [disabled]="formulario.invalid">
+      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
         <mat-icon>{{ ehEdicao ? "save" : "add" }} </mat-icon>
         {{ ehEdicao ? "salvar" : "Cadastrar" }}
       </button>
@@ -44,34 +48,44 @@
 <mat-card-content>
   <table mat-table [dataSource]="dadosTabela">
     <ng-container matColumnDef="id">
-      <th style="text-align: center; width: 5%;" mat-header-cell *matHeaderCellDef>id</th>
-      <td style="text-align: center; width: 5%;" mat-cell *matCellDef="let element">
+      <th style="text-align: center; width: 5%" mat-header-cell *matHeaderCellDef>
+        id
+      </th>
+      <td style="text-align: center; width: 5%" mat-cell *matCellDef="let element">
         {{ element.idSkill }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="descricao">
-      <th style="width: 20%;" mat-header-cell *matHeaderCellDef>Nome da Skill</th>
-      <td style="width: 20%;" mat-cell *matCellDef="let element">{{ element.nome }}</td>
+      <th style="width: 20%" mat-header-cell *matHeaderCellDef>
+        Nome da Skill
+      </th>
+      <td style="width: 20%" mat-cell *matCellDef="let element">
+        {{ element.nome }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="categoria">
-      <th style="width: 10%;" mat-header-cell *matHeaderCellDef>Categoria</th>
-      <td style="width: 10%;" mat-cell *matCellDef="let element">
+      <th style="width: 10%" mat-header-cell *matHeaderCellDef>Categoria</th>
+      <td style="width: 10%" mat-cell *matCellDef="let element">
         {{ getDescricaoSkill(element.categoria) }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="dataCadastro">
-      <th style="width: 10%;" mat-header-cell *matHeaderCellDef>Data Cadastro</th>
-      <td style="width: 10%;" mat-cell *matCellDef="let element">
+      <th style="width: 10%" mat-header-cell *matHeaderCellDef>
+        Data Cadastro
+      </th>
+      <td style="width: 10%" mat-cell *matCellDef="let element">
         {{ element.dataCriacao | date : "dd/MM/yyyy hh:mm" }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="dataModificacao">
-      <th style="width: 10%;" mat-header-cell *matHeaderCellDef>Data Modificação</th>
-      <td style="width: 10%;" mat-cell *matCellDef="let element">
+      <th style="width: 10%" mat-header-cell *matHeaderCellDef>
+        Data Modificação
+      </th>
+      <td style="width: 10%" mat-cell *matCellDef="let element">
         {{
         element.dataModificacao
         ? (element.dataModificacao | date : "dd/MM/yyyy HH:mm")
@@ -109,7 +123,7 @@
       [ngClass]="{ 'linha-destacada': i % 2 === 0 }"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
   </mat-paginator>
 </mat-card-content>
-}
+} }

@@ -1,11 +1,10 @@
-import { Component, Inject, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
   CamposFormularioComponent,
   ErrosFormularioComponent,
 } from '../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogConfirmacaoService, SkillService } from '../../services';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { SkillCategoriaEnum } from '../../core/enums';
@@ -45,7 +45,7 @@ export class DialogSkillComponent
   extends CamposFormularioComponent
   implements OnInit
 {
-  @ViewChild(MatPaginator) public paginator!: MatPaginator;
+  @ViewChild(MatPaginator) private paginator!: MatPaginator;
 
   private readonly dialogService = inject(DialogConfirmacaoService);
   private readonly service = inject(SkillService);
@@ -63,6 +63,7 @@ export class DialogSkillComponent
     'status',
     'acoes',
   ];
+  public carregouListagem: boolean = false;
   public ehEdicao: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<DialogSkillComponent>) {
@@ -72,7 +73,6 @@ export class DialogSkillComponent
   public ngOnInit(): void {
     this.criarFormulario();
     this.listarSkills();
-    this.iniciarPaginacao();
   }
 
   private criarFormulario(): void {
@@ -88,11 +88,11 @@ export class DialogSkillComponent
   }
 
   public iniciarPaginacao() {
-    if (this.dadosTabela.data.length) {
-      setTimeout(() => {
-        this.dadosTabela.paginator = this.paginator;
-      }, 500);
-    }
+    setTimeout(() => {
+      this.dadosTabela.paginator = this.paginator;
+    }, this.dadosTabela.data.length);
+
+    this.carregouListagem = true;
   }
 
   public salvar(): void {
@@ -142,7 +142,7 @@ export class DialogSkillComponent
       },
       error: (erro) => {
         erro && erro.message
-          ? this.toastr.error('Erro ao carregar skills', erro)
+          ? this.toastr.error('Erro ao carregar skills', erro.message)
           : null;
       },
     });
@@ -222,6 +222,7 @@ export class DialogSkillComponent
               this.dadosTabela.data = this.dadosTabela.data.filter(
                 (s) => s.idSkill !== idSkill
               );
+              this.iniciarPaginacao();
             },
             error: (erro) => {
               this.toastr.error('Não foi excluir essa skill', erro?.message);
