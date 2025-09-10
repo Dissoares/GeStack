@@ -10,3 +10,70 @@
     Cadastrar
   </button>
 </mat-toolbar>
+
+<mat-card>
+  <mat-card-content>
+    <table mat-table [dataSource]="dadosTabela">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>id</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.nome }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="area">
+        <th mat-header-cell *matHeaderCellDef>Responsável Área</th>
+        <td mat-cell *matCellDef="let element">
+          {{
+          element.responsavel.nome +
+          " | " +
+          getDescricaoPerfil(element.responsavel.perfil)
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stack">
+        <th mat-header-cell *matHeaderCellDef>Stack</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngFor="let skill of element.skills; let last = last">
+            {{ skill.nome + " - " + getDescricaoCategoriaSkill(skill.categoria)
+            }}<span *ngIf="!last">/ </span>
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ativo">
+        <th mat-header-cell *matHeaderCellDef>Ativo</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-slide-toggle [checked]="element.ativo" (change)="ativaDesativar(element)" class="green-toggle">
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-mini-fab color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="colunasTabela"></tr>
+      <tr mat-row *matRowDef="let row; let i = index; columns: colunasTabela"
+        [ngClass]="{ 'linha-destacada': i % 2 === 0 }"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+    </mat-paginator>
+  </mat-card-content></mat-card>

@@ -1,6 +1,5 @@
 package br.com.gestack.domains.entities;
 
-import br.com.gestack.core.enums.PerfilEnum;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class Usuario {
 
     @Column(name = "SENHA", nullable = false, length = 250)
     private String senha;
-
 
     @Column(name = "PERFIL", nullable = false)
     private Integer perfil;

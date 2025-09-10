@@ -77,7 +77,7 @@ export class DialogSkillComponent
 
   private criarFormulario(): void {
     this.formulario = this.fb.group({
-      idSkill: [null],
+      id: [null],
       nome: [null, [campoObrigatorio()]],
       categoria: [null, [campoObrigatorio()]],
       dataCriacao: [null],
@@ -159,7 +159,7 @@ export class DialogSkillComponent
           this.toastr.info('Skill desativada.', 'Informação!');
         }
         const index = this.dadosTabela.data.findIndex(
-          (s) => s.idSkill === resultado.idSkill
+          (s) => s.id === resultado.id
         );
         if (index !== -1) {
           this.dadosTabela.data[index] = resultado;
@@ -220,7 +220,7 @@ export class DialogSkillComponent
             next: () => {
               this.toastr.success('Excluído com sucesso!', 'Sucesso!');
               this.dadosTabela.data = this.dadosTabela.data.filter(
-                (s) => s.idSkill !== idSkill
+                (s) => s.id !== idSkill
               );
               this.iniciarPaginacao();
             },

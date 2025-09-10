@@ -1,5 +1,6 @@
 package br.com.gestack.domains.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import br.com.gestack.common.Auditoria;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,8 +13,8 @@ import lombok.Setter;
 public class Skill extends Auditoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_SKILL")
-    private Long idSkill;
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name = "NOME", nullable = false, unique = true)
     private String nome;
@@ -21,15 +22,6 @@ public class Skill extends Auditoria {
     @Column(name = "CATEGORIA")
     private Integer categoria;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SISTEMA_FK")
-    private Sistema sistema;
-
-    @Column(name = "ATIVO", nullable = false)
-    private Boolean ativo;
-
-    @PrePersist
-    public void prePersist() {
-        if(ativo == null) ativo = true;
-    }
+    @Column(name = "ATIVO")
+    private Boolean ativo = true;
 }

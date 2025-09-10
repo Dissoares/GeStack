@@ -7,8 +7,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @Entity
 @Table(schema = "GESQUAD", name = "SISTEMA")
 public class Sistema extends Auditoria {
@@ -23,7 +23,7 @@ public class Sistema extends Auditoria {
     @Column(name = "DESCRICAO")
     private String descricao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "RESPONSAVEL_FK")
     private Usuario responsavel;
 
@@ -39,6 +39,15 @@ public class Sistema extends Auditoria {
     @Column(name = "LINK_PRODUCAO")
     private String linkProducao;
 
-    @ManyToMany(mappedBy = "sistema", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            schema = "GESQUAD",
+            name = "SISTEMA_SKILL",
+            joinColumns = @JoinColumn(name = "SISTEMA_FK"),
+            inverseJoinColumns = @JoinColumn(name = "SKILL_FK")
+    )
     private List<Skill> skills = new ArrayList<>();
+
+    @Column(name = "ATIVO")
+    private Boolean ativo = true;
 }

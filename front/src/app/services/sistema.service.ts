@@ -19,4 +19,10 @@ export class SistemaService {
       sistema
     );
   }
+
+  public listarSistemas(): Observable<Array<Sistema>> {
+    return this.http.get<Array<Sistema>>(
+      `${this.apiUrl}${this.endPointUrl}/listarSistemas`
+    );
+  }
 }

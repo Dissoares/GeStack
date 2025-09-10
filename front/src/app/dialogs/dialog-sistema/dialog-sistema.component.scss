@@ -1,3 +1,12 @@
 ::ng-deep .tags .mat-mdc-form-field-infix {
   padding: 8px !important;
 }
+
+.btn-fechar {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

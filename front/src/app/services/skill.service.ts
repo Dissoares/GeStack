@@ -28,8 +28,8 @@ export class SkillService {
 
   public ativaDesativar(skill: Skill): Observable<Skill> {
     const urlEndpoint = !skill.ativo
-      ? `${this.apiUrl}${this.endPointUrl}/desativar/${skill.idSkill}`
-      : `${this.apiUrl}${this.endPointUrl}/ativar/${skill.idSkill}`;
+      ? `${this.apiUrl}${this.endPointUrl}/desativar/${skill.id}`
+      : `${this.apiUrl}${this.endPointUrl}/ativar/${skill.id}`;
 
     return this.http.put<Skill>(urlEndpoint, {});
   }
@@ -41,9 +41,9 @@ export class SkillService {
     );
   }
 
-  public excluir(idSkill: number): Observable<Skill> {
+  public excluir(id: number): Observable<Skill> {
     return this.http.delete<Skill>(
-      `${this.apiUrl}${this.endPointUrl}/excluir/${idSkill}`
+      `${this.apiUrl}${this.endPointUrl}/excluir/${id}`
     );
   }
 }

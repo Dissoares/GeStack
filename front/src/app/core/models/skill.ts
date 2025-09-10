@@ -1,7 +1,7 @@
 import { Usuario } from './usuario';
 
 export class Skill {
-  public idSkill?: number;
+  public id?: number;
   public nome!: string;
   public categoria!: string;
   public dataCadastro?: string;
