@@ -113,7 +113,7 @@ export class AuthService {
   }
 
   public isAdmin(): boolean {
-    return this.temAcesso(PerfilEnum.ADMIN);
+    return this.temAcesso(PerfilEnum.ADMINISTRADOR);
   }
 
   public isLiderDesenvolvimento(): boolean {

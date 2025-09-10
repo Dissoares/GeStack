@@ -26,7 +26,7 @@ public class AuditorAwareImpl implements AuditorAware<Usuario> {
         }
         Object principal = authentication.getPrincipal();
         if (principal instanceof Usuario usuario) {
-            return usuarioRepository.findById(usuario.getIdUsuario());
+            return usuarioRepository.findById(usuario.getId());
         }
         if (principal instanceof UserDetails userDetails) {
             return usuarioRepository.findByEmail(userDetails.getUsername());

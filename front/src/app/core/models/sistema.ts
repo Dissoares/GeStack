@@ -1,9 +1,9 @@
 import { Atividade } from './Atividade';
-import { Skill } from './skill';
 import { Usuario } from './usuario';
+import { Skill } from './skill';
 
 export class Sistema {
-  public idSistema?: number;
+  public id?: number;
   public nome!: string;
   public descricao!: string;
   public responsavel?: Usuario;
@@ -12,7 +12,6 @@ export class Sistema {
   public linkGit?: string;
   public linkProducao?: string;
   public dataCadastro?: Date;
-  public atividades?: Array<Atividade>;
   public skills?: Array<Skill>;
   public ativo?: boolean;
 

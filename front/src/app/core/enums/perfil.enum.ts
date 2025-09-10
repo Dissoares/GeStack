@@ -1,5 +1,5 @@
 export class PerfilEnum {
-  public static ADMIN = new PerfilEnum(1, 'ADMINISTRADOR');
+  public static ADMINISTRADOR = new PerfilEnum(1, 'ADMINISTRADOR');
   public static LIDER_DESENVOLVIMENTO = new PerfilEnum(2, 'LÍDER DE DESENVOLVIMENTO');
   public static LIDER_NEGOCIO = new PerfilEnum(3, 'LÍDER DE NEGÓCIO');
   public static DESENVOLVEDOR = new PerfilEnum(4, 'DESENVOLVEDOR');
@@ -13,7 +13,7 @@ export class PerfilEnum {
 
   public static getAll(): Array<PerfilEnum> {
     return [
-      this.ADMIN,
+      this.ADMINISTRADOR,
       this.LIDER_NEGOCIO,
       this.LIDER_DESENVOLVIMENTO,
       this.ANALISTA_NEGOCIO,

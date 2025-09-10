@@ -3,7 +3,7 @@ package br.com.gestack.api.dto;
 import java.time.LocalDateTime;
 
 public interface ListagemUsuariosDTO {
-    Long getIdUsuario();
+    Long getId();
     String getNome();
     String getEmail();
     Integer getPerfil();

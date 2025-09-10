@@ -22,10 +22,10 @@ public class JwtUtil {
 
     public String generateToken(Usuario usuario) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("idUsuario", usuario.getIdUsuario());
+        claims.put("id", usuario.getId());
         claims.put("nome", usuario.getNome());
         claims.put("email", usuario.getEmail());
-        claims.put("perfil", usuario.getPerfil().getCodigo());
+        claims.put("perfil", usuario.getPerfil());
         claims.put("ativo", usuario.getAtivo());
         claims.put("dataCriacao", usuario.getDataCriacao().toString());
 

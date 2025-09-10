@@ -14,8 +14,8 @@ import lombok.*;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_USUARIO")
-    private Long idUsuario;
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name = "NOME", nullable = false, length = 250)
     private String nome;
@@ -26,8 +26,9 @@ public class Usuario {
     @Column(name = "SENHA", nullable = false, length = 250)
     private String senha;
 
+
     @Column(name = "PERFIL", nullable = false)
-    private PerfilEnum perfil;
+    private Integer perfil;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RegistroEscala> escala = new ArrayList<>();

@@ -79,7 +79,7 @@ export class SistemasFormularioComponent
 
   private criarFormulario(): void {
     this.formulario = this.fb.group({
-      idSistema: [null],
+      id: [null],
       nome: [null, Validators.required],
       descricao: [null, Validators.required],
       skills: [null, Validators.required],
@@ -101,8 +101,6 @@ export class SistemasFormularioComponent
     }
 
     const sistema: Sistema = this.formulario.value;
-    const listaId = this.formulario.value.skills.map((skill: any) => skill.id);
-    sistema.skills = listaId;
 
     this.sistemaService.cadastrar(sistema).subscribe({
       next(resultado) {},

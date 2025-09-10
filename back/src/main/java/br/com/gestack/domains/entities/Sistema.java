@@ -14,32 +14,30 @@ import lombok.Setter;
 public class Sistema extends Auditoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_SISTEMA")
-    private Long idSistema;
+    @Column(name = "ID")
+    private Long id;
 
-    @Column(name = "NOME", nullable = false, length = 250, unique = true)
+    @Column(name = "NOME")
     private String nome;
 
-    @Column(name = "DESCRICAO", length = 1000)
+    @Column(name = "DESCRICAO")
     private String descricao;
 
-    @Column(name = "AREA_RESPONSAVEL", length = 250)
-    private String areaResponsavel;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "RESPONSAVEL_FK")
+    private Usuario responsavel;
 
-    @Column(name = "LINK_PROTOTIPO", length = 250)
+    @Column(name = "LINK_PROTOTIPO")
     private String linkPrototipo;
 
-    @Column(name = "LINK_DOCUMENTACAO", length = 250)
+    @Column(name = "LINK_DOCUMENTACAO")
     private String linkDocumentacao;
 
-    @Column(name = "LINK_GIT", length = 250)
+    @Column(name = "LINK_GIT")
     private String linkGit;
 
-    @Column(name = "LINK_PRODUCAO", length = 250)
+    @Column(name = "LINK_PRODUCAO")
     private String linkProducao;
-
-    @OneToMany(mappedBy = "sistema", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
-    private List<Atividade> atividades = new ArrayList<>();
 
     @ManyToMany(mappedBy = "sistema", fetch = FetchType.LAZY)
     private List<Skill> skills = new ArrayList<>();

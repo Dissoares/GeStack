@@ -8,6 +8,8 @@ import br.com.gestack.api.dto.ListagemUsuariosDTO;
 import br.com.gestack.domains.entities.Usuario;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
+
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class UsuarioService {
     public Usuario cadastrar(Usuario usuario) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
+        usuario.setDataCriacao(LocalDateTime.now());
+        usuario.setAtivo(true);
         return usuarioRepository.save(usuario);
     }
 
@@ -39,8 +43,8 @@ public class UsuarioService {
     }
 
     public List<ListagemUsuariosDTO> buscaPor(Usuario usuario) {
-        Integer perfil = usuario.getPerfil() != null ? usuario.getPerfil().getCodigo() : null;
-         return usuarioRepository.buscarPor(usuario.getNome(), usuario.getEmail(), perfil, usuario.getAtivo());
+        Integer perfil = usuario.getPerfil() != null ? usuario.getPerfil() : null;
+        return usuarioRepository.buscarUsuarios(usuario.getNome(), usuario.getEmail(), perfil);
     }
 
     public List<ListagemUsuariosDTO> buscaPorNome(String nome) {

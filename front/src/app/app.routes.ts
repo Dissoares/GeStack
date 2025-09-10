@@ -23,7 +23,7 @@ export const routes: Routes = [
           import('./modules/administrador/administrador.routing').then(
             (m) => m.ROTAS_ADMINISTRADOR
           ),
-        data: { permissoes: [PerfilEnum.ADMIN.id] },
+        data: { permissoes: [PerfilEnum.ADMINISTRADOR.id] },
       },
       {
         path: 'lideranca',
@@ -36,7 +36,7 @@ export const routes: Routes = [
           permissoes: [
             PerfilEnum.LIDER_DESENVOLVIMENTO.id,
             PerfilEnum.LIDER_NEGOCIO.id,
-            PerfilEnum.ADMIN.id,
+            PerfilEnum.ADMINISTRADOR.id,
           ],
         },
       },
@@ -49,7 +49,7 @@ export const routes: Routes = [
           permissoes: [
             PerfilEnum.DESENVOLVEDOR.id,
             PerfilEnum.ANALISTA_NEGOCIO.id,
-            PerfilEnum.ADMIN.id,
+            PerfilEnum.ADMINISTRADOR.id,
           ],
         },
       },
@@ -64,7 +64,7 @@ export const routes: Routes = [
           permissoes: [
             PerfilEnum.DESENVOLVEDOR.id,
             PerfilEnum.ANALISTA_NEGOCIO.id,
-            PerfilEnum.ADMIN.id,
+            PerfilEnum.ADMINISTRADOR.id,
           ],
         },
       },
@@ -79,7 +79,7 @@ export const routes: Routes = [
           permissoes: [
             PerfilEnum.DESENVOLVEDOR.id,
             PerfilEnum.ANALISTA_NEGOCIO.id,
-            PerfilEnum.ADMIN.id,
+            PerfilEnum.ADMINISTRADOR.id,
           ],
         },
       },

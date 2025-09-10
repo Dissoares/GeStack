@@ -91,17 +91,14 @@ export class GerenciarUsuariosComponent
 
   private criarFormulario(): void {
     this.formulario = this.fb.group({
-      idUsuario: [null],
-      nomeUsuario: [null],
+      id: [null],
+      nome: [null],
       email: [null],
       senha: [null],
       confirmarSenha: [null],
       perfil: [null],
       dataCriacao: [null],
       status: [null],
-      nomeLider: [null],
-      perfilLider: [null],
-      nomeSquad: [null],
     });
   }
 

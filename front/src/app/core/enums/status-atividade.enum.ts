@@ -138,7 +138,7 @@ export class StatusAtividadeEnum {
           this.PAUSADA,
           this.CANCELADA,
         ];
-      case PerfilEnum.ADMIN.id:
+      case PerfilEnum.ADMINISTRADOR.id:
         return this.getAll();
       case PerfilEnum.REPRESENTANTE_AREA.id:
         return [
