@@ -82,11 +82,12 @@ export class SistemasFormularioComponent
       id: [null],
       nome: [null, Validators.required],
       descricao: [null, Validators.required],
-      skills: [null, Validators.required],
       responsavel: [null],
       linkPrototipo: [null],
       linkDocumentacao: [null],
       linkGit: [null],
+      linkProducao: [null],
+      skills: [null, Validators.required],
     });
   }
 
@@ -103,8 +104,14 @@ export class SistemasFormularioComponent
     const sistema: Sistema = this.formulario.value;
 
     this.sistemaService.cadastrar(sistema).subscribe({
-      next(resultado) {},
-      error(erro) {},
+      next: (resultado) => {
+        resultado
+          ? this.toastrService.success('Sistema cadastrado!.', 'Sucesso!')
+          : null;
+      },
+      error: (erro) => {
+        console.log(erro);
+      },
     });
   }
 

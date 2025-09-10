@@ -12,9 +12,6 @@ public class SistemaService {
     private final SistemaRepository sistemaRepository;
 
     public Sistema cadastrar(Sistema sistema) {
-        Sistema novoSistema = new Sistema();
-        novoSistema.setNome(sistema.getNome());
-        novoSistema.setDescricao(sistema.getDescricao());
-        return sistemaRepository.save(novoSistema);
+        return sistemaRepository.save(sistema);
     }
 }
