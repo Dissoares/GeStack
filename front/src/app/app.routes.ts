@@ -71,12 +71,13 @@ export const routes: Routes = [
         },
       },
       {
-        path: 'sistema',
+        path: 'sistema/gerenciar',
         canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('./modules/gerenciamento/sistemas/sistemas.routing').then(
-            (m) => m.ROTAS_SISTEMA
-          ),
+        loadComponent: () =>
+          import(
+            './modules/gerenciamento/sistemas-gerenciar/sistemas-gerenciar.component'
+          ).then((m) => m.SistemasGerenciarComponent),
+
         data: {
           permissoes: [
             PerfilEnum.DESENVOLVEDOR.id,
