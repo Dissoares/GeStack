@@ -28,6 +28,10 @@ export class CamposFormularioComponent {
     this.formulario.markAllAsTouched();
   }
 
+  public marcarFormularioComoNAOTocado(): void {
+    this.formulario.markAsUntouched();
+  }
+
   public desabilitarFormulario(): void {
     this.formulario.disable();
   }

@@ -1,11 +1,14 @@
 package br.com.gestack.api.controller;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import br.com.gestack.api.dto.ListagemUsuariosDTO;
 import br.com.gestack.domains.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.ResponseEntity;
 import br.com.gestack.domains.entities.Usuario;
+import br.com.gestack.domains.entities.Skill;
+import org.springframework.http.HttpStatus;
+import br.com.gestack.api.dto.UsuarioDTO;
 import java.util.Optional;
 import java.util.List;
 
@@ -17,37 +20,49 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/buscarTodos")
-    public List<ListagemUsuariosDTO> buscarPor(Usuario usuario) {
-        return usuarioService.buscaPor(usuario);
+    @PostMapping
+    public ResponseEntity<Object> salvar(@RequestBody Usuario usuario) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvar(usuario));
+        } catch (DataIntegrityViolationException erro) {
+            if (erro.getMostSpecificCause().getMessage().contains("email")) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um usuário cadastrado com esse email");
+            } else if (erro.getMostSpecificCause().getMessage().contains("nome")) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um usuário cadastrado com esse nome");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro no servidor");
+            }
+        }
     }
 
-    @GetMapping("/buscarPorNome")
-    public List<ListagemUsuariosDTO> buscarPorNome(String nome) {
-        return usuarioService.buscaPorNome(nome);
+    @GetMapping
+    public List<UsuarioDTO> listar() {
+        return usuarioService.listar();
+    }
+
+    @GetMapping("/filtrar")
+    public List<UsuarioDTO> filtrarPor(Usuario usuario) {
+        return usuarioService.filtrarPor(usuario);
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Busca um usuário pelo ID")
     public Optional<Usuario> buscarPorId(@PathVariable Long id) {
         return usuarioService.buscarPorId(id);
     }
 
-    @PostMapping("/cadastrar")
-    @Operation(summary = "Cadastra novo usuário")
-    public Usuario cadastrar(@RequestBody Usuario usuario) {
-        return usuarioService.cadastrar(usuario);
+    @GetMapping("/por-nome")
+    public List<UsuarioDTO> buscarPorNome(@RequestParam String nome) {
+        return usuarioService.buscarPorNome(nome);
     }
 
-    @PutMapping("/atualizar")
-    @Operation(summary = "Atualiza um usuário existente")
-    public Usuario atualizar(@RequestBody Usuario usuario) {
+    @PutMapping("/{id}")
+    public Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
+        usuario.setId(id);
         return usuarioService.atualizar(usuario);
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Deletar um usuário")
-    public void deletar(@PathVariable Long id) {
+    public void excluir(@PathVariable Long id) {
         usuarioService.excluir(id);
     }
 }

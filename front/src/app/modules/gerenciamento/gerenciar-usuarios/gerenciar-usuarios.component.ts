@@ -55,10 +55,10 @@ export class GerenciarUsuariosComponent
   public listaStatusEnum: Array<StatusEnum> = StatusEnum.getAll();
   public dadosTabela = new MatTableDataSource<Usuario>([]);
   public colunasTabela: Array<string> = [
+    'id',
     'nome',
     'email',
     'perfil',
-    'squad',
     'dataCadastro',
     'status',
     'acoes',

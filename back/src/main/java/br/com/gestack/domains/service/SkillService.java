@@ -3,8 +3,8 @@ package br.com.gestack.domains.service;
 import br.com.gestack.domains.repository.UsuarioRepository;
 import br.com.gestack.domains.repository.SkillRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Sort;
 import br.com.gestack.domains.entities.Skill;
+import org.springframework.data.domain.Sort;
 import lombok.AllArgsConstructor;
 import java.util.List;
 
@@ -15,6 +15,7 @@ public class SkillService {
     private final UsuarioRepository usuarioRepository;
 
     public Skill cadastrar(Skill skill) {
+        skill.setAtivo(true);
         return skillRepository.save(skill);
     }
 

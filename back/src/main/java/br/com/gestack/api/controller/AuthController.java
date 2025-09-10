@@ -25,8 +25,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO login) {
-        Usuario usuario = usuarioRepository.findByEmail(login.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Usuario usuario = usuarioRepository.findByEmail(login.getEmail()).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         if (passwordEncoder.matches(login.getSenha(), usuario.getSenha())) {
             String token = jwtUtil.generateToken(usuario);

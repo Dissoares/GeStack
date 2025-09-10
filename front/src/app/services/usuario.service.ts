@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../core/models';
@@ -13,17 +13,20 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
 
-  public cadastro(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(
-      `${this.apiUrl}${this.endPointUrl}/cadastrar`,
-      usuario
-    );
+  public salvar(usuario: Usuario): Observable<HttpResponse<string>> {
+    return this.http.post<string>(this.apiUrl + this.endPointUrl, usuario, {
+      observe: 'response',
+    });
+  }
+
+  public listarUsuarios(): Observable<Array<Usuario>> {
+    return this.http.get<Array<Usuario>>(this.apiUrl + this.endPointUrl);
   }
 
   public filtrarPor(filtro: Usuario): Observable<Array<Usuario>> {
     const params = new HttpParams({ fromObject: this.camposFiltrados(filtro) });
     return this.http.get<Array<Usuario>>(
-      `${this.apiUrl}${this.endPointUrl}/buscarTodos`,
+      `${this.apiUrl}${this.endPointUrl}/filtrar`,
       { params }
     );
   }
@@ -45,7 +48,7 @@ export class UsuarioService {
     }
 
     return this.http.get<Array<Usuario>>(
-      `${this.apiUrl}${this.endPointUrl}/buscarPorNome`,
+      `${this.apiUrl}${this.endPointUrl}/por-nome`,
       { params }
     );
   }

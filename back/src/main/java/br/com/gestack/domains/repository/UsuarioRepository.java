@@ -1,11 +1,11 @@
 package br.com.gestack.domains.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import br.com.gestack.api.dto.ListagemUsuariosDTO;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import br.com.gestack.domains.entities.Usuario;
+import br.com.gestack.api.dto.UsuarioDTO;
 import java.util.Optional;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByEmail(String email);
 
-    List<ListagemUsuariosDTO> findByNomeContainingIgnoreCase(String nome);
+    List<UsuarioDTO> findByNomeContainingIgnoreCase(String nome);
 
     @Query("""
         SELECT u.id AS id,
@@ -27,7 +27,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
           AND (:email IS NULL OR u.email LIKE %:email%)
           AND (:perfil IS NULL OR u.perfil = :perfil)
     """)
-    List<ListagemUsuariosDTO> buscarUsuarios(
+    List<UsuarioDTO> buscarUsuarios(
             @Param("nome") String nome,
             @Param("email") String email,
             @Param("perfil") Integer perfil,

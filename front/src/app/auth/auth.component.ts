@@ -1,5 +1,6 @@
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CamposFormularioComponent } from '../components/index.component';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,51 +35,33 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
   public listaPerfilEnum = PerfilEnum.getAll();
   public ehCadastro: boolean = false;
 
-  constructor(
-    private toastr: ToastrService,
-    private authService: AuthService,
-    private usuarioService: UsuarioService
-  ) {
+  private readonly usuarioService = inject(UsuarioService);
+  private readonly authService = inject(AuthService);
+  private readonly toastr = inject(ToastrService);
+
+  constructor() {
     super(inject(FormBuilder));
   }
 
   public ngOnInit(): void {
     this.criarFormulario();
-    this.verificarSePerfilEhLider();
   }
 
   private criarFormulario(): void {
     this.formulario = this.fb.group({
-      idUsuario: [null],
+      id: [null],
       nome: [null],
       email: [null, Validators.required],
       senha: [null, Validators.required],
       confirmarSenha: [null],
       perfil: [null],
-      dataCriacao: [null],
-      ativo: [null],
-      ehLider: [null],
     });
 
     if (this.ehCadastro) {
       this.formulario.get('nome')?.addValidators(Validators.required);
       this.formulario.get('confirmarSenha')?.addValidators(Validators.required);
       this.formulario.get('perfil')?.addValidators(Validators.required);
-      this.formulario.get('ehLider')?.addValidators(Validators.required);
     }
-  }
-
-  public verificarSePerfilEhLider(): void {
-    this.formulario.get('perfil')?.valueChanges.subscribe((perfil: number) => {
-      if (
-        perfil === PerfilEnum.LIDER_DESENVOLVIMENTO.id ||
-        perfil === PerfilEnum.LIDER_NEGOCIO.id
-      ) {
-        this.formulario.get('ehLider')?.setValue(true);
-      } else {
-        this.formulario.get('ehLider')?.setValue(false);
-      }
-    });
   }
 
   public cadastrar(): void {
@@ -88,15 +71,18 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
       return;
     }
 
-    const dadosCadastro: Usuario = this.formulario.value;
+    const usuario: Usuario = this.formulario.value;
 
-    this.usuarioService.cadastro(dadosCadastro).subscribe({
-      next: () => {
-        this.exibirMensagem('Cadastro realizado com sucesso!', 'Sucesso!');
+    this.usuarioService.salvar(usuario).subscribe({
+      next: (resposta: HttpResponse<string>) => {
+        this.exibirMensagem('Cadastrado com sucesso!', 'Sucesso!');
         this.ehCadastro = false;
-        this.formulario.reset();
+        this.limparFormulario();
+        this.marcarFormularioComoNAOTocado();
       },
-      error: () => this.exibirMensagem('Não foi possível cadastrar!', 'Erro!'),
+      error: (resposta: HttpErrorResponse) => {
+        this.exibirMensagem(resposta.error, 'Erro!');
+      },
     });
   }
 
@@ -108,21 +94,15 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     }
 
     const { email, senha } = this.formulario.value;
-    const dadosLogin: LoginDto = { email, senha };
+    const login: LoginDto = { email, senha };
 
-    this.authService.login(dadosLogin).subscribe({
+    this.authService.login(login).subscribe({
       next: () => {
         this.exibirMensagem('Logado com sucesso.', 'Sucesso!');
-        setTimeout(() => window.location.reload(), 500);
       },
       error: (erro) => {
-        const msg = erro.error?.message;
-
-        if (msg === 'Senha inválida') {
-          this.exibirMensagem('Senha inválida', 'Erro!');
-        } else {
-          this.exibirMensagem(msg, 'Erro!');
-        }
+        const msg = erro?.error?.message;
+        this.exibirMensagem(msg, 'Erro!');
       },
     });
   }

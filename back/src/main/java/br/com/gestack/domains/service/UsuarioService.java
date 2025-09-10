@@ -3,12 +3,11 @@ package br.com.gestack.domains.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.gestack.domains.repository.UsuarioRepository;
-import org.springframework.data.repository.query.Param;
-import br.com.gestack.api.dto.ListagemUsuariosDTO;
 import br.com.gestack.domains.entities.Usuario;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
+import br.com.gestack.api.dto.UsuarioDTO;
 import lombok.AllArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
@@ -22,7 +21,7 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Usuario cadastrar(Usuario usuario) {
+    public Usuario salvar(Usuario usuario) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
         usuario.setDataCriacao(LocalDateTime.now());
@@ -42,7 +41,7 @@ public class UsuarioService {
         return usuarioRepository.findById(idUsuario);
     }
 
-    public List<ListagemUsuariosDTO> buscaPor(Usuario usuario) {
+    public List<UsuarioDTO> filtrarPor(Usuario usuario) {
         return usuarioRepository.buscarUsuarios(
                 usuario.getNome(),
                 usuario.getEmail(),
@@ -51,7 +50,19 @@ public class UsuarioService {
         );
     }
 
-    public List<ListagemUsuariosDTO> buscaPorNome(String nome) {
+    public List<UsuarioDTO> listar() {
+        List<Usuario> usuarios = usuarioRepository.findAll(Sort.by(Sort.Direction.DESC, "dataCriacao"));
+        return usuarios.stream().map(u -> new
+                UsuarioDTO(u.getId(),
+                u.getNome(),
+                u.getEmail(),
+                u.getPerfil(),
+                u.getDataCriacao(),
+                u.getAtivo()))
+                .toList();
+    }
+
+    public List<UsuarioDTO> buscarPorNome(String nome) {
         return usuarioRepository.findByNomeContainingIgnoreCase(nome);
     }
 }

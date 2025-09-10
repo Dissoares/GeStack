@@ -13,7 +13,7 @@ export class GerenciarUsuariosResolver implements Resolve<Array<Usuario>> {
   ) {}
 
   resolve(): Observable<Array<Usuario>> {
-    return this.usuarioService.filtrarPor({} as Usuario).pipe(
+    return this.usuarioService.listarUsuarios().pipe(
       catchError((erro) => {
         this.toastr.error('Falha ao carregar usuários. ', erro.message);
         return of([]);

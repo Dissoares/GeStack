@@ -1,5 +1,6 @@
 package br.com.gestack.domains.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -16,16 +17,17 @@ public class Usuario {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NOME", nullable = false, length = 250)
+    @Column(name = "NOME", unique = true)
     private String nome;
 
-    @Column(name = "EMAIL", unique = true, nullable = false, length = 250)
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
-    @Column(name = "SENHA", nullable = false, length = 250)
+    @Column(name = "SENHA")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
-    @Column(name = "PERFIL", nullable = false)
+    @Column(name = "PERFIL")
     private Integer perfil;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
