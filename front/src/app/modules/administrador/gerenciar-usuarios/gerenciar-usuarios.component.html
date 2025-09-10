@@ -33,9 +33,9 @@
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-2">
         <mat-label>Status</mat-label>
-        <mat-select matInput type="text" formControlName="status">
-          <mat-option *ngFor="let status of listaStatusEnum" [value]="status.status">
-            {{ status.descricao }}
+        <mat-select matInput type="text" formControlName="ativo">
+          <mat-option *ngFor="let ativo of listaStatusEnum" [value]="ativo.status">
+            {{ ativo.descricao }}
           </mat-option>
         </mat-select>
       </mat-form-field>

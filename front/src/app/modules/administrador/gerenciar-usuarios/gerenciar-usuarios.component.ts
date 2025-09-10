@@ -98,7 +98,7 @@ export class GerenciarUsuariosComponent
       confirmarSenha: [null],
       perfil: [null],
       dataCriacao: [null],
-      status: [null],
+      ativo: [null],
     });
   }
 

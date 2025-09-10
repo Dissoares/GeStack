@@ -30,6 +30,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<ListagemUsuariosDTO> buscarUsuarios(
             @Param("nome") String nome,
             @Param("email") String email,
-            @Param("perfil") Integer perfil
+            @Param("perfil") Integer perfil,
+             @Param("ativo") Boolean ativo
     );
 }
