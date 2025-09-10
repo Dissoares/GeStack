@@ -1,105 +1,12 @@
-<mat-card>
+<mat-toolbar>
   <mat-card-header>
-    <mat-card-title><mat-icon>add</mat-icon>Cadastrar Sistema</mat-card-title>
+    <mat-card-title><mat-icon>settings</mat-icon>Gerenciar Sistemas</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    <form [formGroup]="formulario" class="container">
-      <mat-form-field appearance="outline" floatLabel="always" class="field-12">
-        <mat-label>Nome do Sistema</mat-label>
-        <mat-icon matPrefix>laptop_windows</mat-icon>
-        <input matInput formControlName="nome" />
-      </mat-form-field>
 
-      <mat-form-field appearance="outline" floatLabel="always" class="field-12">
-        <mat-label>Descrição</mat-label>
+  <span class="espaco"></span>
 
-        <textarea matInput formControlName="descricao" maxlength="1200" rows="8">
-        </textarea>
-        <mat-hint align="end">
-          {{ formulario.get("descricao")?.value?.length || 0 }} / 1200
-        </mat-hint>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" floatLabel="always" class="field-6">
-        <mat-label>Responsável</mat-label>
-        <mat-icon matPrefix>business_center</mat-icon>
-        <input matInput formControlName="responsavel" [matAutocomplete]="auto" #nome
-          (input)="pesquisarResponsavel(nome.value)" minlength="3" />
-
-        @if(this.formulario.get('responsavel')?.value &&
-        this.formulario.get('responsavel')?.value.email){
-        <button mat-icon-button matSuffix (click)="removerResponsavelSelecionado()">
-          <mat-icon>close</mat-icon>
-        </button>
-        }
-
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUsuario">
-          <mat-option *ngFor="let responsavel of listaResponsaveis" [value]="responsavel">
-            {{ responsavel.nome }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-
-      <div class="field-6" style="display: flex; gap: 10px">
-        <mat-form-field appearance="outline" floatLabel="always" class="tags field-6">
-          <mat-label>Skills</mat-label>
-          <mat-icon matPrefix>label</mat-icon>
-          <mat-select formControlName="skills" multiple>
-            <mat-select-trigger>
-              <mat-chip-listbox>
-                <mat-chip *ngFor="let skill of formulario.get('skills')?.value"
-                  [style.background-color]="getCoresTags(skill)" [removable]="true" (removed)="removerSkill(skill)">
-                  {{ skill.nome }}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-listbox>
-            </mat-select-trigger>
-
-            <mat-option *ngFor="let skill of listaSkills" [value]="skill">
-              {{ skill.nome }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <button mat-mini-fab color="primary" type="button" matTooltip="Cadastrar Skill" (click)="cadastrarSkills()">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
-        <mat-label>Link do protótipo</mat-label>
-        <mat-icon matPrefix>link</mat-icon>
-        <input matInput formControlName="linkPrototipo" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
-        <mat-label>Link da documentação</mat-label>
-        <mat-icon matPrefix>link</mat-icon>
-        <input matInput formControlName="linkDocumentacao" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
-        <mat-label>Link do GitHub / Gitlab</mat-label>
-        <mat-icon matPrefix>link</mat-icon>
-        <input matInput formControlName="linkGit" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
-        <mat-label>Link de Produção</mat-label>
-        <mat-icon matPrefix>link</mat-icon>
-        <input matInput formControlName="linkProducao" />
-      </mat-form-field>
-    </form>
-
-    <mat-card-actions>
-      <button type="submit" mat-flat-button class="btn-primary" (click)="cadastrar()">
-        <mat-icon>add</mat-icon>
-        Cadastrar
-      </button>
-      <button type="button" mat-flat-button class="btn-secondary" (click)="cancelar()">
-        <mat-icon>add</mat-icon>
-        Cancelar
-      </button>
-    </mat-card-actions>
-  </mat-card-content>
-</mat-card>
+  <button type="button" mat-flat-button class="btn-primary" (click)="cadastrarSistema()">
+    <mat-icon>add</mat-icon>
+    Cadastrar
+  </button>
+</mat-toolbar>
