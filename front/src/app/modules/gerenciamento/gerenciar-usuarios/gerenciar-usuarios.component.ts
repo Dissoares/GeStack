@@ -23,6 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../../core/models';
 import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-gerenciar-usuarios',
   standalone: true,

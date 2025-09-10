@@ -1,21 +1,21 @@
-import { CamposFormularioComponent } from '../../components/index.component';
+import { CamposFormularioComponent } from '../../../components/index.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
+import { UsuarioToken } from '../../../core/interfaces';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { UsuarioToken } from '../../core/interfaces';
+import { PerfilEnum } from '../../../core/enums';
+import { AuthService } from '../../../services';
 import { CommonModule } from '@angular/common';
-import { PerfilEnum } from '../../core/enums';
-import { AuthService } from '../../services';
 import { DateTime } from 'luxon';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
+  selector: 'app-perfil-usuario',
+  templateUrl: './perfil-usuario.component.html',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -27,9 +27,9 @@ import { DateTime } from 'luxon';
     MatIconModule,
     CommonModule,
   ],
-  styleUrls: ['./perfil.component.scss'],
+  styleUrls: ['./perfil-usuario.component.scss'],
 })
-export class PerfilComponent
+export class PerfilUsuarioComponent
   extends CamposFormularioComponent
   implements OnInit
 {

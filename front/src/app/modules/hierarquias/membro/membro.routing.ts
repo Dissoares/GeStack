@@ -11,6 +11,8 @@ export const ROTAS_MEMBRO: Routes = [
   {
     path: 'perfil',
     loadComponent: () =>
-      import('../perfil/perfil.component').then((m) => m.PerfilComponent),
+      import(
+        '../../gerenciamento/perfil-usuario/perfil-usuario.component'
+      ).then((m) => m.PerfilUsuarioComponent),
   },
 ];

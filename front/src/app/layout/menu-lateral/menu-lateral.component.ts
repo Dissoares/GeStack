@@ -71,7 +71,13 @@ export class MenuLateralComponent implements OnInit {
       this.authService.isLiderDesenvolvimento() ||
       this.authService.isLiderNegocio()
     ) {
-      this.botoesMenu = [];
+      this.botoesMenu = [
+        {
+          rota: 'lideranca/gerenciar-usuarios',
+          titulo: 'Gestão de Usuários',
+          icone: 'groups',
+        },
+      ];
     }
 
     if (this.authService.isAnalista() || this.authService.isDesenvolvedor()) {

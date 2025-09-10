@@ -1,4 +1,4 @@
-import { CamposFormularioComponent } from '../../../../components/index.component';
+import { CamposFormularioComponent } from '../../../../../components/index.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,9 +7,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { PerfilEnum } from '../../../../core/enums';
-import { AuthService } from '../../../../services';
-import { CommonModule } from '@angular/common';
+import { PerfilEnum } from '../../../../../core/enums';
+import { AuthService } from '../../../../../services'; 
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-cadastrar',

@@ -1,3 +1,4 @@
+import { GerenciarUsuariosResolver } from '../../../resolvers';
 import { Routes } from '@angular/router';
 
 export const ROTAS_LIDERANCA: Routes = [
@@ -16,7 +17,19 @@ export const ROTAS_LIDERANCA: Routes = [
   {
     path: 'perfil',
     loadComponent: () =>
-      import('./../perfil/perfil.component').then((c) => c.PerfilComponent),
+      import(
+        '../../gerenciamento/perfil-usuario/perfil-usuario.component'
+      ).then((c) => c.PerfilUsuarioComponent),
+  },
+  {
+    path: 'gerenciar-usuarios',
+    resolve: {
+      usuarios: GerenciarUsuariosResolver,
+    },
+    loadComponent: () =>
+      import(
+        '../../gerenciamento/gerenciar-usuarios/gerenciar-usuarios.component'
+      ).then((c) => c.GerenciarUsuariosComponent),
   },
   {
     path: '**',

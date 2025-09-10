@@ -1,4 +1,4 @@
-import { CamposFormularioComponent } from '../../../components/index.component';
+import { CamposFormularioComponent } from '../../../../components/index.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { UsuarioService } from '../../../services';
+import { UsuarioService } from '../../../../services';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 

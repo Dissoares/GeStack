@@ -20,16 +20,16 @@ export const routes: Routes = [
         path: 'administrador',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/administrador/administrador.routing').then(
-            (m) => m.ROTAS_ADMINISTRADOR
-          ),
+          import(
+            './modules/hierarquias/administracao/administrador.routing'
+          ).then((m) => m.ROTAS_ADMINISTRADOR),
         data: { permissoes: [PerfilEnum.ADMINISTRADOR.id] },
       },
       {
         path: 'lideranca',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/lideranca/lideranca.routing').then(
+          import('./modules/hierarquias/lideranca/lideranca.routing').then(
             (m) => m.ROTAS_LIDERANCA
           ),
         data: {
@@ -44,7 +44,9 @@ export const routes: Routes = [
         path: 'membro',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/membro/membro.routing').then((m) => m.ROTAS_MEMBRO),
+          import('./modules/hierarquias/membro/membro.routing').then(
+            (m) => m.ROTAS_MEMBRO
+          ),
         data: {
           permissoes: [
             PerfilEnum.DESENVOLVEDOR.id,
@@ -57,7 +59,7 @@ export const routes: Routes = [
         path: 'atividade',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/atividade/atividade.routing').then(
+          import('./modules/gerenciamento/atividade/atividade.routing').then(
             (m) => m.ROTAS_ATIVIDADE
           ),
         data: {
@@ -72,7 +74,7 @@ export const routes: Routes = [
         path: 'sistema',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/sistemas/sistemas.routing').then(
+          import('./modules/gerenciamento/sistemas/sistemas.routing').then(
             (m) => m.ROTAS_SISTEMA
           ),
         data: {

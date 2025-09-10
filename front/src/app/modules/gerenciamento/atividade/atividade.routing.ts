@@ -1,5 +1,3 @@
-import { Routes, RouterModule } from '@angular/router';
-
 export const ROTAS_ATIVIDADE = [
   {
     path: 'criar',
