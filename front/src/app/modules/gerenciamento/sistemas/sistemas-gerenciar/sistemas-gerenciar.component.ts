@@ -24,7 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sistemas-formulario',
+  selector: 'app-sistemas-gerenciar',
   standalone: true,
   imports: [
     MatAutocompleteModule,
@@ -39,10 +39,10 @@ import { Router } from '@angular/router';
     MatIconModule,
     CommonModule,
   ],
-  templateUrl: './sistemas-formulario.component.html',
-  styleUrls: ['./sistemas-formulario.component.scss'],
+  templateUrl: './sistemas-gerenciar.component.html',
+  styleUrls: ['./sistemas-gerenciar.component.scss'],
 })
-export class SistemasFormularioComponent
+export class SistemasGerenciarComponent
   extends CamposFormularioComponent
   implements OnInit
 {

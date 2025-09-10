@@ -45,8 +45,8 @@ export class MenuLateralComponent implements OnInit {
           icone: 'dashboard',
         },
         {
-          rota: 'sistema/cadastrar',
-          titulo: 'Cadastrar Sistema',
+          rota: 'sistema/gerenciar',
+          titulo: 'Gerenciar Sistemas',
           icone: 'add_to_queue',
         },
         {
