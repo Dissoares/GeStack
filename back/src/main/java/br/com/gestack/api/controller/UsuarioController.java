@@ -1,24 +1,24 @@
 package br.com.gestack.api.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.gestack.domains.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import br.com.gestack.domains.entities.Usuario;
-import br.com.gestack.domains.entities.Skill;
 import org.springframework.http.HttpStatus;
 import br.com.gestack.api.dto.UsuarioDTO;
 import java.util.Optional;
 import java.util.List;
 
+@AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/usuario")
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
     @PostMapping
     public ResponseEntity<Object> salvar(@RequestBody Usuario usuario) {

@@ -81,6 +81,7 @@ export class GerenciarUsuariosComponent
     const usuarios = this.route.snapshot.data['usuarios'] as Array<Usuario>;
 
     this.dadosTabela.data = usuarios;
+    this.dadosTabela.paginator = this.paginator;
     if (!usuarios.length) {
       this.toastrService.warning('Nenhum usuário encontrado.', 'Informação!');
     }
@@ -95,8 +96,6 @@ export class GerenciarUsuariosComponent
       id: [null],
       nome: [null],
       email: [null],
-      senha: [null],
-      confirmarSenha: [null],
       perfil: [null],
       dataCriacao: [null],
       ativo: [null],
@@ -132,7 +131,7 @@ export class GerenciarUsuariosComponent
   }
 
   public limpar(): void {
-    this.dadosTabela.data = [];
+    this.iniciarListagem();
     this.limparFormulario();
   }
 }

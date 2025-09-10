@@ -1,8 +1,8 @@
 package br.com.gestack.domains.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.beans.factory.annotation.Autowired;
 import br.com.gestack.domains.repository.UsuarioRepository;
+import br.com.gestack.api.dto.FiltroUsuarioDTO;
 import br.com.gestack.domains.entities.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
@@ -17,9 +17,7 @@ import java.util.List;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public Usuario salvar(Usuario usuario) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
@@ -29,40 +27,43 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario atualizar(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public List<UsuarioDTO> listar() {
+        List<Usuario> usuarios = usuarioRepository.findAll(Sort.by(Sort.Direction.DESC, "dataCriacao"));
+        return usuarios.stream().map(usuario -> new
+                UsuarioDTO(usuario.getId(),
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getPerfil(),
+                usuario.getDataCriacao(),
+                usuario.getAtivo()))
+        .toList();
     }
 
-    public void excluir(Long idUsuario) {
-        usuarioRepository.deleteById(idUsuario);
+    public List<UsuarioDTO> filtrarPor(Usuario usuario) {
+
+        List<FiltroUsuarioDTO> usuarios = usuarioRepository.filtrarPor(
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getPerfil(),
+                usuario.getAtivo()
+        );
+        return usuarios.stream().map(s -> new UsuarioDTO(s.getId(), s.getNome(), s.getEmail(), s.getPerfil(), s.getDataCriacao(), s.getAtivo())).toList();
+
     }
 
     public Optional<Usuario> buscarPorId(Long idUsuario) {
         return usuarioRepository.findById(idUsuario);
     }
 
-    public List<UsuarioDTO> filtrarPor(Usuario usuario) {
-        return usuarioRepository.buscarUsuarios(
-                usuario.getNome(),
-                usuario.getEmail(),
-                usuario.getPerfil(),
-                usuario.getAtivo()
-        );
-    }
-
-    public List<UsuarioDTO> listar() {
-        List<Usuario> usuarios = usuarioRepository.findAll(Sort.by(Sort.Direction.DESC, "dataCriacao"));
-        return usuarios.stream().map(u -> new
-                UsuarioDTO(u.getId(),
-                u.getNome(),
-                u.getEmail(),
-                u.getPerfil(),
-                u.getDataCriacao(),
-                u.getAtivo()))
-                .toList();
-    }
-
     public List<UsuarioDTO> buscarPorNome(String nome) {
         return usuarioRepository.findByNomeContainingIgnoreCase(nome);
+    }
+
+    public Usuario atualizar(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
+    public void excluir(Long idUsuario) {
+        usuarioRepository.deleteById(idUsuario);
     }
 }
