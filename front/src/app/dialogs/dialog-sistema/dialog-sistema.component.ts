@@ -62,7 +62,6 @@ export class DialogSistemaComponent
   private readonly toastrService = inject(ToastrService);
   private readonly skillService = inject(SkillService);
   private readonly dialog = inject(MatDialog);
-  private readonly router = inject(Router);
 
   constructor(public dialogRef: MatDialogRef<DialogSistemaComponent>) {
     super(inject(FormBuilder));
@@ -104,6 +103,7 @@ export class DialogSistemaComponent
         resultado
           ? this.toastrService.success('Sistema cadastrado!.', 'Sucesso!')
           : null;
+        this.limparFormulario();
       },
       error: (erro) => {
         console.log(erro);

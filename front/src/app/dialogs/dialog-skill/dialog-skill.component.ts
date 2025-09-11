@@ -133,10 +133,6 @@ export class DialogSkillComponent
   public listarSkills(): void {
     this.service.buscarTudo().subscribe({
       next: (resultado) => {
-        !resultado.length
-          ? this.toastr.info('Nenhum resultado encontrado.', 'Informação!')
-          : null;
-
         this.dadosTabela.data = resultado;
         this.iniciarPaginacao();
       },

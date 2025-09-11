@@ -11,6 +11,7 @@
   </button>
 </mat-toolbar>
 
+@if(dadosTabela.data.length){
 <mat-card>
   <mat-card-content>
     <table mat-table [dataSource]="dadosTabela">
@@ -76,4 +77,6 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
     </mat-paginator>
-  </mat-card-content></mat-card>
+  </mat-card-content>
+</mat-card>
+}
