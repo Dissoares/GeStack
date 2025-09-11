@@ -1,10 +1,10 @@
 export class PerfilEnum {
-  public static ADMINISTRADOR = new PerfilEnum(1, 'ADMINISTRADOR');
-  public static LIDER_DESENVOLVIMENTO = new PerfilEnum(2, 'LÍDER DE DESENVOLVIMENTO');
-  public static LIDER_NEGOCIO = new PerfilEnum(3, 'LÍDER DE NEGÓCIO');
-  public static DESENVOLVEDOR = new PerfilEnum(4, 'DESENVOLVEDOR');
-  public static ANALISTA_NEGOCIO = new PerfilEnum(5, 'ANALISTA DE NEGÓCIO');
-  public static REPRESENTANTE_AREA = new PerfilEnum(6, 'REPRESENTANTE SETOR');
+  public static ADMINISTRADOR = new PerfilEnum(1, 'Administrador');
+  public static LIDER_DESENVOLVIMENTO = new PerfilEnum(2,'Líder de desenvolvimento');
+  public static LIDER_NEGOCIO = new PerfilEnum(3, 'Líder de negócio');
+  public static DESENVOLVEDOR = new PerfilEnum(4, 'Desenvolvedor');
+  public static ANALISTA_NEGOCIO = new PerfilEnum(5, 'Analista de negócio');
+  public static REPRESENTANTE_AREA = new PerfilEnum(6,'Representante de setor');
 
   private constructor(
     public readonly id: number,

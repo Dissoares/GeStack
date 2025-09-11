@@ -23,7 +23,6 @@ html {
 
 .btn-primary,
 .btn-secondary {
-  text-transform: uppercase !important;
   border-radius: 10px !important;
   min-width: 150px !important;
 }
@@ -50,7 +49,6 @@ html {
 
 .mat-mdc-unelevated-button[disabled],
 .mat-mdc-unelevated-button.mat-mdc-button-disabled {
-  text-transform: uppercase !important;
   min-width: 150px !important;
   border-radius: 10px !important;
   background-color: #d6d8dc !important;
@@ -83,14 +81,6 @@ html {
   .mat-mdc-text-field-wrapper {
     background-color: #ffffff !important;
   }
-}
-
-mat-card-title {
-  color: #077187 !important;
-  font-size: 30px !important;
-  font-style: bold !important;
-  margin-top: 10px !important;
-  margin-bottom: 30px !important;
 }
 
 mat-card {
@@ -134,7 +124,7 @@ mat-paginator {
 }
 
 .linha-destacada {
-  background: linear-gradient(360deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+  background: linear-gradient(360deg, #f5f7fa6c 0%, #c3cfe257 100%) !important;
 }
 
 .mdc-switch__track::after {
@@ -144,4 +134,26 @@ mat-paginator {
 .toast-info {
   background-color: #df8805 !important;
   color: #fff !important;
+}
+
+mat-toolbar.breadcrumbs {
+  background-color: #eaeff5 !important;
+  height: 54px !important;
+  margin-bottom: 20px !important;
+}
+
+mat-card-title {
+  display: flex !important;
+  font-size: 20px !important;
+  align-items: center !important;
+  color: #077187 !important;
+  font-style: bold !important;
+  margin-bottom: 20px !important;
+
+  mat-icon {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 30px !important;
+    margin-right: 5px !important;
+  }
 }

@@ -1,5 +1,6 @@
 package br.com.gestack.domains.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import lombok.*;
 @Getter
 @Entity
 @Table(schema = "GESQUAD", name = "USUARIO")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

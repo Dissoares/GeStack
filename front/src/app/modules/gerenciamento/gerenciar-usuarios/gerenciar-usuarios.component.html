@@ -1,8 +1,9 @@
-<mat-card>
+<mat-toolbar class="breadcrumbs">
   <mat-card-header>
     <mat-card-title><mat-icon>search</mat-icon>Filtrar Usuários</mat-card-title>
   </mat-card-header>
-
+</mat-toolbar>
+<mat-card>
   <mat-card-content>
     <form [formGroup]="formulario" class="container">
       <mat-form-field appearance="outline" floatLabel="always" class="field-3">
@@ -102,7 +103,8 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="colunasTabela"></tr>
-      <tr mat-row *matRowDef="let row; columns: colunasTabela"></tr>
+      <tr mat-row *matRowDef="let row; let i = index; columns: colunasTabela"
+        [ngClass]="{ 'linha-destacada': i % 2 === 0 }"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>

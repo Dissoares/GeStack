@@ -13,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PerfilEnum, StatusEnum } from '../../../core/enums';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -33,6 +34,7 @@ import { ToastrService } from 'ngx-toastr';
     MatDatepickerModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    MatToolbarModule,
     MatButtonModule,
     MatSelectModule,
     MatTableModule,

@@ -1,5 +1,6 @@
 package br.com.gestack.domains.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import br.com.gestack.common.Auditoria;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(schema = "GESQUAD", name = "SISTEMA")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Sistema extends Auditoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +25,7 @@ public class Sistema extends Auditoria {
     @Column(name = "DESCRICAO")
     private String descricao;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESPONSAVEL_FK")
     private Usuario responsavel;
 
