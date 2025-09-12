@@ -15,8 +15,8 @@ import { CommonModule } from '@angular/common';
 import { DateTime } from 'luxon';
 
 @Component({
-  selector: 'app-perfil-usuario',
-  templateUrl: './perfil-usuario.component.html',
+  selector: 'app-gerenciar-perfil',
+  templateUrl: './gerenciar-perfil.component.html',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -29,9 +29,9 @@ import { DateTime } from 'luxon';
     MatIconModule,
     CommonModule,
   ],
-  styleUrls: ['./perfil-usuario.component.scss'],
+  styleUrls: ['./gerenciar-perfil.component.scss'],
 })
-export class PerfilUsuarioComponent
+export class GerenciarPerfilComponent
   extends CamposFormularioComponent
   implements OnInit
 {

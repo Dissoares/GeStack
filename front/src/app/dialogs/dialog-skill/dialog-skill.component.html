@@ -17,7 +17,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" floatLabel="always" class="field-6">
+      <mat-form-field appearance="outline" floatLabel="always" class="field-5">
         <mat-label>Categoria</mat-label>
         <mat-icon matPrefix>label</mat-icon>
         <mat-select matInput type="text" formControlName="categoria" placeholder="Escolha uma categoria">
@@ -29,18 +29,20 @@
           <app-erro [dadosCampo]="formulario.get('categoria')"> </app-erro>
         </mat-error>
       </mat-form-field>
+
+      <mat-card-actions style="margin-bottom: 20px !important;">
+        <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
+          <mat-icon>{{ ehEdicao ? "save" : "add" }} </mat-icon>
+          {{ ehEdicao ? "salvar" : "Cadastrar" }}
+        </button>
+        <button type="button" mat-flat-button class="btn-secondary" (click)="cancelar()">
+          <mat-icon>add</mat-icon>
+          Cancelar
+        </button>
+      </mat-card-actions>
     </form>
 
-    <mat-card-actions>
-      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
-        <mat-icon>{{ ehEdicao ? "save" : "add" }} </mat-icon>
-        {{ ehEdicao ? "salvar" : "Cadastrar" }}
-      </button>
-      <button type="button" mat-flat-button class="btn-secondary" (click)="cancelar()">
-        <mat-icon>add</mat-icon>
-        Cancelar
-      </button>
-    </mat-card-actions>
+
   </mat-card-content>
 </mat-card>
 
@@ -78,19 +80,6 @@
       </th>
       <td style="width: 10%" mat-cell *matCellDef="let element">
         {{ element.dataCriacao | date : "dd/MM/yyyy hh:mm" }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="dataModificacao">
-      <th style="width: 10%" mat-header-cell *matHeaderCellDef>
-        Data Modificação
-      </th>
-      <td style="width: 10%" mat-cell *matCellDef="let element">
-        {{
-        element.dataModificacao
-        ? (element.dataModificacao | date : "dd/MM/yyyy HH:mm")
-        : "Sem Modificação"
-        }}
       </td>
     </ng-container>
 

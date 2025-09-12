@@ -59,7 +59,6 @@ export class DialogSkillComponent
     'descricao',
     'categoria',
     'dataCadastro',
-    'dataModificacao',
     'status',
     'acoes',
   ];
@@ -81,8 +80,6 @@ export class DialogSkillComponent
       nome: [null, [campoObrigatorio()]],
       categoria: [null, [campoObrigatorio()]],
       dataCriacao: [null],
-      dataModificacao: [null],
-      modificadoPor: [null],
       ativo: [null],
     });
   }

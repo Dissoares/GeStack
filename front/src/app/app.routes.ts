@@ -17,7 +17,7 @@ export const routes: Routes = [
       ),
     children: [
       {
-        path: 'administrador',
+        path: 'administracao',
         canActivate: [AuthGuard],
         loadChildren: () =>
           import(
@@ -56,12 +56,12 @@ export const routes: Routes = [
         },
       },
       {
-        path: 'atividade',
+        path: 'demanda',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./modules/gerenciamento/atividade/atividade.routing').then(
-            (m) => m.ROTAS_ATIVIDADE
-          ),
+          import(
+            './modules/gerenciamento/gerenciar-demandas/demandas.routing'
+          ).then((m) => m.ROTAS_ATIVIDADE),
         data: {
           permissoes: [
             PerfilEnum.DESENVOLVEDOR.id,
@@ -75,8 +75,8 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         loadComponent: () =>
           import(
-            './modules/gerenciamento/sistemas-gerenciar/sistemas-gerenciar.component'
-          ).then((m) => m.SistemasGerenciarComponent),
+            './modules/gerenciamento/gerenciar-sistemas/gerenciar-sistemas.component'
+          ).then((m) => m.GerenciarSistemasComponent),
 
         data: {
           permissoes: [

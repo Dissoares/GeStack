@@ -13,8 +13,8 @@ export const ROTAS_ADMINISTRADOR: Routes = [
     path: 'perfil',
     loadComponent: () =>
       import(
-        './../../gerenciamento/perfil-usuario/perfil-usuario.component'
-      ).then((c) => c.PerfilUsuarioComponent),
+        '../../gerenciamento/gerenciar-perfil/gerenciar-perfil.component'
+      ).then((c) => c.GerenciarPerfilComponent),
   },
   {
     path: 'gerenciar-usuarios',

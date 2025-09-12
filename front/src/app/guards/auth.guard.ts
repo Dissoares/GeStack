@@ -48,7 +48,7 @@ export class AuthGuard implements CanActivate {
 
   private redirecionarComBaseNoPerfil(): void {
     if (this.authService.isAdmin()) {
-      this.router.navigate(['/administrador/dashboard']);
+      this.router.navigate(['/administracao/dashboard']);
     } else if (this.authService.isGeralLider()) {
       this.router.navigate(['/lideranca/dashboard']);
     } else if (this.authService.isGeralMembro()) {

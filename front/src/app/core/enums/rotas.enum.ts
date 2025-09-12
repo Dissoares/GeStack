@@ -2,13 +2,13 @@ export class RotasEnum {
   static readonly HOME = '';
 
   static readonly ADMINISTRADOR = {
-    ROTA: 'administrador',
+    ROTA: 'administracao',
     LISTAGEM: 'listagem',
     FORMULARIO: 'formulario',
   };
 
   static readonly LIDER = {
-    ROTA: 'lider',
+    ROTA: 'lideranca',
     LISTAGEM: 'listagem',
     FORMULARIO: 'formulario',
   };

@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-atividade-formulario',
+  selector: 'app-demandas-formulario',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -32,10 +32,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     CommonModule,
   ],
-  templateUrl: './atividade-formulario.component.html',
-  styleUrls: ['./atividade-formulario.component.scss'],
+  templateUrl: './demandas-formulario.component.html',
+  styleUrls: ['./demandas-formulario.component.scss'],
 })
-export class AtividadeFormularioComponent
+export class DemandasFormularioComponent
   extends CamposFormularioComponent
   implements OnInit
 {

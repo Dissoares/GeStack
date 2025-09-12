@@ -12,7 +12,7 @@ export const ROTAS_MEMBRO: Routes = [
     path: 'perfil',
     loadComponent: () =>
       import(
-        '../../gerenciamento/perfil-usuario/perfil-usuario.component'
-      ).then((m) => m.PerfilUsuarioComponent),
+        '../../gerenciamento/gerenciar-perfil/gerenciar-perfil.component'
+      ).then((m) => m.GerenciarPerfilComponent),
   },
 ];
