@@ -52,7 +52,7 @@ export class MenuLateralComponent implements OnInit {
         {
           rota: 'demanda/visualizar',
           titulo: 'Visualizar demandas',
-          icone: 'list_alt',
+          icone: 'list',
         },
         {
           rota: 'sistema/gerenciar',
