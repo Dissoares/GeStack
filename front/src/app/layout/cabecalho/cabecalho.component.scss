@@ -23,8 +23,10 @@
 
   .logo-icon {
     color: #4caf50;
-    font-size: 32px;
-    margin-right: 12px;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
   }
 
   .titulo {
@@ -52,7 +54,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4c74af 0%, #116f8b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,7 +83,7 @@
   }
 
   .perfil {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4c74af 0%, #116f8b 100%);
     color: white;
     padding: 2px 8px;
     border-radius: 10px;
@@ -116,7 +118,7 @@
     background: #f1f5f9 !important;
 
     .mat-icon {
-      color: #667eea !important;
+      color: #4c7aaf !important;
     }
 
     span {

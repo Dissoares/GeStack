@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UsuarioService } from '../../../../services';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-atividade-formulario',
@@ -22,6 +23,7 @@ import { ToastrService } from 'ngx-toastr';
     MatDatepickerModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    MatToolbarModule,
     MatButtonModule,
     MatSelectModule,
     MatTableModule,

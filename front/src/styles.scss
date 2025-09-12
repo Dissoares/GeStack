@@ -137,7 +137,7 @@ mat-paginator {
 }
 
 mat-toolbar.breadcrumbs {
-  background-color: #eaeff5 !important;
+  background-color: #e2e8ee !important;
   height: 54px !important;
   margin-bottom: 20px !important;
 }
@@ -148,7 +148,7 @@ mat-card-title {
   align-items: center !important;
   color: #077187 !important;
   font-style: bold !important;
-  margin-bottom: 20px !important;
+  margin-bottom: 15px !important;
 
   mat-icon {
     width: 30px !important;
@@ -156,4 +156,15 @@ mat-card-title {
     font-size: 30px !important;
     margin-right: 5px !important;
   }
+}
+
+div.mat-mdc-select-panel {
+  color: #fff !important;
+  background-color: #eaeff5 !important;
+}
+
+.mat-mdc-option:focus.mdc-list-item,
+.mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+  background-color: #d7dfee !important;
+  color: #fff !important;
 }

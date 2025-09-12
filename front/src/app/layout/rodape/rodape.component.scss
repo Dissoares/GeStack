@@ -21,7 +21,9 @@
   display: flex;
   align-items: center;
   .rodape-icone {
-    font-size: 32px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
     color: #4caf50;
     margin-right: 5px;
   }
@@ -29,6 +31,8 @@
     display: flex;
     flex-direction: column;
     .titulo {
+      display: flex;
+      align-items: center;
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 4px;

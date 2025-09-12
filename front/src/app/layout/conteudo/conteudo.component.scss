@@ -1,3 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+mat-sidenav-container {
+  flex: 1;
+  height: calc(100vh - 64px);
+}
+
 .barra-lateral {
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
@@ -11,10 +22,12 @@
   align-items: center;
   background: #eaeff5 !important;
   color: #005f73;
+
   .logo-barra {
     font-size: 28px;
     margin-right: 12px;
   }
+
   .titulo-barra {
     font-size: 20px;
     font-style: bold;
@@ -24,4 +37,8 @@
 .conteudo {
   min-height: calc(100vh - 223px);
   background: linear-gradient(180deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+}
+
+.fundo-conteudo {
+  overflow-y: auto;
 }

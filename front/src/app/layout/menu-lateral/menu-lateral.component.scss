@@ -2,32 +2,43 @@
   padding: 0;
 }
 
+.item-menu.mat-mdc-list-item::before {
+  background-color: transparent !important;
+}
+
 .item-menu {
   margin: 0px;
   position: relative;
   overflow: hidden;
   border-radius: 0px !important;
   cursor: pointer;
+
   &:hover {
-    background: linear-gradient(360deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    background-color: #eaeff5;
     .barra-icones {
       background: #005f73;
+
       .icone {
         color: white;
       }
     }
+
     .indicador {
       opacity: 1;
     }
   }
+
   &.active {
-    background: linear-gradient(360deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    background: linear-gradient(360deg, #f5f7fa 0%, #e0e7f3 100%) !important;
+
     .barra-icones {
       background: #005f73;
+
       .icone {
         color: white;
       }
     }
+
     .indicador {
       opacity: 1;
     }
@@ -45,8 +56,8 @@
 }
 
 .barra-icones {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 10px;
   display: flex;
   align-items: center;

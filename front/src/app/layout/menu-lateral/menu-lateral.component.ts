@@ -41,8 +41,13 @@ export class MenuLateralComponent implements OnInit {
       this.botoesMenu = [
         {
           rota: 'administrador/dashboard',
-          titulo: 'Dashboard do Administrador',
-          icone: 'dashboard',
+          titulo: 'Dashboard',
+          icone: 'bar_chart_4_bars',
+        },
+        {
+          rota: 'atividade/criar',
+          titulo: 'Criar Atividade',
+          icone: 'add',
         },
         {
           rota: 'sistema/gerenciar',
@@ -51,18 +56,13 @@ export class MenuLateralComponent implements OnInit {
         },
         {
           rota: 'administrador/gerenciar-usuarios',
-          titulo: 'Gestão de Usuários',
+          titulo: 'Gerenciar Usuários',
           icone: 'groups',
         },
         {
           rota: 'lideranca/squad/gerenciar',
           titulo: 'Gestão de Squads',
           icone: 'person',
-        },
-        {
-          rota: 'atividade/criar',
-          titulo: 'Criar Atividade',
-          icone: 'add',
         },
       ];
     }

@@ -1,6 +1,7 @@
 import { CamposFormularioComponent } from '../../../components/index.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Component, inject, OnInit } from '@angular/core';
@@ -20,6 +21,7 @@ import { DateTime } from 'luxon';
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatToolbarModule,
     MatButtonModule,
     MatSelectModule,
     MatInputModule,
@@ -47,14 +49,10 @@ export class PerfilUsuarioComponent
 
   private criarFormulario(): void {
     this.formulario = this.fb.group({
-      idUsuario: [null],
       nome: [null],
       email: [null],
-      senha: [null],
-      confirmarSenha: [null],
       perfil: [null],
       dataCriacao: [null],
-      ativo: [null],
     });
   }
 
