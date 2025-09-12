@@ -1,4 +1,3 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {
   CamposFormularioComponent,
   ErrosFormularioComponent,
@@ -7,6 +6,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DialogConfirmacaoService, SkillService } from '../../services';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';

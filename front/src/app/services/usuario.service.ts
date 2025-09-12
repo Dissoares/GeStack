@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { Usuario } from '../core/models';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 export class UsuarioService {
   private readonly apiUrl = environment.apiUrl;
   private readonly endPointUrl = '/usuario';
+  
+  public recarregarUsuarios$ = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 

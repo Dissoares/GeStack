@@ -24,13 +24,29 @@
         <mat-form-field appearance="outline" floatLabel="always" class="field-4">
           <mat-label>Senha</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
-          <input matInput type="password" formControlName="senha" />
+          <input matInput [type]="mostrarSenha ? 'text' : 'password'" formControlName="senha" />
+          <button mat-icon-button matSuffix (click)="mostrarSenha = !mostrarSenha" type="button">
+            <mat-icon>{{
+              mostrarSenha ? "visibility_off" : "visibility"
+              }}</mat-icon>
+          </button>
+          <mat-error>
+            <app-erro [dadosCampo]="formulario.get('senha')"></app-erro>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" floatLabel="always" class="field-4" *ngIf="ehCadastro">
-          <mat-label>Confirmar Senha</mat-label>
+          <mat-label>Repita Senha</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
-          <input matInput type="password" formControlName="confirmarSenha" />
+          <input matInput [type]="mostrarConfirmarSenha ? 'text' : 'password'" formControlName="confirmarSenha" />
+          <button mat-icon-button matSuffix (click)="mostrarConfirmarSenha = !mostrarConfirmarSenha" type="button">
+            <mat-icon>{{
+              mostrarConfirmarSenha ? "visibility_off" : "visibility"
+              }}</mat-icon>
+          </button>
+          <mat-error>
+            <app-erro [dadosCampo]="formulario.get('confirmarSenha')"></app-erro>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" floatLabel="always" class="field-4" *ngIf="ehCadastro">
@@ -54,7 +70,6 @@
             {{ ehCadastro ? "Acessar" : "Cadastrar" }}
           </button>
         </mat-card-actions>
-        
       </form>
     </mat-card>
   </div>

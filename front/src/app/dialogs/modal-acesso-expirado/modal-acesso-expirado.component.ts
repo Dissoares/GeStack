@@ -51,10 +51,11 @@ export class ModalAcessoExpiradoComponent
     return this.estadoAtualAcesso === 'login';
   }
 
+  private readonly authService = inject(AuthService);
+  private readonly toastr = inject(ToastrService);
+
   constructor(
-    private readonly dialogRef: MatDialogRef<ModalAcessoExpiradoComponent>,
-    private readonly authService: AuthService,
-    private readonly toastr: ToastrService
+    private readonly dialogRef: MatDialogRef<ModalAcessoExpiradoComponent>
   ) {
     super(inject(FormBuilder));
   }

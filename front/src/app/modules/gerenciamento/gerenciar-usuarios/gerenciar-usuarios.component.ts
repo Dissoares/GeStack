@@ -11,6 +11,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { DialogCadastroUsuarioComponent } from '../../../dialogs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PerfilEnum, StatusEnum } from '../../../core/enums';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -19,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { UsuarioService } from '../../../services';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -53,8 +55,14 @@ export class GerenciarUsuariosComponent
 {
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
 
+  private readonly usuarioService = inject(UsuarioService);
+  private readonly toastrService = inject(ToastrService);
+  private readonly dadosDialog = inject(MatDialog);
+  private readonly route = inject(ActivatedRoute);
+
   public listaPerfilEnum: Array<PerfilEnum> = PerfilEnum.getAll();
   public listaStatusEnum: Array<StatusEnum> = StatusEnum.getAll();
+
   public dadosTabela = new MatTableDataSource<Usuario>([]);
   public colunasTabela: Array<string> = [
     'id',
@@ -66,17 +74,25 @@ export class GerenciarUsuariosComponent
     'acoes',
   ];
 
-  constructor(
-    private readonly usuarioService: UsuarioService,
-    private readonly toastrService: ToastrService,
-    private readonly route: ActivatedRoute
-  ) {
+  constructor() {
     super(inject(FormBuilder));
   }
 
   public ngOnInit(): void {
     this.criarFormulario();
     this.iniciarListagem();
+
+    this.usuarioService.recarregarUsuarios$.subscribe(() => {
+      this.usuarioService.listarUsuarios().subscribe({
+        next: (usuarios: Array<Usuario>) => {
+          this.dadosTabela.data = usuarios;
+          this.dadosTabela.paginator = this.paginator;
+        },
+        error: (erro) => {
+          console.error('Erro ao recarregar usuários:', erro);
+        },
+      });
+    });
   }
 
   public iniciarListagem(): void {
@@ -135,5 +151,21 @@ export class GerenciarUsuariosComponent
   public limpar(): void {
     this.iniciarListagem();
     this.limparFormulario();
+  }
+
+  public cadastrar(): void {
+    const dialogRef = this.dadosDialog.open(DialogCadastroUsuarioComponent, {
+      width: '900px',
+      maxWidth: '90vw',
+      disableClose: false,
+      backdropClass: 'fundo-modal',
+    });
+
+    dialogRef.afterClosed().subscribe((resultado) => {
+      if (resultado == 'salvo') {
+        this.toastrService.success('Cadastrado com sucesso!', 'Sucesso!');
+      }
+      this.usuarioService.recarregarUsuarios$.next();
+    });
   }
 }
