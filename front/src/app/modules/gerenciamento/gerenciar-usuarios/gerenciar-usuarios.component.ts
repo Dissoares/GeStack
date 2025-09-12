@@ -173,4 +173,17 @@ export class GerenciarUsuariosComponent
       this.usuarioService.recarregarUsuarios$.next();
     });
   }
+
+  public excluir(id: number): void {
+    this.usuarioService.excluir(id).subscribe({
+      next: () => {
+        this.toastrService.info('Usuário excluído!', 'Aviso!');
+        this.usuarioService.recarregarUsuarios$.next();
+      },
+      error: (erro) => {
+        this.toastrService.error(erro?.error, 'Erro!');
+        console.error(erro);
+      },
+    });
+  }
 }

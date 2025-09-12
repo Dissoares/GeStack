@@ -25,6 +25,10 @@ export class UsuarioService {
     return this.http.put<string>(this.apiUrl + this.endPointUrl, usuario);
   }
 
+  public excluir(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl + this.endPointUrl}/${id}`);
+  }
+
   public listarUsuarios(): Observable<Array<Usuario>> {
     return this.http.get<Array<Usuario>>(this.apiUrl + this.endPointUrl);
   }

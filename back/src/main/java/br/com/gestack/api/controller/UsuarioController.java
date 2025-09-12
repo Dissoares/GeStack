@@ -71,7 +71,16 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public void excluir(@PathVariable Long id) {
-        usuarioService.excluir(id);
+    public ResponseEntity<String> excluir(@PathVariable Long id) {
+        try {
+            usuarioService.excluir(id);
+            return ResponseEntity.noContent().build();
+        } catch (DataIntegrityViolationException erro) {
+            String detalhe = erro.getMostSpecificCause().getMessage();
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(detalhe);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro inesperado ao tentar excluir o usuário.");
+        }
     }
 }
