@@ -1,17 +1,13 @@
 <mat-toolbar class="breadcrumbs">
   <mat-card-header>
-    <mat-card-title><mat-icon>add_to_queue</mat-icon>Gerenciar Sistemas</mat-card-title>
+    <mat-card-title><mat-icon>add</mat-icon>Gerenciar Sistemas</mat-card-title>
   </mat-card-header>
-
   <span class="espaco"></span>
-
   <button type="button" mat-flat-button class="btn-primary" (click)="cadastrarSistema()">
     <mat-icon>add</mat-icon>
     Cadastrar
   </button>
 </mat-toolbar>
-
-@if(dadosTabela.data.length){
 <mat-card>
   <mat-card-content>
     <table mat-table [dataSource]="dadosTabela">
@@ -79,4 +75,3 @@
     </mat-paginator>
   </mat-card-content>
 </mat-card>
-}
