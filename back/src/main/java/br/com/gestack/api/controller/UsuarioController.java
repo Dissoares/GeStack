@@ -22,16 +22,25 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Object> salvar(@RequestBody Usuario usuario) {
+        return executarAcao(usuario, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Object> atualizar(@RequestBody Usuario usuario) {
+        return executarAcao(usuario, HttpStatus.OK);
+    }
+
+    private ResponseEntity<Object> executarAcao(Usuario usuario, HttpStatus status) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvar(usuario));
+            return ResponseEntity.status(status).body(usuarioService.salvar(usuario));
         } catch (DataIntegrityViolationException erro) {
-            if (erro.getMostSpecificCause().getMessage().contains("email")) {
+            String mensagem = erro.getMostSpecificCause().getMessage();
+            if (mensagem.contains("email")) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um usuário cadastrado com esse email");
-            } else if (erro.getMostSpecificCause().getMessage().contains("nome")) {
+            } else if (mensagem.contains("nome")) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um usuário cadastrado com esse nome");
-            } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro no servidor");
             }
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro no servidor");
         }
     }
 

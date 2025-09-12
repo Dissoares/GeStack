@@ -1,7 +1,9 @@
 package br.com.gestack.domains.service;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import br.com.gestack.domains.repository.UsuarioRepository;
+import org.springframework.security.core.Authentication;
 import br.com.gestack.api.dto.FiltroUsuarioDTO;
 import br.com.gestack.domains.entities.Usuario;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,46 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private Usuario getUsuarioLogado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof Usuario) {
+            return (Usuario) principal;
+        }
+        return null;
+    }
+
     public Usuario salvar(Usuario usuario) {
-        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaCriptografada);
-        usuario.setDataCriacao(LocalDateTime.now());
-        usuario.setAtivo(true);
-        return usuarioRepository.save(usuario);
+        Usuario usuarioLogado = getUsuarioLogado();
+
+        if (usuario.getId() == null) {
+            String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+            usuario.setSenha(senhaCriptografada);
+            usuario.setDataCriacao(LocalDateTime.now());
+            usuario.setAtivo(true);
+
+            if (usuarioLogado.getId() != null) {
+                usuario.setCriadoPor(usuarioLogado);
+            }
+            return usuarioRepository.save(usuario);
+        } else {
+            Usuario existente = usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+            if (usuario.getSenha() != null && !usuario.getSenha().isBlank()) {
+                usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+            } else {
+                usuario.setSenha(existente.getSenha());
+            }
+
+            if (usuarioLogado.getId() != null) {
+                usuario.setModificadoPor(usuarioLogado);
+            } else {
+                usuario.setModificadoPor(usuario);
+            }
+            usuario.setDataModificacao(LocalDateTime.now());
+            return usuarioRepository.save(usuario);
+        }
     }
 
     public List<UsuarioDTO> listar() {

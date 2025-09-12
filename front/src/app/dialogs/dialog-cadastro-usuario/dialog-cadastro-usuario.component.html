@@ -1,8 +1,8 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      <mat-icon>person_add</mat-icon>
-      Cadastrar usuário
+      <mat-icon>{{ !ehEdicao ? 'person_add' : 'edit' }}</mat-icon>
+      {{ !ehEdicao ? "Cadastrar usuário" : "Editar usuário" }}
     </mat-card-title>
   </mat-card-header>
 
@@ -39,6 +39,7 @@
         </mat-error>
       </mat-form-field>
 
+      @if(!ehEdicao){
       <mat-form-field appearance="outline" floatLabel="always" class="field-6">
         <mat-label>Senha</mat-label>
         <mat-icon matPrefix>lock</mat-icon>
@@ -66,16 +67,17 @@
           <app-erro [dadosCampo]="formulario.get('confirmarSenha')"></app-erro>
         </mat-error>
       </mat-form-field>
+      }
     </form>
 
     <mat-card-actions style="display: flex; align-self: center">
-      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
-        <mat-icon>person_add</mat-icon>
-        Cadastrar
+      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()" [disabled]="formulario.untouched">
+        <mat-icon>{{ !ehEdicao ? "add" : "save" }}</mat-icon>
+        {{ !ehEdicao ? "Cadastrar" : "Salvar" }}
       </button>
 
       <button type="button" mat-stroked-button class="btn-secondary" (click)="cancelar()">
-        <mat-icon>login</mat-icon>
+        <mat-icon>close</mat-icon>
         Cancelar
       </button>
     </mat-card-actions>

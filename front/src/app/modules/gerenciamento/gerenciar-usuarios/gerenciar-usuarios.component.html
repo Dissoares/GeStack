@@ -3,7 +3,7 @@
     <mat-card-title><mat-icon>groups</mat-icon>Gerenciar Usuários</mat-card-title>
   </mat-card-header>
   <span class="espaco-breadcrumbs"></span>
-  <button type="button" mat-flat-button class="btn-primary" (click)="cadastrar()">
+  <button type="button" mat-flat-button class="btn-primary" (click)="abrirDialog()">
     <mat-icon>person_add</mat-icon>
     Cadastrar
   </button>
@@ -95,16 +95,20 @@
           Ativo
         </th>
         <td style="width: 5%; text-align: center" mat-cell *matCellDef="let element">
-          <mat-slide-toggle [checked]="element.ativo" (change)="ativaDesativar(element)" class="green-toggle">
+          <mat-slide-toggle [checked]="element.ativo" (change)="ativaDesativar(element)" class="green-toggle"
+            [matTooltip]="element.ativo ? 'Desativar' : 'Ativar'">
           </mat-slide-toggle>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="acoes">
-        <th style="width: 5%" mat-header-cell *matHeaderCellDef>Ações</th>
-        <td style="width: 5%" mat-cell *matCellDef="let element">
-          <button matMiniFab color="warn">
-            <mat-icon>do_not_disturb_on</mat-icon>
+        <th style="width: 10% ; text-align: center" mat-header-cell *matHeaderCellDef>Ações</th>
+        <td style="width: 10% ; text-align: center" mat-cell *matCellDef="let element">
+          <button matMiniFab color="primary" matTooltip="Editar" (click)="abrirDialog(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button matMiniFab color="warn" matTooltip="Excluir">
+            <mat-icon>close</mat-icon>
           </button>
         </td>
       </ng-container>

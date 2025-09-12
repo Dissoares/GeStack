@@ -2,6 +2,7 @@ package br.com.gestack.domains.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class Usuario {
     private Integer perfil;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<RegistroEscala> escala = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

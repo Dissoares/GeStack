@@ -15,6 +15,7 @@ import { DialogCadastroUsuarioComponent } from '../../../dialogs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PerfilEnum, StatusEnum } from '../../../core/enums';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -37,6 +38,7 @@ import { ToastrService } from 'ngx-toastr';
     MatFormFieldModule,
     MatPaginatorModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatButtonModule,
     MatSelectModule,
     MatTableModule,
@@ -153,17 +155,20 @@ export class GerenciarUsuariosComponent
     this.limparFormulario();
   }
 
-  public cadastrar(): void {
+  public abrirDialog(usuario?: Usuario): void {
     const dialogRef = this.dadosDialog.open(DialogCadastroUsuarioComponent, {
       width: '900px',
       maxWidth: '90vw',
       disableClose: false,
       backdropClass: 'fundo-modal',
+      data: usuario,
     });
 
     dialogRef.afterClosed().subscribe((resultado) => {
-      if (resultado == 'salvo') {
+      if (resultado === 'salvo') {
         this.toastrService.success('Cadastrado com sucesso!', 'Sucesso!');
+      } else if (resultado === 'atualizado') {
+        this.toastrService.success('Atualizado com sucesso!', 'Sucesso!');
       }
       this.usuarioService.recarregarUsuarios$.next();
     });

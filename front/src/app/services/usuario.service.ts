@@ -10,7 +10,7 @@ import { Usuario } from '../core/models';
 export class UsuarioService {
   private readonly apiUrl = environment.apiUrl;
   private readonly endPointUrl = '/usuario';
-  
+
   public recarregarUsuarios$ = new Subject<void>();
 
   constructor(private http: HttpClient) {}
@@ -19,6 +19,10 @@ export class UsuarioService {
     return this.http.post<string>(this.apiUrl + this.endPointUrl, usuario, {
       observe: 'response',
     });
+  }
+
+  public atualizar(usuario: Usuario): Observable<string> {
+    return this.http.put<string>(this.apiUrl + this.endPointUrl, usuario);
   }
 
   public listarUsuarios(): Observable<Array<Usuario>> {
