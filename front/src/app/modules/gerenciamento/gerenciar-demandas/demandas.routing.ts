@@ -1,4 +1,4 @@
-export const ROTAS_ATIVIDADE = [
+export const ROTAS_DEMANDAS = [
   {
     path: 'criar',
     loadComponent: () =>

@@ -52,7 +52,7 @@ export class DemandasFormularioComponent
 
   private criarFormulario(): void {
     this.formulario = this.fb.group({
-      idAtividade: [null],
+      id: [null],
       titulo: [null],
       descricao: [null],
       lider: [null],
@@ -68,7 +68,7 @@ export class DemandasFormularioComponent
       pontosReais: [null],
       tempoEstimado: [null],
       statusAndamento: [null],
-      registrosAtividades: this.fb.array([]),
+      demandaAtividades: this.fb.array([]),
       comentarios: this.fb.array([]),
       anexos: this.fb.array([]),
       dataCriacao: [null],

@@ -1,8 +1,8 @@
 import { Sistema } from './sistema';
 import { Usuario } from './usuario';
 
-export class Atividade {
-  public idTarefa?: number;
+export class Demanda {
+  public id?: number;
   public titulo!: string;
   public descricao?: string;
   public status!: string;
@@ -21,11 +21,11 @@ export class Atividade {
   public dataConclusao?: string;
   public comentarios?: string;
   public anexos?: string;
-  public registrosAtividades?: string;
+  public demandaAtividades?: string;
   public dataCriacao?: string;
   public ativo: boolean = true;
 
-  constructor(init?: Partial<Atividade>) {
+  constructor(init?: Partial<Demanda>) {
     Object.assign(this, init);
   }
 }

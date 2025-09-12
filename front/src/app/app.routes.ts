@@ -61,7 +61,7 @@ export const routes: Routes = [
         loadChildren: () =>
           import(
             './modules/gerenciamento/gerenciar-demandas/demandas.routing'
-          ).then((m) => m.ROTAS_ATIVIDADE),
+          ).then((m) => m.ROTAS_DEMANDAS),
         data: {
           permissoes: [
             PerfilEnum.DESENVOLVEDOR.id,

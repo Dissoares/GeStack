@@ -1,4 +1,3 @@
-import { Atividade } from './Atividade';
 import { Usuario } from './usuario';
 import { Skill } from './skill';
 
