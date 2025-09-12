@@ -12,9 +12,11 @@ import {
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
 import { authInterceptorFn } from './auth/auth-interceptor';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { PaginacaoCustomizada } from './shared';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 
@@ -38,5 +40,6 @@ export const appConfig: ApplicationConfig = {
     }),
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     importProvidersFrom(MatDatepickerModule, MatNativeDateModule),
+    { provide: MatPaginatorIntl, useClass: PaginacaoCustomizada },
   ],
 };

@@ -172,3 +172,7 @@ div.mat-mdc-select-panel {
 .espaco-breadcrumbs {
   flex: 1 1 auto;
 }
+
+.mat-mdc-paginator-container {
+  justify-content: space-between !important;
+}

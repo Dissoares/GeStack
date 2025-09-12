@@ -30,7 +30,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-card-actions style="margin-bottom: 20px !important;">
+      <mat-card-actions style="margin-bottom: 20px !important">
         <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
           <mat-icon>{{ ehEdicao ? "save" : "add" }} </mat-icon>
           {{ ehEdicao ? "salvar" : "Cadastrar" }}
@@ -41,8 +41,6 @@
         </button>
       </mat-card-actions>
     </form>
-
-
   </mat-card-content>
 </mat-card>
 
@@ -112,7 +110,7 @@
       [ngClass]="{ 'linha-destacada': i % 2 === 0 }"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+  <mat-paginator [length]="dadosTabela.data.length" [pageSize]="7" [showFirstLastButtons]="true">
   </mat-paginator>
 </mat-card-content>
 } }

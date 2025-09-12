@@ -39,7 +39,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-card-actions style="margin-bottom: 20px !important;">
+      <mat-card-actions style="margin-bottom: 20px !important">
         <button class="btn-primary" mat-flat-button (click)="filtrar()">
           <mat-icon>search</mat-icon> Pesquisar
         </button>
@@ -54,30 +54,38 @@
   <mat-card-content>
     <table mat-table [dataSource]="dadosTabela">
       <ng-container matColumnDef="id">
-        <th style="width: 5%;" mat-header-cell *matHeaderCellDef>Id</th>
-        <td style="width: 5%;" mat-cell *matCellDef="let element">{{ element.id }}</td>
+        <th style="width: 5%" mat-header-cell *matHeaderCellDef>Id</th>
+        <td style="width: 5%" mat-cell *matCellDef="let element">
+          {{ element.id }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="nome">
-        <th style="width: 25%;" mat-header-cell *matHeaderCellDef>Nome</th>
-        <td style="width: 25%;" mat-cell *matCellDef="let element">{{ element.nome }}</td>
+        <th style="width: 25%" mat-header-cell *matHeaderCellDef>Nome</th>
+        <td style="width: 25%" mat-cell *matCellDef="let element">
+          {{ element.nome }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="email">
-        <th style="width: 25%;" mat-header-cell *matHeaderCellDef>E-mail</th>
-        <td style="width: 25%;" mat-cell *matCellDef="let element">{{ element.email }}</td>
+        <th style="width: 25%" mat-header-cell *matHeaderCellDef>E-mail</th>
+        <td style="width: 25%" mat-cell *matCellDef="let element">
+          {{ element.email }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="perfil">
-        <th style="width: 15%;" mat-header-cell *matHeaderCellDef>Perfil</th>
-        <td style="width: 15%;" mat-cell *matCellDef="let element">
+        <th style="width: 15%" mat-header-cell *matHeaderCellDef>Perfil</th>
+        <td style="width: 15%" mat-cell *matCellDef="let element">
           {{ getDescricaoPerfil(element.perfil) }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="dataCadastro">
-        <th style="width: 10%;" mat-header-cell *matHeaderCellDef>Data Cadastro</th>
-        <td style="width: 10%;" mat-cell *matCellDef="let element">
+        <th style="width: 10%" mat-header-cell *matHeaderCellDef>
+          Data Cadastro
+        </th>
+        <td style="width: 10%" mat-cell *matCellDef="let element">
           {{ element.dataCriacao | date : "dd/MM/yyyy" }}
         </td>
       </ng-container>
@@ -93,8 +101,8 @@
       </ng-container>
 
       <ng-container matColumnDef="acoes">
-        <th style="width: 5%;" mat-header-cell *matHeaderCellDef>Ações</th>
-        <td style="width: 5%;" mat-cell *matCellDef="let element">
+        <th style="width: 5%" mat-header-cell *matHeaderCellDef>Ações</th>
+        <td style="width: 5%" mat-cell *matCellDef="let element">
           <button matMiniFab color="warn">
             <mat-icon>do_not_disturb_on</mat-icon>
           </button>
@@ -106,7 +114,7 @@
         [ngClass]="{ 'linha-destacada': i % 2 === 0 }"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[7, 20]" showFirstLastButtons>
+    <mat-paginator [length]="dadosTabela.data.length" [pageSize]="7" [showFirstLastButtons]="true">
     </mat-paginator>
   </mat-card-content>
   }
