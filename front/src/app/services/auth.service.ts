@@ -166,4 +166,16 @@ export class AuthService {
     this.removerAcesso();
     this.router.navigate([this.API_ENDPOINT.AUTH]);
   }
+
+  public redirecionarComBaseNoPerfil(): void {
+    if (this.isAdmin()) {
+      this.router.navigate(['/administracao/dashboard']);
+    } else if (this.isGeralLider()) {
+      this.router.navigate(['/lideranca/dashboard']);
+    } else if (this.isGeralMembro()) {
+      this.router.navigate(['/membro/dashboard']);
+    } else {
+      this.logout();
+    }
+  }
 }

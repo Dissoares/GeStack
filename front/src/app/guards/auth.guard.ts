@@ -1,11 +1,13 @@
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable, take } from 'rxjs';
-import { Injectable } from '@angular/core';
 import { AuthService } from '../services';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  private readonly authService = inject(AuthService);
+
+  constructor() {}
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     const permissoesAcesso = route.data['permissoes'] as Array<number>;
@@ -25,7 +27,7 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((usuario) => {
         if (rotaLogin && usuario) {
-          this.redirecionarComBaseNoPerfil();
+          this.authService.redirecionarComBaseNoPerfil();
           return false;
         }
 
@@ -38,23 +40,11 @@ export class AuthGuard implements CanActivate {
           if (permissoesAcesso.includes(usuario.perfil)) {
             return true;
           }
-          this.redirecionarComBaseNoPerfil();
+          this.authService.redirecionarComBaseNoPerfil();
           return false;
         }
         return true;
       })
     );
-  }
-
-  private redirecionarComBaseNoPerfil(): void {
-    if (this.authService.isAdmin()) {
-      this.router.navigate(['/administracao/dashboard']);
-    } else if (this.authService.isGeralLider()) {
-      this.router.navigate(['/lideranca/dashboard']);
-    } else if (this.authService.isGeralMembro()) {
-      this.router.navigate(['/membro/dashboard']);
-    } else {
-      this.authService.logout();
-    }
   }
 }

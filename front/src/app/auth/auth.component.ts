@@ -115,6 +115,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
     this.authService.login(login).subscribe({
       next: () => {
         this.toastr.success('Logado com sucesso.', 'Sucesso!');
+        this.authService.redirecionarComBaseNoPerfil();
       },
       error: (erro) => {
         const msg = erro?.error?.message;
