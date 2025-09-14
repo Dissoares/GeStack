@@ -121,5 +121,9 @@
     <mat-paginator [length]="dadosTabela.data.length" [pageSize]="7" [showFirstLastButtons]="true">
     </mat-paginator>
   </mat-card-content>
+  } @else {
+  <mat-card>
+    <app-nada-encontrado></app-nada-encontrado>
+  </mat-card>
   }
 </mat-card>

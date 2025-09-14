@@ -5,7 +5,10 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { CamposFormularioComponent } from '../../../components/index.component';
+import {
+  CamposFormularioComponent,
+  NadaEncontradoComponent,
+} from '../../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -32,6 +35,7 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-gerenciar-usuarios',
   standalone: true,
   imports: [
+    NadaEncontradoComponent,
     MatSlideToggleModule,
     ReactiveFormsModule,
     MatDatepickerModule,
@@ -90,21 +94,14 @@ export class GerenciarUsuariosComponent
           this.dadosTabela.data = usuarios;
           this.dadosTabela.paginator = this.paginator;
         },
-        error: (erro) => {
-          console.error('Erro ao recarregar usuários:', erro);
-        },
       });
     });
   }
 
   public iniciarListagem(): void {
     const usuarios = this.route.snapshot.data['usuarios'] as Array<Usuario>;
-
     this.dadosTabela.data = usuarios;
     this.dadosTabela.paginator = this.paginator;
-    if (!usuarios.length) {
-      this.toastrService.warning('Nenhum usuário encontrado.', 'Informação!');
-    }
   }
 
   public ngAfterViewInit(): void {

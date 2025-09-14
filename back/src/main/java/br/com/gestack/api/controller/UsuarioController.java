@@ -1,6 +1,5 @@
 package br.com.gestack.api.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.gestack.domains.service.UsuarioService;
@@ -9,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import br.com.gestack.domains.entities.Usuario;
 import org.springframework.http.HttpStatus;
 import br.com.gestack.api.dto.UsuarioDTO;
+import lombok.AllArgsConstructor;
 import java.util.Optional;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
@@ -71,14 +72,13 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> excluir(@PathVariable Long id) {
+    public ResponseEntity<Object> excluir(@PathVariable Long id) {
         try {
             usuarioService.excluir(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (DataIntegrityViolationException erro) {
-            String detalhe = erro.getMostSpecificCause().getMessage();
-
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(detalhe);
+            String mensagem = erro.getMostSpecificCause().getMessage();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(mensagem);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro inesperado ao tentar excluir o usuário.");
         }

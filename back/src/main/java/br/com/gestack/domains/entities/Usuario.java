@@ -26,6 +26,9 @@ public class Usuario {
     @Column(name = "EMAIL", unique = true)
     private String email;
 
+    @Column(name = "CPF", unique = true)
+    private String cpf;
+
     @Column(name = "SENHA")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
