@@ -18,6 +18,8 @@ export const authInterceptorFn: HttpInterceptorFn = (requisicao, next) => {
   }
 
   return next(requisicao).pipe(
-    finalize(() => loadingService.mostrarSpinner(false))
+    finalize(() => {
+      loadingService.mostrarSpinner(false);
+    })
   );
 };
