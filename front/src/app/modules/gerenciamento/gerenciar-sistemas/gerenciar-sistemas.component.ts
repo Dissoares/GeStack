@@ -1,15 +1,13 @@
-import { SistemaService } from '../../../services';
+import { CamposFormularioComponent, NadaEncontradoComponent } from '../../../components/index.component';
 import { DialogSistemaComponent } from '../../../dialogs/dialog-sistema/dialog-sistema.component';
-import { CamposFormularioComponent } from '../../../components/index.component';
-import { PerfilEnum, SkillCategoriaEnum } from '../../../core/enums';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { PerfilEnum, SkillCategoriaEnum } from '../../../core/enums';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Sistema, Skill } from '../../../core/models';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,15 +16,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { Sistema, Skill } from '../../../core/models';
 import { MatDialog } from '@angular/material/dialog';
+import { SistemaService } from '../../../services';
 import { CommonModule } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gerenciar-sistemas',
   standalone: true,
   imports: [
+    NadaEncontradoComponent,
     MatAutocompleteModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
