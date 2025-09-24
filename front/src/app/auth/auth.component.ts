@@ -74,7 +74,7 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
   public cadastrar(): void {
     const dadosForm = this.formulario;
 
-    if (dadosForm.invalid) {
+    if (dadosForm.untouched || dadosForm.invalid) {
       this.toastr.error('Preencha todos os campos obrigatórios!', 'Aviso!');
       this.marcarFormularioComoTocado();
       return;
@@ -103,8 +103,10 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
   }
 
   public login(): void {
-    if (this.formulario.invalid) {
-      this.toastr.warning('Preencha seus dados de acesso', 'Aviso!');
+    const dadosForm = this.formulario;
+
+    if (dadosForm.untouched || dadosForm.invalid) {
+      this.toastr.error('Preencha seus dados de acesso', 'Aviso!');
       this.marcarFormularioComoTocado();
       return;
     }
