@@ -25,4 +25,16 @@ export class SistemaService {
       `${this.apiUrl}${this.endPointUrl}/listarSistemas`
     );
   }
+
+  public ativaDesativar(sistema: Sistema): Observable<Sistema> {
+    const urlEndpoint = !sistema.ativo
+      ? `${this.apiUrl}${this.endPointUrl}/desativar/${sistema.id}`
+      : `${this.apiUrl}${this.endPointUrl}/ativar/${sistema.id}`;
+
+    return this.http.put<Sistema>(urlEndpoint, {});
+  }
+
+  public excluir(id: number): Observable<Sistema> {
+    return this.http.delete<Sistema>(`${this.apiUrl}${this.endPointUrl}/${id}`);
+  }
 }

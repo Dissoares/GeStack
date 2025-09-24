@@ -1,8 +1,12 @@
-import { CamposFormularioComponent, NadaEncontradoComponent } from '../../../components/index.component';
+import {
+  CamposFormularioComponent,
+  NadaEncontradoComponent,
+} from '../../../components/index.component';
 import { DialogSistemaComponent } from '../../../dialogs/dialog-sistema/dialog-sistema.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { DialogConfirmacaoService, SistemaService } from '../../../services';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { PerfilEnum, SkillCategoriaEnum } from '../../../core/enums';
@@ -18,8 +22,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Sistema, Skill } from '../../../core/models';
 import { MatDialog } from '@angular/material/dialog';
-import { SistemaService } from '../../../services';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-gerenciar-sistemas',
@@ -60,7 +64,9 @@ export class GerenciarSistemasComponent
     'ativo',
     'acoes',
   ];
+  private readonly dialogService = inject(DialogConfirmacaoService);
   private readonly sistemaService = inject(SistemaService);
+  private readonly toastr = inject(ToastrService);
   private readonly dialog = inject(MatDialog);
 
   constructor() {
@@ -117,7 +123,49 @@ export class GerenciarSistemasComponent
     return SkillCategoriaEnum.getById(id)?.descricao || '';
   }
 
-  public ativaDesativar(skill: Skill) {
-    skill.ativo = !skill.ativo;
+  public ativaDesativar(sistema: Sistema) {
+    sistema.ativo = !sistema.ativo;
+
+    this.sistemaService.ativaDesativar(sistema).subscribe({
+      next: (resultado) => {
+        if (resultado.ativo) {
+          this.toastr.success('Ativado com sucesso!..', 'Sucesso!');
+        } else if (!resultado.ativo) {
+          this.toastr.info('Sistema desativado.', 'Informação!');
+        }
+        const index = this.dadosTabela.data.findIndex(
+          (s) => s.id === resultado.id
+        );
+        if (index !== -1) {
+          this.dadosTabela.data[index] = resultado;
+        }
+      },
+      error: (erro) => {
+        this.toastr.error(
+          'Não foi possível alterar o status do sistema',
+          erro?.message
+        );
+      },
+    });
+  }
+
+  public excluir(idSistema: number) {
+    this.dialogService
+      .openDialog({
+        titulo: 'Confirmação!',
+        acao: 'Excluir',
+        textoConfirmacao: 'Excluir',
+        textoCancelamento: 'Cancelar',
+      })
+      .subscribe((resultado) => {
+        if (resultado) {
+          this.sistemaService.excluir(idSistema).subscribe((resultado) => {
+            resultado
+              ? this.toastr.success('Sistema excluído', 'Sucesso!')
+              : null;
+            this.listarSistemas();
+          });
+        }
+      });
   }
 }

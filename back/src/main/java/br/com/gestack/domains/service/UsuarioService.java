@@ -40,7 +40,7 @@ public class UsuarioService {
             usuario.setDataCriacao(LocalDateTime.now());
             usuario.setAtivo(true);
 
-            if (usuarioLogado.getId() != null) {
+            if (usuarioLogado != null ) {
                 usuario.setCriadoPor(usuarioLogado);
             }
             return usuarioRepository.save(usuario);
