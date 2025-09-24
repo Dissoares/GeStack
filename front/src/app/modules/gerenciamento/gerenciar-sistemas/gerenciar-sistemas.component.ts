@@ -155,7 +155,7 @@ export class GerenciarSistemasComponent
     this.dialogService
       .openDialog({
         titulo: 'Confirmação!',
-        acao: 'Excluir',
+        acao: 'excluir',
         textoConfirmacao: 'Excluir',
         textoCancelamento: 'Cancelar',
       })

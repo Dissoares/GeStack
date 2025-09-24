@@ -185,6 +185,8 @@ export class DialogSistemaComponent
   }
 
   public cadastrarSkills(): void {
+    this.dialogRef.close();
+
     const dialogRef = this.dialog.open(DialogSkillComponent, {
       width: '1200px',
       maxWidth: '90vw',
@@ -193,6 +195,13 @@ export class DialogSistemaComponent
     });
 
     dialogRef.afterClosed().subscribe(() => {
+      this.dialog.open(DialogSistemaComponent, {
+        width: '1200px',
+        maxWidth: '90vw',
+        disableClose: false,
+        backdropClass: 'fundo-modal',
+        data: this.dados,
+      });
       this.listarSkills();
     });
   }
