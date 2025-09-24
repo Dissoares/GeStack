@@ -11,6 +11,7 @@ import {
 } from '../../../components/index.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { DialogConfirmacaoService, UsuarioService } from '../../../services';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +26,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { UsuarioService } from '../../../services';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../../core/models';
@@ -61,6 +61,7 @@ export class GerenciarUsuariosComponent
 {
   @ViewChild(MatPaginator) public paginator!: MatPaginator;
 
+  private readonly dialogService = inject(DialogConfirmacaoService);
   private readonly usuarioService = inject(UsuarioService);
   private readonly toastrService = inject(ToastrService);
   private readonly dadosDialog = inject(MatDialog);
@@ -144,12 +145,57 @@ export class GerenciarUsuariosComponent
   }
 
   public ativaDesativar(usuario: Usuario) {
-    usuario.ativo = !usuario.ativo;
-  }
+    const statusOriginal = usuario.ativo;
 
-  public limpar(): void {
-    this.iniciarListagem();
-    this.limparFormulario();
+    this.dialogService
+      .openDialog({
+        titulo: 'Confirmação!',
+        acao: usuario.ativo ? 'desativar' : 'ativar',
+        textoConfirmacao: 'Confirmar',
+        textoCancelamento: 'Cancelar',
+        icone: usuario.ativo ? 'person_off' : 'how_to_reg',
+      })
+      .subscribe((resultado) => {
+        if (resultado) {
+          usuario.ativo = !statusOriginal;
+
+          this.usuarioService.ativaDesativar(usuario).subscribe({
+            next: (resultado) => {
+              if (resultado.ativo) {
+                this.toastrService.success(
+                  'Usuário ativado com sucesso!',
+                  'Sucesso!'
+                );
+              } else {
+                this.toastrService.info('Usuário desativado.', 'Informação!');
+              }
+
+              const index = this.dadosTabela.data.findIndex(
+                (s) => s.id === resultado.id
+              );
+              if (index !== -1) {
+                this.dadosTabela.data[index] = resultado;
+              }
+            },
+            error: (erro) => {
+              this.toastrService.error(
+                'Não foi possível alterar o status do usuário',
+                erro?.message
+              );
+              usuario.ativo = statusOriginal;
+            },
+          });
+        } else {
+          usuario.ativo = statusOriginal;
+          const index = this.dadosTabela.data.findIndex(
+            (s) => s.id === usuario.id
+          );
+          if (index !== -1) {
+            this.dadosTabela.data[index] = { ...usuario };
+            this.dadosTabela._updateChangeSubscription();
+          }
+        }
+      });
   }
 
   public abrirDialog(usuario?: Usuario): void {
@@ -172,15 +218,31 @@ export class GerenciarUsuariosComponent
   }
 
   public excluir(id: number): void {
-    this.usuarioService.excluir(id).subscribe({
-      next: () => {
-        this.toastrService.info('Usuário excluído!', 'Aviso!');
-        this.usuarioService.recarregarUsuarios$.next();
-      },
-      error: (erro) => {
-        this.toastrService.error(erro?.error, 'Erro!');
-        console.error(erro);
-      },
-    });
+    this.dialogService
+      .openDialog({
+        titulo: 'Confirmação!',
+        acao: 'Excluir',
+        textoConfirmacao: 'Excluir',
+        textoCancelamento: 'Cancelar',
+      })
+      .subscribe((resultado) => {
+        if (resultado) {
+          this.usuarioService.excluir(id).subscribe({
+            next: () => {
+              this.toastrService.info('Usuário excluído!', 'Aviso!');
+              this.usuarioService.recarregarUsuarios$.next();
+            },
+            error: (erro) => {
+              this.toastrService.error(erro?.error, 'Erro!');
+              console.error(erro);
+            },
+          });
+        }
+      });
+  }
+
+  public limpar(): void {
+    this.iniciarListagem();
+    this.limparFormulario();
   }
 }

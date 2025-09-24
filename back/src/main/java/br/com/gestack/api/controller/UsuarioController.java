@@ -6,6 +6,7 @@ import br.com.gestack.domains.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import br.com.gestack.domains.entities.Usuario;
+import br.com.gestack.domains.entities.Skill;
 import org.springframework.http.HttpStatus;
 import br.com.gestack.api.dto.UsuarioDTO;
 import lombok.AllArgsConstructor;
@@ -56,7 +57,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Usuario> buscarPorId(@PathVariable Long id) {
+    public Usuario buscarPorId(@PathVariable Long id) {
         return usuarioService.buscarPorId(id);
     }
 
@@ -82,5 +83,17 @@ public class UsuarioController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro inesperado ao tentar excluir o usuário.");
         }
+    }
+
+    @PutMapping("/ativar/{id}")
+    public ResponseEntity<Usuario> ativar(@PathVariable Long id) {
+        Usuario usuario = usuarioService.ativar(id);
+        return ResponseEntity.ok(usuario);
+    }
+
+    @PutMapping("/desativar/{id}")
+    public ResponseEntity<Usuario> desativar(@PathVariable Long id) {
+        Usuario usuario = usuarioService.desativar(id);
+        return ResponseEntity.ok(usuario);
     }
 }

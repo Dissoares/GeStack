@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import br.com.gestack.api.dto.FiltroUsuarioDTO;
 import br.com.gestack.domains.entities.Usuario;
 import org.springframework.stereotype.Service;
+import br.com.gestack.domains.entities.Skill;
 import org.springframework.data.domain.Sort;
 import br.com.gestack.api.dto.UsuarioDTO;
 import lombok.AllArgsConstructor;
@@ -87,8 +88,8 @@ public class UsuarioService {
 
     }
 
-    public Optional<Usuario> buscarPorId(Long idUsuario) {
-        return usuarioRepository.findById(idUsuario);
+    public Usuario buscarPorId(Long id){
+        return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
     public List<UsuarioDTO> buscarPorNome(String nome) {
@@ -101,5 +102,17 @@ public class UsuarioService {
 
     public void excluir(Long idUsuario) {
         usuarioRepository.deleteById(idUsuario);
+    }
+
+    public Usuario ativar(Long id) {
+        Usuario usuario = buscarPorId(id);
+        usuario.setAtivo(true);
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario desativar(Long id) {
+        Usuario usuario = buscarPorId(id);
+        usuario.setAtivo(false);
+        return usuarioRepository.save(usuario);
     }
 }

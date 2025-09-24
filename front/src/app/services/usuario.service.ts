@@ -62,4 +62,12 @@ export class UsuarioService {
       { params }
     );
   }
+
+  public ativaDesativar(usuario: Usuario): Observable<Usuario> {
+    const urlEndpoint = !usuario.ativo
+      ? `${this.apiUrl}${this.endPointUrl}/desativar/${usuario.id}`
+      : `${this.apiUrl}${this.endPointUrl}/ativar/${usuario.id}`;
+
+    return this.http.put<Usuario>(urlEndpoint, {});
+  }
 }
