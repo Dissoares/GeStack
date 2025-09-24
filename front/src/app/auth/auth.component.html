@@ -13,12 +13,18 @@
           <mat-label>Nome</mat-label>
           <mat-icon matPrefix>badge</mat-icon>
           <input matInput formControlName="nome" />
+          <mat-error>
+            <app-erro [dadosCampo]="formulario.get('nome')"></app-erro>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" floatLabel="always" class="field-4">
           <mat-label>E-mail</mat-label>
           <mat-icon matPrefix>alternate_email</mat-icon>
           <input matInput type="email" formControlName="email" />
+          <mat-error>
+            <app-erro [dadosCampo]="formulario.get('email')"></app-erro>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" floatLabel="always" class="field-4">
@@ -57,6 +63,9 @@
               {{ perfil.descricao }}
             </mat-option>
           </mat-select>
+          <mat-error>
+            <app-erro [dadosCampo]="formulario.get('perfil')"></app-erro>
+          </mat-error>
         </mat-form-field>
 
         <mat-card-actions style="display: flex; align-self: center">

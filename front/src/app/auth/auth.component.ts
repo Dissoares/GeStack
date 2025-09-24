@@ -58,69 +58,71 @@ export class AuthComponent extends CamposFormularioComponent implements OnInit {
   private criarFormulario(): void {
     this.formulario = this.fb.group({
       nome: [null],
-      email: [null, [campoObrigatorio]],
-      senha: [null, [campoObrigatorio]],
+      email: [null, [campoObrigatorio()]],
+      senha: [null, [campoObrigatorio()]],
       confirmarSenha: [null],
       perfil: [null],
     });
 
     if (this.ehCadastro) {
-      this.formulario.get('nome')?.addValidators([campoObrigatorio]);
-      this.formulario.get('confirmarSenha')?.addValidators([campoObrigatorio]);
-      this.formulario.get('perfil')?.addValidators([campoObrigatorio]);
+      this.formulario.get('nome')?.addValidators(campoObrigatorio());
+      this.formulario.get('confirmarSenha')?.addValidators(campoObrigatorio());
+      this.formulario.get('perfil')?.addValidators(campoObrigatorio());
     }
   }
 
   public cadastrar(): void {
-    const dadosForm = this.formulario;
+    this.ehCadastro = true;
+    const usuario: Usuario = this.formulario.value;
 
-    if (dadosForm.untouched || dadosForm.invalid) {
+    if (this.formulario.invalid) {
       this.toastr.error('Preencha todos os campos obrigatórios!', 'Aviso!');
       this.marcarFormularioComoTocado();
       return;
     }
 
-    const { senha, confirmarSenha } = dadosForm.value;
-
-    if (senha !== confirmarSenha) {
+    if (usuario.senha !== this.formulario.get('confirmarSenha')?.value) {
       this.toastr.error('As senhas não coincidem.', 'Aviso');
       return;
     }
 
-    const usuario: Usuario = this.formulario.value;
-
     this.usuarioService.salvar(usuario).subscribe({
-      next: (resposta: HttpResponse<string>) => {
+      next: () => {
         this.toastr.success('Cadastrado com sucesso!', 'Sucesso!');
         this.ehCadastro = false;
         this.limparFormulario();
         this.marcarFormularioComoNAOTocado();
       },
       error: (resposta: HttpErrorResponse) => {
-        this.toastr.error(resposta.error, 'Erro!');
+        const msg =
+          resposta.error?.mensagem ||
+          resposta.error?.message ||
+          'Erro inesperado. Tente novamente.';
+        this.toastr.error(msg, 'Erro!');
       },
     });
   }
 
   public login(): void {
-    const dadosForm = this.formulario;
+    this.ehCadastro = false;
+    const usuario: Usuario = this.formulario.value;
 
-    if (dadosForm.untouched || dadosForm.invalid) {
+    if (!usuario.email || !usuario.senha) {
       this.toastr.error('Preencha seus dados de acesso', 'Aviso!');
       this.marcarFormularioComoTocado();
       return;
     }
 
-    const { email, senha } = this.formulario.value;
-    const login: LoginDto = { email, senha };
-
-    this.authService.login(login).subscribe({
+    this.authService.login(usuario).subscribe({
       next: () => {
         this.toastr.success('Logado com sucesso.', 'Sucesso!');
         this.authService.redirecionarComBaseNoPerfil();
       },
-      error: (erro) => {
-        const msg = erro?.error?.message;
+      error: (erro: HttpErrorResponse) => {
+        const msg =
+          erro?.error?.mensagem ||
+          erro?.error?.message ||
+          'Não foi possível realizar login.';
         this.toastr.error(msg, 'Erro!');
       },
     });
