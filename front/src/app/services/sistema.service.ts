@@ -20,6 +20,13 @@ export class SistemaService {
     );
   }
 
+  public atualizar(sistema: Sistema): Observable<Sistema> {
+    return this.http.put<Sistema>(
+      `${this.apiUrl}${this.endPointUrl}/atualizar`,
+      sistema
+    );
+  }
+
   public listarSistemas(): Observable<Array<Sistema>> {
     return this.http.get<Array<Sistema>>(
       `${this.apiUrl}${this.endPointUrl}/listarSistemas`

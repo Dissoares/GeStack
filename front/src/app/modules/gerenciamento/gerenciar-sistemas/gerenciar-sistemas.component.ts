@@ -20,7 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Sistema, Skill } from '../../../core/models';
+import { Sistema } from '../../../core/models';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -107,7 +107,9 @@ export class GerenciarSistemasComponent
     this.sistemaService.listarSistemas().subscribe({
       next: (sistemas) => {
         sistemas ? (this.dadosTabela.data = sistemas) : null;
-        this.dadosTabela.paginator = this.paginator;
+        setTimeout(() => {
+          this.dadosTabela.paginator = this.paginator;
+        }, this.dadosTabela.data.length);
       },
       error: (erro) => {
         console.log(erro);
@@ -167,5 +169,21 @@ export class GerenciarSistemasComponent
           });
         }
       });
+  }
+
+  public editar(sistema: Sistema): void {
+    const dialogRef = this.dialog.open(DialogSistemaComponent, {
+      width: '1200px',
+      maxWidth: '90vw',
+      disableClose: false,
+      backdropClass: 'fundo-modal',
+      data: sistema,
+    });
+
+    dialogRef.afterClosed().subscribe((fechou) => {
+      if (fechou) {
+        this.listarSistemas();
+      }
+    });
   }
 }

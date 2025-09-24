@@ -3,7 +3,8 @@
     <mat-icon>close</mat-icon>
   </button>
   <mat-card-header>
-    <mat-card-title><mat-icon>add</mat-icon>Cadastrar Sistema</mat-card-title>
+    <mat-card-title><mat-icon>{{ehEdicao ? 'edit': 'add'}}</mat-icon>{{ehEdicao ? 'Editar Sistema': 'Cadastrar
+      Sistema'}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <form [formGroup]="formulario" class="container">
@@ -47,7 +48,7 @@
         <mat-form-field appearance="outline" floatLabel="always" class="tags field-6">
           <mat-label>Skills</mat-label>
           <mat-icon matPrefix>label</mat-icon>
-          <mat-select formControlName="skills" multiple>
+          <mat-select formControlName="skills" multiple [compareWith]="compararSkills">
             <mat-select-trigger>
               <mat-chip-listbox>
                 <mat-chip *ngFor="let skill of formulario.get('skills')?.value"
@@ -95,9 +96,9 @@
     </form>
 
     <mat-card-actions>
-      <button type="submit" mat-flat-button class="btn-primary" (click)="cadastrar()">
-        <mat-icon>add</mat-icon>
-        Cadastrar
+      <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
+        <mat-icon>{{ehEdicao ? 'save': 'add'}}</mat-icon>
+        {{ehEdicao ? 'Salvar': 'Cadastrar'}}
       </button>
       <button type="button" mat-flat-button class="btn-secondary" (click)="cancelar()">
         <mat-icon>dangerous</mat-icon>

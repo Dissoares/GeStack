@@ -1,15 +1,19 @@
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { DialogSkillComponent } from '../dialog-skill/dialog-skill.component';
 import { SistemaService, SkillService, UsuarioService } from '../../services';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CamposFormularioComponent } from '../../components/index.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Sistema, Skill, Usuario } from '../../core/models';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { Component, inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
@@ -54,6 +58,7 @@ export class DialogSistemaComponent
 
   private coresMapeadas = new Map<string, string>();
   private indiceCorAtual: number = 0;
+  public ehEdicao: boolean = false;
 
   private readonly sistemaService = inject(SistemaService);
   private readonly usuarioService = inject(UsuarioService);
@@ -61,12 +66,16 @@ export class DialogSistemaComponent
   private readonly skillService = inject(SkillService);
   private readonly dialog = inject(MatDialog);
 
-  constructor(public dialogRef: MatDialogRef<DialogSistemaComponent>) {
+  constructor(
+    public dialogRef: MatDialogRef<DialogSistemaComponent>,
+    @Inject(MAT_DIALOG_DATA) public dadosSistema: Sistema
+  ) {
     super(inject(FormBuilder));
   }
 
   public ngOnInit() {
     this.criarFormulario();
+    this.monitorarEdicao();
     this.listarSkills();
   }
 
@@ -84,7 +93,21 @@ export class DialogSistemaComponent
     });
   }
 
-  public cadastrar(): void {
+  public monitorarEdicao(): void {
+    if (this.dadosSistema) {
+      this.ehEdicao = true;
+      this.formulario.patchValue({
+        ...this.dadosSistema,
+        skills: this.dadosSistema.skills,
+      });
+    }
+  }
+
+  public compararSkills(item1: any, item2: any): boolean {
+    return item1 && item2 ? item1.id === item2.id : item1 === item2;
+  }
+
+  public salvar(): void {
     if (this.formulario.invalid) {
       this.toastrService.error(
         'Preencha todos os campos obrigatórios',
@@ -94,17 +117,26 @@ export class DialogSistemaComponent
       return;
     }
 
-    const sistema: Sistema = this.formulario.value;
+    const sistema: Sistema = this.formulario.getRawValue();
 
-    this.sistemaService.cadastrar(sistema).subscribe({
+    const requisicao = this.ehEdicao
+      ? this.sistemaService.atualizar(sistema)
+      : this.sistemaService.cadastrar(sistema);
+
+    requisicao.subscribe({
       next: (resultado) => {
-        resultado
-          ? this.toastrService.success('Sistema cadastrado!.', 'Sucesso!')
-          : null;
-        this.limparFormulario();
+        if (resultado) {
+          this.toastrService.success(
+            `Sistema ${this.ehEdicao ? 'atualizado' : 'cadastrado'}!.`,
+            'Sucesso!'
+          );
+
+          this.ehEdicao ? this.dialogRef.close(true) : this.limparFormulario();
+        }
       },
       error: (erro) => {
-        console.log(erro);
+        console.error('Erro ao salvar sistema:', erro);
+        this.toastrService.error('Não foi possível salvar.', 'Erro!');
       },
     });
   }

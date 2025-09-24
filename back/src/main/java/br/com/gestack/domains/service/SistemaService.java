@@ -18,6 +18,10 @@ public class SistemaService {
         return sistemaRepository.save(sistema);
     }
 
+    public Sistema atualizar(Sistema sistema) {
+        return sistemaRepository.save(sistema);
+    }
+
     public List<Sistema> listarSistemas() {
         return sistemaRepository.findAll(Sort.by(Sort.Direction.DESC, "dataCriacao"));
     }

@@ -1,6 +1,7 @@
 package br.com.gestack.api.controller;
 
 import br.com.gestack.domains.service.SistemaService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import br.com.gestack.domains.entities.Sistema;
@@ -41,4 +42,15 @@ public class SistemaController {
         sistemaService.excluir(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/atualizar")
+    public ResponseEntity<Object> atualizar(@RequestBody Sistema sistema) {
+        try {
+            Sistema atualizado = sistemaService.atualizar(sistema);
+            return ResponseEntity.ok(atualizado);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Sistema já existe");
+        }
+    }
+
 }
