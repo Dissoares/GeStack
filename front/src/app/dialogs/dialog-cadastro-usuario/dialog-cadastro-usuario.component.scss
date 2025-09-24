@@ -9,3 +9,13 @@ mat-card-header {
 mat-card {
   padding: 0px !important;
 }
+
+.btn-fechar {
+  color: #fff;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

@@ -1,11 +1,11 @@
 @if(carregouListagem){
 <mat-card>
-  <button type="button" mat-icon-button class="btn-fechar" (click)="cancelar()">
-    <mat-icon>close</mat-icon>
-  </button>
   <mat-card-header>
     <mat-card-title><mat-icon>add</mat-icon>Cadastrar Skill</mat-card-title>
   </mat-card-header>
+  <button type="button" mat-icon-button class="btn-fechar" (click)="cancelar()">
+    <mat-icon>close</mat-icon>
+  </button>
   <mat-card-content>
     <form [formGroup]="formulario" class="container">
       <mat-form-field appearance="outline" floatLabel="always" class="field-6">

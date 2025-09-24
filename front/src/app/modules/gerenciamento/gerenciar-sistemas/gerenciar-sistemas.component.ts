@@ -20,8 +20,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Sistema } from '../../../core/models';
 import { MatDialog } from '@angular/material/dialog';
+import { Sistema } from '../../../core/models';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
@@ -172,12 +172,30 @@ export class GerenciarSistemasComponent
   }
 
   public editar(sistema: Sistema): void {
+    const ehVisualizar: boolean = false;
     const dialogRef = this.dialog.open(DialogSistemaComponent, {
       width: '1200px',
       maxWidth: '90vw',
       disableClose: false,
       backdropClass: 'fundo-modal',
-      data: sistema,
+      data: { sistema, ehVisualizar },
+    });
+
+    dialogRef.afterClosed().subscribe((fechou) => {
+      if (fechou) {
+        this.listarSistemas();
+      }
+    });
+  }
+
+  public visualizar(sistema: Sistema): void {
+    const ehVisualizar: boolean = true;
+    const dialogRef = this.dialog.open(DialogSistemaComponent, {
+      width: '1200px',
+      maxWidth: '90vw',
+      disableClose: false,
+      backdropClass: 'fundo-modal',
+      data: { sistema, ehVisualizar },
     });
 
     dialogRef.afterClosed().subscribe((fechou) => {

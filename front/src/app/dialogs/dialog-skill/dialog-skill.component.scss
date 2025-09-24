@@ -1,7 +1,21 @@
+mat-card-header {
+  background-color: #077187 !important;
+  margin-bottom: 30px !important;
+
+  mat-card-title {
+    color: #fff !important;
+  }
+}
+
+mat-card {
+  padding: 0px !important;
+}
+
 .btn-fechar {
   position: absolute;
   right: 8px;
   top: 8px;
+  color: #fff !important;
   background: transparent;
   border: none;
   cursor: pointer;

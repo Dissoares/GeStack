@@ -1,7 +1,7 @@
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogRef,
+  MatDialog,
 } from '@angular/material/dialog';
 import { DialogSkillComponent } from '../dialog-skill/dialog-skill.component';
 import { SistemaService, SkillService, UsuarioService } from '../../services';
@@ -58,6 +58,8 @@ export class DialogSistemaComponent
 
   private coresMapeadas = new Map<string, string>();
   private indiceCorAtual: number = 0;
+
+  public ehVisualizacao: boolean = false;
   public ehEdicao: boolean = false;
 
   private readonly sistemaService = inject(SistemaService);
@@ -68,7 +70,8 @@ export class DialogSistemaComponent
 
   constructor(
     public dialogRef: MatDialogRef<DialogSistemaComponent>,
-    @Inject(MAT_DIALOG_DATA) public dadosSistema: Sistema
+    @Inject(MAT_DIALOG_DATA)
+    public dados: { sistema: Sistema; ehVisualizar: boolean }
   ) {
     super(inject(FormBuilder));
   }
@@ -94,12 +97,17 @@ export class DialogSistemaComponent
   }
 
   public monitorarEdicao(): void {
-    if (this.dadosSistema) {
+    if (this.dados) {
       this.ehEdicao = true;
       this.formulario.patchValue({
-        ...this.dadosSistema,
-        skills: this.dadosSistema.skills,
+        ...this.dados.sistema,
+        skills: this.dados.sistema.skills,
       });
+    }
+
+    if (this.dados?.ehVisualizar) {
+      this.ehVisualizacao = true;
+      this.desabilitarFormulario();
     }
   }
 

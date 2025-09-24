@@ -1,11 +1,15 @@
 <mat-card>
+  <mat-card-header>
+    <mat-card-title><mat-icon>{{ ehEdicao ? "edit" : "add" }}</mat-icon>{{
+      ehEdicao
+      ? "Editar Sistema"
+      : "Cadastrar
+      Sistema"
+      }}</mat-card-title>
+  </mat-card-header>
   <button type="button" mat-icon-button class="btn-fechar" (click)="cancelar()">
     <mat-icon>close</mat-icon>
   </button>
-  <mat-card-header>
-    <mat-card-title><mat-icon>{{ehEdicao ? 'edit': 'add'}}</mat-icon>{{ehEdicao ? 'Editar Sistema': 'Cadastrar
-      Sistema'}}</mat-card-title>
-  </mat-card-header>
   <mat-card-content>
     <form [formGroup]="formulario" class="container">
       <mat-form-field appearance="outline" floatLabel="always" class="field-12">
@@ -65,7 +69,8 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-mini-fab color="primary" type="button" matTooltip="Adicionar Skill" (click)="cadastrarSkills()">
+        <button mat-mini-fab color="primary" type="button" matTooltip="Adicionar Skill" (click)="cadastrarSkills()"
+          [disabled]="ehVisualizacao">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -95,15 +100,17 @@
       </mat-form-field>
     </form>
 
+    @if(!ehVisualizacao){
     <mat-card-actions>
       <button type="submit" mat-flat-button class="btn-primary" (click)="salvar()">
-        <mat-icon>{{ehEdicao ? 'save': 'add'}}</mat-icon>
-        {{ehEdicao ? 'Salvar': 'Cadastrar'}}
+        <mat-icon>{{ ehEdicao ? "save" : "add" }}</mat-icon>
+        {{ ehEdicao ? "Salvar" : "Cadastrar" }}
       </button>
       <button type="button" mat-flat-button class="btn-secondary" (click)="cancelar()">
         <mat-icon>dangerous</mat-icon>
         Cancelar
       </button>
     </mat-card-actions>
+    }
   </mat-card-content>
 </mat-card>

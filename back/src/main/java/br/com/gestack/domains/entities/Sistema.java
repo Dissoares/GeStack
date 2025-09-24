@@ -22,7 +22,7 @@ public class Sistema extends Auditoria {
     @Column(name = "NOME")
     private String nome;
 
-    @Column(name = "DESCRICAO")
+    @Column(name = "DESCRICAO", length = 1200)
     private String descricao;
 
     @ManyToOne(fetch = FetchType.LAZY)
