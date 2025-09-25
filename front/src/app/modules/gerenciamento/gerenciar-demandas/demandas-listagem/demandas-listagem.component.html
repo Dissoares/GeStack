@@ -4,6 +4,57 @@
   </mat-card-header>
 </mat-toolbar>
 
+<mat-card-content>
+  <form [formGroup]="formulario" class="container">
+    <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+      <mat-label>Responsável demanda</mat-label>
+      <mat-icon matPrefix>business_center</mat-icon>
+      <input matInput formControlName="desenvolvedor" [matAutocomplete]="dev" #nome
+        (input)="pesquisarResponsavel(nome.value)" minlength="3" placeholder="Nome do responsável" />
+
+      <mat-autocomplete #dev="matAutocomplete" [displayWith]="displayUsuario">
+        <mat-option *ngFor="let desenvolvedor of listaResponsaveis" [value]="desenvolvedor">
+          {{ desenvolvedor.nome }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+      <mat-label>Sistema</mat-label>
+      <mat-select matInput type="text" formControlName="titulo" placeholder="Selecione">
+        <mat-option *ngFor="let sistema of listaSistemas" [value]="sistema">
+          {{ sistema.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+      <mat-label>Prioridade</mat-label>
+      <mat-select matInput type="text" formControlName="titulo" placeholder="Selecione">
+        <mat-option *ngFor="let status of statusAtividadeEnum" [value]="status">
+          {{ status.descricao }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always" class="field-2">
+      <mat-label>Prazo de entrega</mat-label>
+      <input matInput [matDatepicker]="datepicker" formControlName="dataConclusao" />
+      <mat-datepicker #datepicker />
+      <mat-datepicker-toggle [for]="datepicker" matSuffix />
+    </mat-form-field>
+
+    <mat-card-actions style="margin-bottom: 20px !important">
+      <button class="btn-primary" mat-flat-button>
+        <mat-icon>search</mat-icon> Pesquisar
+      </button>
+      <button class="btn-secondary" mat-stroked-button>
+        <mat-icon>delete</mat-icon> Limpar
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card-content>
+
 <mat-card>
-  <mat-card-content> </mat-card-content>
+  <app-nada-encontrado></app-nada-encontrado>
 </mat-card>
