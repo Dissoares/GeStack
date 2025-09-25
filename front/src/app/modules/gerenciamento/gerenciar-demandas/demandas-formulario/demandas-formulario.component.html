@@ -14,13 +14,72 @@
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-12">
         <mat-label>Descrição</mat-label>
-        <textarea matInput formControlName="descricao" maxlength="1200"
-          rows="8">
+        <textarea matInput formControlName="descricao" maxlength="1200" rows="8">
         </textarea>
         <mat-hint align="end">
           {{ formulario.get("descricao")?.value?.length || 0 }} / 1200
         </mat-hint>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+        <mat-label>Sistema</mat-label>
+        <mat-select matInput type="text" formControlName="titulo" placeholder="Selecione">
+          <mat-option *ngFor="let sistema of listaSistemas" [value]="sistema">
+            {{ sistema.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+        <mat-label>Desenvolvedor</mat-label>
+        <mat-icon matPrefix>business_center</mat-icon>
+        <input matInput formControlName="desenvolvedor" [matAutocomplete]="dev" #nome
+          (input)="pesquisarResponsavel(nome.value)" minlength="3" placeholder="Nome do desenvolvedor" />
+
+        <mat-autocomplete #dev="matAutocomplete" [displayWith]="displayUsuario">
+          <mat-option *ngFor="let desenvolvedor of listaResponsaveis" [value]="desenvolvedor">
+            {{ desenvolvedor.nome }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+        <mat-label>Analista</mat-label>
+        <mat-icon matPrefix>business_center</mat-icon>
+        <input matInput formControlName="analista" [matAutocomplete]="analista" #nomes
+          (input)="pesquisarResponsavel(nomes.value)" minlength="3" placeholder="Nome do analista" />
+
+        <mat-autocomplete #analista="matAutocomplete" [displayWith]="displayUsuario">
+          <mat-option *ngFor="let analista of listaResponsaveis" [value]="analista">
+            {{ analista.nome }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+        <mat-label>Prazo de entrega</mat-label>
+        <input matInput [matDatepicker]="datepicker" formControlName="dataConclusao" />
+        <mat-datepicker #datepicker />
+        <mat-datepicker-toggle [for]="datepicker" matSuffix />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="field-3">
+        <mat-label>Prioridade</mat-label>
+        <mat-select matInput type="text" formControlName="titulo" placeholder="Selecione">
+          <mat-option *ngFor="let prioridade of prioridadeEnum" [value]="prioridade">
+            {{ prioridade.descricao }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </form>
+
+    <mat-card-actions style="margin-bottom: 20px !important">
+      <button class="btn-primary" mat-flat-button>
+        <mat-icon>add</mat-icon> Criar
+      </button>
+      <button class="btn-secondary" mat-stroked-button>
+        <mat-icon>delete</mat-icon>Cancelar
+      </button>
+    </mat-card-actions>
   </mat-card-content>
 </mat-card>

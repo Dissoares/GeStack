@@ -59,8 +59,8 @@ export class GerenciarSistemasComponent
   public colunasTabela: Array<string> = [
     'id',
     'nome',
-    'area',
     'stack',
+    'area',
     'ativo',
     'acoes',
   ];

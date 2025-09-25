@@ -15,13 +15,12 @@
       <mat-form-field appearance="outline" floatLabel="always" class="field-12">
         <mat-label>Nome do Sistema</mat-label>
         <mat-icon matPrefix>laptop_windows</mat-icon>
-        <input matInput formControlName="nome" />
+        <input matInput formControlName="nome" placeholder="Digite o nome do sistema" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-12">
         <mat-label>Descrição</mat-label>
-
-        <textarea matInput formControlName="descricao" maxlength="1200" rows="8">
+        <textarea matInput formControlName="descricao" maxlength="1200" rows="8" placeholder="Descreva o sistema">
         </textarea>
         <mat-hint align="end">
           {{ formulario.get("descricao")?.value?.length || 0 }} / 1200
@@ -32,7 +31,7 @@
         <mat-label>Responsável</mat-label>
         <mat-icon matPrefix>business_center</mat-icon>
         <input matInput formControlName="responsavel" [matAutocomplete]="auto" #nome
-          (input)="pesquisarResponsavel(nome.value)" minlength="3" />
+          (input)="pesquisarResponsavel(nome.value)" minlength="3" placeholder="Digite o nome do responsável" />
 
         @if(this.formulario.get('responsavel')?.value &&
         this.formulario.get('responsavel')?.value.email){
@@ -52,7 +51,7 @@
         <mat-form-field appearance="outline" floatLabel="always" class="tags field-6">
           <mat-label>Skills</mat-label>
           <mat-icon matPrefix>label</mat-icon>
-          <mat-select formControlName="skills" multiple [compareWith]="compararSkills">
+          <mat-select formControlName="skills" multiple [compareWith]="compararSkills" placeholder="Selecione a skill">
             <mat-select-trigger>
               <mat-chip-listbox>
                 <mat-chip *ngFor="let skill of formulario.get('skills')?.value"
@@ -78,25 +77,25 @@
       <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Link do protótipo</mat-label>
         <mat-icon matPrefix>link</mat-icon>
-        <input matInput formControlName="linkPrototipo" />
+        <input matInput formControlName="linkPrototipo" placeholder="https://" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Link da documentação</mat-label>
         <mat-icon matPrefix>link</mat-icon>
-        <input matInput formControlName="linkDocumentacao" />
+        <input matInput formControlName="linkDocumentacao" placeholder="https://" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Link do GitHub / Gitlab</mat-label>
         <mat-icon matPrefix>link</mat-icon>
-        <input matInput formControlName="linkGit" />
+        <input matInput formControlName="linkGit" placeholder="https://" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Link de Produção</mat-label>
         <mat-icon matPrefix>link</mat-icon>
-        <input matInput formControlName="linkProducao" />
+        <input matInput formControlName="linkProducao" placeholder="https://" />
       </mat-form-field>
     </form>
 

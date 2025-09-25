@@ -23,7 +23,7 @@
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-3">
         <mat-label>Perfil</mat-label>
-        <mat-select formControlName="perfil">
+        <mat-select formControlName="perfil" placeholder="Selecione">
           <mat-option *ngFor="let perfil of listaPerfilEnum" [value]="perfil.id">
             {{ perfil.descricao }}
           </mat-option>
@@ -32,7 +32,7 @@
 
       <mat-form-field appearance="outline" floatLabel="always" class="field-2">
         <mat-label>Status</mat-label>
-        <mat-select matInput type="text" formControlName="ativo">
+        <mat-select matInput type="text" formControlName="ativo" placeholder="Selecione">
           <mat-option *ngFor="let ativo of listaStatusEnum" [value]="ativo.status">
             {{ ativo.descricao }}
           </mat-option>
