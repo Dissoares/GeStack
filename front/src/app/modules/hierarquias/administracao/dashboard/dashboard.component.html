@@ -1,6 +1,53 @@
 <mat-toolbar class="breadcrumbs">
   <mat-card-header>
-    <mat-card-title><mat-icon>bar_chart_4_bars</mat-icon>Dashboard</mat-card-title>
+    <mat-card-title>
+      <mat-icon>bar_chart_4_bars</mat-icon> Dashboard
+    </mat-card-title>
   </mat-card-header>
 </mat-toolbar>
-<mat-card><mat-card-content> </mat-card-content> </mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <div class="container">
+      <div style="
+          width: 600px;
+          height: 300px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 10px;
+        ">
+        <mat-card-title>Status de demandas</mat-card-title>
+        <canvas baseChart [data]="listaDemandas" [options]="listaDemandasOptions" type="bar">
+        </canvas>
+      </div>
+
+      <div style="
+          width: 300px;
+          height: 300px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 10px;
+        ">
+        <mat-card-title>Usuários</mat-card-title>
+        <canvas baseChart [data]="listaUsuarios()" type="pie"></canvas>
+      </div>
+
+      <div style="
+          width: 350px;
+          height: 300px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 10px;
+        ">
+        <mat-card-title>Skills</mat-card-title>
+        <canvas baseChart [data]="listaSkills" [options]="listaSkillsOptions" type="doughnut">
+        </canvas>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
