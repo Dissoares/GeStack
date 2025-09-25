@@ -3,35 +3,72 @@
     <mat-card-title><mat-icon>account_circle</mat-icon>Perfil</mat-card-title>
   </mat-card-header>
 </mat-toolbar>
-<mat-card><mat-card-content>
-    <form [formGroup]="formulario" class="container">
-      <mat-form-field appearance="fill" class="field-12">
-        <mat-label>Nome</mat-label>
-        <mat-icon matPrefix>account_circle</mat-icon>
-        <input matInput formControlName="nome" />
-      </mat-form-field>
 
-      <mat-form-field appearance="fill" class="field-12">
-        <mat-label>E-mail</mat-label>
-        <mat-icon matPrefix>alternate_email</mat-icon>
-        <input matInput type="email" formControlName="email" />
-      </mat-form-field>
+<div class="auth-form">
+  <mat-card><mat-card-content>
+      <form [formGroup]="formulario" class="container">
+        @if(!ehEdicao){
+        <mat-form-field appearance="outline" class="field-12">
+          <mat-label>Nome</mat-label>
+          <mat-icon matPrefix>account_circle</mat-icon>
+          <input matInput formControlName="nome" />
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="field-12">
-        <mat-label>Perfil</mat-label>
-        <mat-icon matPrefix>shield_lock</mat-icon>
-        <mat-select formControlName="perfil">
-          <mat-option *ngFor="let perfil of listaPerfilEnum" [value]="perfil.id">
-            {{ perfil.descricao }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="field-12">
+          <mat-label>E-mail</mat-label>
+          <mat-icon matPrefix>alternate_email</mat-icon>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="field-12">
-        <mat-label>Data Cadastro</mat-label>
-        <mat-icon matPrefix>calendar_month</mat-icon>
-        <input matInput type="text" formControlName="dataCriacao" />
-      </mat-form-field>
-    </form>
-  </mat-card-content>
-</mat-card>
+        <mat-form-field appearance="outline" class="field-12">
+          <mat-label>Perfil</mat-label>
+          <mat-icon matPrefix>shield_lock</mat-icon>
+          <mat-select formControlName="perfil">
+            <mat-option *ngFor="let perfil of listaPerfilEnum" [value]="perfil.id">
+              {{ perfil.descricao }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="field-12">
+          <mat-label>Data Cadastro</mat-label>
+          <mat-icon matPrefix>calendar_month</mat-icon>
+          <input matInput type="text" formControlName="dataCriacao" />
+        </mat-form-field>
+
+        } @if(ehEdicao){
+
+        <mat-form-field appearance="outline" floatLabel="always" class="field-12">
+          <mat-label>Senha</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput [type]="mostrarSenha ? 'text' : 'password'" formControlName="senha"
+            placeholder="Digite a nova senha" />
+          <button mat-icon-button matSuffix (click)="mostrarSenha = !mostrarSenha" type="button">
+            <mat-icon>{{
+              mostrarSenha ? "visibility_off" : "visibility"
+              }}</mat-icon>
+          </button>
+          <mat-error>
+            <app-erro [dadosCampo]="formulario.get('senha')"></app-erro>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always" class="field-12">
+          <mat-label>Repita Senha</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput [type]="mostrarConfirmarSenha ? 'text' : 'password'" formControlName="confirmarSenha"
+            placeholder="Repita a nova senha" />
+          <button mat-icon-button matSuffix (click)="mostrarConfirmarSenha = !mostrarConfirmarSenha" type="button">
+            <mat-icon>{{
+              mostrarConfirmarSenha ? "visibility_off" : "visibility"
+              }}</mat-icon>
+          </button>
+          <mat-error>
+            <app-erro [dadosCampo]="formulario.get('confirmarSenha')"></app-erro>
+          </mat-error>
+        </mat-form-field>
+        }
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

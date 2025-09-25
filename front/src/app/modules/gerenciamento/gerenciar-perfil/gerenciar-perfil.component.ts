@@ -1,4 +1,7 @@
-import { CamposFormularioComponent } from '../../../components/index.component';
+import {
+  CamposFormularioComponent,
+  ErrosFormularioComponent,
+} from '../../../components/index.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,6 +13,7 @@ import { UsuarioToken } from '../../../core/interfaces';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { PerfilEnum } from '../../../core/enums';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services';
 import { CommonModule } from '@angular/common';
 import { DateTime } from 'luxon';
@@ -19,6 +23,7 @@ import { DateTime } from 'luxon';
   templateUrl: './gerenciar-perfil.component.html',
   standalone: true,
   imports: [
+    ErrosFormularioComponent,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatToolbarModule,
@@ -37,14 +42,28 @@ export class GerenciarPerfilComponent
 {
   public listaPerfilEnum = PerfilEnum.getAll();
   public ehEdicao: boolean = false;
+  public mostrarConfirmarSenha: boolean = false;
+  public mostrarSenha: boolean = false;
+  public ehCadastro: boolean = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private route: ActivatedRoute) {
     super(inject(FormBuilder));
   }
 
   public ngOnInit(): void {
     this.criarFormulario();
     this.preencherFormulario();
+
+    this.route.queryParams.subscribe((dados) => {
+      if (dados['ehEdicao']) {
+        this.ehEdicao = true;
+        this.formulario.get('senha')?.enable();
+        this.formulario.get('confirmarSenha')?.enable();
+      } else {
+        this.ehEdicao = false;
+        this.formulario.disable();
+      }
+    });
   }
 
   private criarFormulario(): void {
@@ -53,6 +72,8 @@ export class GerenciarPerfilComponent
       email: [null],
       perfil: [null],
       dataCriacao: [null],
+      senha: [null],
+      confirmarSenha: [null],
     });
   }
 
